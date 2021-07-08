@@ -20,11 +20,15 @@ import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
+import android.Manifest;
 import android.Manifest.permission_group;
 import android.app.ActionBar;
 import android.app.role.RoleManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.ArraySet;
@@ -97,22 +101,6 @@ public class PermissionDetailsFragment extends SettingsWithLargeHeader implement
     private MenuItem mHideSystemMenu;
     private @NonNull RoleManager mRoleManager;
 
-    /**
-     * Construct a new instance of PermissionDetailsFragment
-     */
-    public static @NonNull PermissionDetailsFragment newInstance(@Nullable String groupName,
-            long numMillis, boolean showSystem) {
-        PermissionDetailsFragment fragment = new PermissionDetailsFragment();
-        Bundle arguments = new Bundle();
-        if (groupName != null) {
-            arguments.putString(Intent.EXTRA_PERMISSION_GROUP_NAME, groupName);
-        }
-        arguments.putLong(Intent.EXTRA_DURATION_MILLIS, numMillis);
-        arguments.putBoolean(ManagePermissionsActivity.EXTRA_SHOW_SYSTEM, showSystem);
-        fragment.setArguments(arguments);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,10 +137,27 @@ public class PermissionDetailsFragment extends SettingsWithLargeHeader implement
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
+        ViewGroup rootView = (ViewGroup) super.onCreateView(inflater, container,
+                savedInstanceState);
 
         if (mExtendedFab != null) {
+            // Load the background tint color from the application theme
+            // rather than the Material Design theme
+            final int colorAccentTertiary = getContext().getColor(
+                    android.R.color.system_accent3_100);
+            mExtendedFab.setBackgroundTintList(ColorStateList.valueOf(colorAccentTertiary));
+
             mExtendedFab.setText(R.string.manage_permission);
+            final boolean isDarkMode = (getActivity().getResources().getConfiguration().uiMode
+                    & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+            int textColor = isDarkMode ? android.R.attr.textColorPrimaryInverse
+                    : android.R.attr.textColorPrimary;
+            TypedArray colorArray = getActivity().obtainStyledAttributes(
+                    new int[]{
+                            textColor
+                    }
+            );
+            mExtendedFab.setTextColor(colorArray.getColor(0, -1));
             mExtendedFab.setIcon(getActivity().getDrawable(R.drawable.ic_settings_outline));
             mExtendedFab.setVisibility(View.VISIBLE);
             mExtendedFab.setOnClickListener(v -> {
@@ -162,7 +167,7 @@ public class PermissionDetailsFragment extends SettingsWithLargeHeader implement
             });
         }
 
-        return root;
+        return rootView;
     }
 
     @Override
@@ -222,7 +227,7 @@ public class PermissionDetailsFragment extends SettingsWithLargeHeader implement
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                getActivity().finish();
+                getActivity().finishAfterTransition();
                 return true;
             case MENU_SHOW_SYSTEM:
             case MENU_HIDE_SYSTEM:
@@ -400,18 +405,11 @@ public class PermissionDetailsFragment extends SettingsWithLargeHeader implement
                 }
 
                 String accessTime = DateFormat.getTimeFormat(context).format(usage.mEndTime);
-                Long accessDurationLong = usage.mClusteredAccessTimeList
+                Long durationLong = usage.mClusteredAccessTimeList
                         .stream()
                         .map(p -> p.second)
                         .filter(dur -> dur > 0)
                         .reduce(0L, (dur1, dur2) -> dur1 + dur2);
-
-                // Only show the duration if it is at least (cluster + 1) minutes. Displaying times
-                // that are the same as the cluster granularity does not convey useful information.
-                String accessDuration = null;
-                if (accessDurationLong >= MINUTES.toMillis(CLUSTER_MINUTES_APART + 1)) {
-                    accessDuration = UtilsKt.getDurationUsedStr(context, accessDurationLong);
-                }
 
                 List<Long> accessTimeList = usage.mClusteredAccessTimeList
                         .stream().map(p -> p.first).collect(Collectors.toList());
@@ -421,6 +419,33 @@ public class PermissionDetailsFragment extends SettingsWithLargeHeader implement
                                 AppPermissionUsage.GroupUsage::getAttributionTags).filter(
                                 Objects::nonNull).flatMap(Collection::stream).collect(
                                 Collectors.toCollection(ArrayList::new));
+
+                // Determine duration string.
+                String accessDuration = null;
+                // Since Location accesses are atomic, we manually calculate the access duration
+                // by comparing the first and last access within the cluster
+                if (mFilterGroup.equals(Manifest.permission_group.LOCATION)) {
+                    if (accessTimeList.size() > 1) {
+                        durationLong = accessTimeList.get(0)
+                                - accessTimeList.get(accessTimeList.size() - 1);
+
+                        // Similar to other history items, only show the duration if it's longer
+                        // than the clustering granularity.
+                        if (durationLong
+                                >= (MINUTES.toMillis(CLUSTER_MINUTES_APART) + 1)) {
+                            accessDuration = UtilsKt.getDurationUsedStr(context, durationLong);
+                        }
+                    }
+                } else {
+                    // Only show the duration if it is at least (cluster + 1) minutes. Displaying
+                    // times that are the same as the cluster granularity does not convey useful
+                    // information.
+                    if ((durationLong != null)
+                            && durationLong >= MINUTES.toMillis(CLUSTER_MINUTES_APART + 1)) {
+                        accessDuration = UtilsKt.getDurationUsedStr(context, durationLong);
+                    }
+                }
+
                 PermissionHistoryPreference permissionUsagePreference = new
                         PermissionHistoryPreference(context, usage.mAppPermissionUsage,
                         mFilterGroup, accessTime, accessDuration, accessTimeList, attributionTags,
