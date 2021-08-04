@@ -51,6 +51,7 @@
     <string name="app_permissions_breadcrumb" msgid="5136969550489411650">"Aplikace"</string>
     <string name="app_permissions" msgid="3369917736607944781">"Oprávnění aplikací"</string>
     <string name="unused_apps" msgid="2058057455175955094">"Nepoužívané aplikace"</string>
+    <string name="no_unused_apps" msgid="12809387670415295">"Žádné nepoužívané aplikace"</string>
     <string name="app_disable_dlg_positive" msgid="7418444149981904940">"Deaktivovat aplikaci"</string>
     <string name="app_disable_dlg_text" msgid="3126943217146120240">"Pokud tuto aplikaci deaktivujete, systém Android a ostatní aplikace nemusejí fungovat správně. Připomínáme, že tuto aplikaci nelze smazat, protože byla v zařízení předinstalována. Deaktivováním ji vypnete a skryjete."</string>
     <string name="app_permission_manager" msgid="3903811137630909550">"Správce oprávnění"</string>
@@ -66,11 +67,11 @@
     </plurals>
     <string name="old_sdk_deny_warning" msgid="2382236998845153919">"Tato aplikace byla vytvořena pro starší verzi platformy Android. Pokud oprávnění neudělíte, může přestat fungovat podle původního záměru."</string>
     <string name="default_permission_description" msgid="4624464917726285203">"provést neznámou akci"</string>
-    <string name="app_permissions_group_summary" msgid="8788419008958284002">"Povoleno u <xliff:g id="COUNT_0">%1$d</xliff:g> z <xliff:g id="COUNT_1">%2$d</xliff:g> aplikací"</string>
+    <string name="app_permissions_group_summary" msgid="8788419008958284002">"Povoleno u aplikací: <xliff:g id="COUNT_0">%1$d</xliff:g> z <xliff:g id="COUNT_1">%2$d</xliff:g>"</string>
     <string name="app_permissions_group_summary2" msgid="4329922444840521150">"Povolené aplikace: <xliff:g id="COUNT_0">%1$d</xliff:g>/<xliff:g id="COUNT_1">%2$d</xliff:g>"</string>
     <string name="menu_show_system" msgid="4254021607027872504">"Zobrazit systémové aplikace"</string>
     <string name="menu_hide_system" msgid="3855390843744028465">"Skrýt systémové aplikace"</string>
-    <string name="manage_permission" msgid="3796219072742331048">"Správa oprávnění"</string>
+    <string name="manage_permission" msgid="2895385393037061964">"Správa oprávnění"</string>
     <string name="no_apps" msgid="2412612731628386816">"Žádné aplikace"</string>
     <string name="location_settings" msgid="3624412509133422562">"Nastavení polohy"</string>
     <string name="location_warning" msgid="2381649060929040962">"Služby určování polohy v tomto zařízení poskytuje aplikace <xliff:g id="APP_NAME">%1$s</xliff:g>. Přístup k poloze lze upravit v nastavení polohy."</string>
@@ -89,7 +90,7 @@
     <!-- no translation found for background_access_chooser_dialog_choices:1 (9127301153688725448) -->
     <!-- no translation found for background_access_chooser_dialog_choices:2 (4305536986042401191) -->
     <string name="permission_access_always" msgid="1474641821883823446">"Povolit vždy"</string>
-    <string name="permission_access_only_foreground" msgid="7801170728159326195">"Povolit jen při používání"</string>
+    <string name="permission_access_only_foreground" msgid="7801170728159326195">"Povolit jen při používání aplikace"</string>
     <string name="permission_access_never" msgid="4647014230217936900">"Nepovolovat"</string>
     <string name="loading" msgid="4789365003890741082">"Načítání…"</string>
     <string name="all_permissions" msgid="6911125611996872522">"Všechna oprávnění"</string>
@@ -116,6 +117,7 @@
     <string name="permission_group_usage_subtitle" msgid="712843174810251274">"<xliff:g id="PERMGROUP">%1$s</xliff:g> – časový přehled využívání aplikacemi za posledních 24 hodin"</string>
     <string name="permission_usage_access_dialog_subtitle" msgid="4171772805196955753">"Kdy tato aplikace použila oprávnění <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"Další informace"</string>
+    <string name="permission_usage_duration_and_proxy" msgid="573959201368716399">"<xliff:g id="APP_NAME">%1$s</xliff:g> • <xliff:g id="TRUNCATED_TIME">%2$s</xliff:g>"</string>
     <plurals name="duration_used_days" formatted="false" msgid="1993098309578536308">
       <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> dny</item>
       <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> dne</item>
@@ -227,19 +229,20 @@
     <string name="app_permission_button_allow_all_files" msgid="1792232272599018825">"Povolit správu všech souborů"</string>
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Povolit pouze přístup k médiím"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Povolit vždy"</string>
-    <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Povolit jen při používání"</string>
+    <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Povolit jen při používání aplikace"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Pokaždé se zeptat"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"Nepovolovat"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Přesná poloha"</string>
     <string name="approximate_image_description" msgid="938803699637069884">"Přibližná poloha"</string>
-    <string name="app_permission_location_accuracy" msgid="7166912915040018669">"Použít přesnou polohu"</string>
-    <string name="app_permission_location_accuracy_subtitle" msgid="2654077606404987210">"Když je vypnutá přesná poloha, aplikace mají přístup k vaší přibližné poloze"</string>
+    <string name="app_permission_location_accuracy" msgid="7166912915040018669">"Používat přesnou polohu"</string>
+    <string name="app_permission_location_accuracy_subtitle" msgid="2654077606404987210">"Když je přesná poloha vypnutá, aplikace mají přístup k vaší přibližné poloze"</string>
     <string name="app_permission_title" msgid="2090897901051370711">"<xliff:g id="PERM">%1$s</xliff:g>: oprávnění"</string>
     <string name="app_permission_header" msgid="2951363137032603806">"<xliff:g id="PERM">%1$s</xliff:g>: Přístup této aplikace"</string>
     <string name="app_permission_footer_app_permissions_link" msgid="4926890342636587393">"Zobrazit všechna oprávnění aplikace <xliff:g id="APP">%1$s</xliff:g>"</string>
     <string name="app_permission_footer_permission_apps_link" msgid="3941988129992794327">"Zobrazit všechny aplikace s tímto oprávněním"</string>
     <string name="assistant_mic_label" msgid="1011432357152323896">"Zobrazit používání mikrofonu asistentem"</string>
     <string name="auto_revoke_label" msgid="5068393642936571656">"Odebrat oprávnění, pokud se aplikace nepoužívá"</string>
+    <string name="unused_apps_label" msgid="2595428768404901064">"Odebrat oprávnění a uvolnit místo"</string>
     <string name="auto_revoke_summary" msgid="5867548789805911683">"Pokud tuto aplikaci několik měsíců nepoužijete, kvůli ochraně vašich dat jí budou oprávnění odebrána."</string>
     <string name="auto_revoke_summary_with_permissions" msgid="389712086597285013">"Pokud tuto aplikaci několik měsíců nepoužijete, budou jí kvůli ochraně vašich dat odebrána následující oprávnění: <xliff:g id="PERMS">%1$s</xliff:g>"</string>
     <string name="auto_revoked_apps_page_summary" msgid="6594753657893756536">"Za účelem ochrany vašich dat byla odebrána oprávnění aplikacím, které jste několik měsíců nepoužili."</string>
@@ -255,11 +258,11 @@
     <string name="auto_revoked_app_summary_two" msgid="1910545340763709389">"Byla odebrána oprávnění <xliff:g id="PERMISSION_NAME_0">%1$s</xliff:g> a <xliff:g id="PERMISSION_NAME_1">%2$s</xliff:g>"</string>
     <string name="auto_revoked_app_summary_many" msgid="5930976230827378798">"Bylo odebráno oprávnění <xliff:g id="PERMISSION_NAME">%1$s</xliff:g> a další oprávnění (<xliff:g id="NUMBER">%2$s</xliff:g>)"</string>
     <string name="unused_apps_page_title" msgid="6986983535677572559">"Nepoužívané aplikace"</string>
-    <string name="unused_apps_page_summary" msgid="4644643299214625298">"Když aplikaci několik měsíců nepoužíváte:\n\n• Oprávnění jsou odstraněna kvůli ochraně dat\n• Oznámení se přestanou zobrazovat kvůli úspoře baterie\n• Dočasné soubory jsou odstraněny kvůli uvolnění místa"</string>
+    <string name="unused_apps_page_summary" msgid="1867593913217272155">"Když aplikaci několik měsíců nepoužíváte:\n\n• Oprávnění jsou odstraněna kvůli ochraně dat\n• Oznámení se přestanou zobrazovat kvůli úspoře baterie\n• Dočasné soubory jsou odstraněny kvůli uvolnění místa\n\nPokud chcete oprávnění a oznámení znovu povolit, otevřete aplikaci."</string>
     <string name="last_opened_category_title" msgid="7871347400611202595">"Naposledy otevřeno před více než <xliff:g id="NUMBER">%s</xliff:g> měsíci"</string>
     <string name="last_opened_summary" msgid="5248984030024968808">"Aplikace byla naposledy otevřena <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="last_opened_summary_short" msgid="1646067226191176825">"Naposledy otevřeno <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="app_permission_footer_special_file_access" msgid="1884202176147657788">"Pokud povolíte správu všech souborů, aplikace může číst, upravovat a mazat všechny soubory ve společném úložišti na tomto zařízení i na připojených úložných zařízeních. Aplikace se může dostat k souborům, aniž by se vás zeptala."</string>
+    <string name="app_permission_footer_special_file_access" msgid="1884202176147657788">"Pokud povolíte správu všech souborů, tato aplikace může číst, upravovat a mazat všechny soubory ve společném úložišti na tomto zařízení i na připojených úložných zařízeních. Aplikace se může dostat k souborům, aniž by se vás zeptala."</string>
     <string name="special_file_access_dialog" msgid="583804114020740610">"Chcete této aplikaci povolit číst, upravovat a mazat soubory v tomto zařízení a v připojených úložných zařízeních? Aplikace může přistupovat k souborům, aniž by se vás zeptala."</string>
     <string name="permission_description_summary_generic" msgid="5401399408814903391">"Aplikace s tímto oprávněním mohou <xliff:g id="DESCRIPTION">%1$s</xliff:g>"</string>
     <string name="permission_description_summary_activity_recognition" msgid="2652850576497070146">"Aplikace s tímto oprávněním mají přístup k  vaší fyzické aktivitě, jako je chůze, jízda na kole, jízda autem, počet kroků a další"</string>
@@ -386,9 +389,9 @@
     <string name="accessibility_service_dialog_title_multiple" msgid="5527879210683548175">"Služby přístupnosti, které mají plný přístup k vašemu zařízení: <xliff:g id="NUM_SERVICES">%s</xliff:g>"</string>
     <string name="accessibility_service_dialog_bottom_text_single" msgid="1128666197822205958">"Služba <xliff:g id="SERVICE_NAME">%s</xliff:g> může zobrazit vaši obrazovku, akce a vstup, provádět akce a ovládat obrazovku."</string>
     <string name="accessibility_service_dialog_bottom_text_multiple" msgid="7009848932395519852">"Tyto aplikace mohou zobrazit vaši obrazovku, akce a zadávaný obsah, provádět akce a ovládat obrazovku."</string>
-    <string name="role_assistant_label" msgid="4727586018198208128">"Výchozí aplikace dig. asistenta"</string>
+    <string name="role_assistant_label" msgid="4727586018198208128">"Výchozí digitální asistent"</string>
     <string name="role_assistant_short_label" msgid="3369003713187703399">"Aplikace digitálního asistenta"</string>
-    <string name="role_assistant_description" msgid="6622458130459922952">"Asistenční aplikace vám mohou pomoct na základě informací na zobrazené obrazovce. Některé aplikace podporují Launcher i hlasový vstup, a nabízejí tak integrovanou asistenci."</string>
+    <string name="role_assistant_description" msgid="6622458130459922952">"Asistenční aplikace pomáhají na základě informací na zobrazené obrazovce. Některé aplikace podporují spouštěče i hlasový vstup, a nabízejí tak integrovanou asistenci."</string>
     <string name="role_assistant_request_title" msgid="5964976301922776060">"Nastavit <xliff:g id="APP_NAME">%1$s</xliff:g> jako výchozí asistenční aplikaci?"</string>
     <string name="role_assistant_request_description" msgid="6836644847620178483">"Získá přístup k SMS a seznamu hovorů"</string>
     <string name="role_browser_label" msgid="2877796144554070207">"Výchozí prohlížeč"</string>
@@ -396,7 +399,7 @@
     <string name="role_browser_description" msgid="3465253637499842671">"Aplikace, které vám umožňují přístup k internetu a zobrazují odkazy, na které můžete klepnout."</string>
     <string name="role_browser_request_title" msgid="2895200507835937192">"Nastavit <xliff:g id="APP_NAME">%1$s</xliff:g> jako výchozí prohlížeč?"</string>
     <string name="role_browser_request_description" msgid="5888803407905985941">"Není potřeba žádné oprávnění"</string>
-    <string name="role_dialer_label" msgid="1100224146343237968">"Výchozí aplikace na volání"</string>
+    <string name="role_dialer_label" msgid="1100224146343237968">"Výchozí aplikace k volání"</string>
     <string name="role_dialer_short_label" msgid="7186888549465352489">"Aplikace k telefonování"</string>
     <string name="role_dialer_description" msgid="8768708633696539612">"Aplikace, které vám v zařízení umožňují volat a přijímat hovory."</string>
     <string name="role_dialer_request_title" msgid="5959618560705912058">"Nastavit <xliff:g id="APP_NAME">%1$s</xliff:g> jako výchozí aplikaci k telefonování?"</string>
@@ -425,9 +428,9 @@
     <string name="role_call_redirection_description" msgid="6091669882014664420">"Aplikace, které vám umožňují přesměrovat odchozí hovory na jiné číslo"</string>
     <string name="role_call_redirection_request_title" msgid="2816244455003562925">"Nastavit <xliff:g id="APP_NAME">%1$s</xliff:g> jako výchozí aplikaci na přesměrování hovorů?"</string>
     <string name="role_call_redirection_request_description" msgid="3118895714178527164">"Není potřeba žádné oprávnění"</string>
-    <string name="role_call_screening_label" msgid="883935222060878724">"Výchozí aplikace na ID a spam"</string>
-    <string name="role_call_screening_short_label" msgid="2048465565063130834">"Ap. na ID volajícího a spam"</string>
-    <string name="role_call_screening_description" msgid="2349431420497468981">"Aplikace, které umožňují identifikovat hovory, blokovat spam, automatické hovory a a zakázaná čísla."</string>
+    <string name="role_call_screening_label" msgid="883935222060878724">"Výchozí aplikace k identifikaci volajícího a spamu"</string>
+    <string name="role_call_screening_short_label" msgid="2048465565063130834">"Aplikace na ID volajícího a spam"</string>
+    <string name="role_call_screening_description" msgid="2349431420497468981">"Aplikace, které umožňují identifikovat hovory a blokovat spam, automatické hovory a zakázaná čísla."</string>
     <string name="role_call_screening_request_title" msgid="7358309224566977290">"Nastavit <xliff:g id="APP_NAME">%1$s</xliff:g> jako výchozí aplikaci k identifikaci volajícího a prevenci spamu?"</string>
     <string name="role_call_screening_request_description" msgid="7338511921032446006">"Není potřeba žádné oprávnění"</string>
     <string name="role_watch_description" msgid="267003778693177779">"Aplikace <xliff:g id="APP_NAME">%1$s</xliff:g> bude moci interagovat s vašimi oznámeními a získá přístup k telefonu, SMS, kontaktům a kalendáři."</string>
@@ -456,7 +459,7 @@
     <string name="default_apps_more" msgid="4078194675848858093">"Další výchozí nastavení"</string>
     <string name="default_apps_manage_domain_urls" msgid="6775566451561036069">"Otevírání odkazů"</string>
     <string name="default_apps_for_work" msgid="4970308943596201811">"Výchozí pracovní"</string>
-    <string name="default_app_none" msgid="9084592086808194457">"Žádné"</string>
+    <string name="default_app_none" msgid="9084592086808194457">"Žádná"</string>
     <string name="default_app_system_default" msgid="6218386768175513760">"(Výchozí nastavení systému)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"Žádné aplikace"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"Vybráno"</string>

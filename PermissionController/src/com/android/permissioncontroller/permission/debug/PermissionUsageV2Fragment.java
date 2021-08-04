@@ -16,75 +16,70 @@
 
 package com.android.permissioncontroller.permission.debug;
 
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static com.android.permissioncontroller.PermissionControllerStatsLog.PERMISSION_USAGE_FRAGMENT_INTERACTION;
+import static com.android.permissioncontroller.PermissionControllerStatsLog.PERMISSION_USAGE_FRAGMENT_INTERACTION__ACTION__OPEN;
+import static com.android.permissioncontroller.PermissionControllerStatsLog.PERMISSION_USAGE_FRAGMENT_INTERACTION__ACTION__SEE_OTHER_PERMISSIONS_CLICKED;
+import static com.android.permissioncontroller.PermissionControllerStatsLog.PERMISSION_USAGE_FRAGMENT_INTERACTION__ACTION__SHOW_SYSTEM_CLICKED;
+import static com.android.permissioncontroller.PermissionControllerStatsLog.write;
+
 import static java.util.concurrent.TimeUnit.DAYS;
-import static java.util.concurrent.TimeUnit.HOURS;
-import static java.util.concurrent.TimeUnit.MINUTES;
 
 import android.Manifest;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.role.RoleManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.UserHandle;
-import android.os.UserManager;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.permissioncontroller.R;
 import com.android.permissioncontroller.permission.model.AppPermissionGroup;
 import com.android.permissioncontroller.permission.model.AppPermissionUsage;
 import com.android.permissioncontroller.permission.model.AppPermissionUsage.GroupUsage;
 import com.android.permissioncontroller.permission.model.legacy.PermissionApps;
-import com.android.permissioncontroller.permission.ui.handheld.PermissionUsageGraphicPreference;
 import com.android.permissioncontroller.permission.ui.handheld.PermissionUsageV2ControlPreference;
 import com.android.permissioncontroller.permission.ui.handheld.SettingsWithLargeHeader;
+import com.android.permissioncontroller.permission.ui.handheld.dashboard.PermissionUsageGraphicPreference;
 import com.android.permissioncontroller.permission.utils.KotlinUtils;
 import com.android.permissioncontroller.permission.utils.Utils;
 import com.android.settingslib.HelpUtils;
 
-import java.lang.annotation.Retention;
-import java.text.Collator;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
- * This is a V2 version of the permission usage page. WIP.
+ * The main page for the privacy dashboard.
  */
+@RequiresApi(Build.VERSION_CODES.S)
 public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implements
         PermissionUsages.PermissionsUsagesChangeCallback {
     private static final String LOG_TAG = "PermUsageV2Fragment";
 
-    @Retention(SOURCE)
-    @IntDef(value = {SORT_RECENT, SORT_RECENT_APPS})
-    @interface SortOption {}
-    static final int SORT_RECENT = 1;
-    static final int SORT_RECENT_APPS = 2;
-
-    public static final int FILTER_24_HOURS = 2;
     private static final int MENU_REFRESH = MENU_HIDE_SYSTEM + 1;
 
-    private static final String KEY_TIME_INDEX = "_time_index";
-    private static final String TIME_INDEX_KEY = PermissionUsageV2Fragment.class.getName()
-            + KEY_TIME_INDEX;
+    /** TODO(ewol): Use the config setting to determine amount of time to show. */
+    private static final long TIME_FILTER_MILLIS = DAYS.toMillis(1);
 
     private static final Map<String, Integer> PERMISSION_GROUP_ORDER = Map.of(
             Manifest.permission_group.LOCATION, 0,
@@ -99,18 +94,17 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
             PERMISSION_GROUP_ORDER.size() + 1;
     private static final int EXPAND_BUTTON_ORDER = 999;
 
+    private static final String KEY_SESSION_ID = PermissionUsageV2Fragment.class.getName()
+            + "_REQUEST_ID";
+
     private @NonNull PermissionUsages mPermissionUsages;
     private @Nullable List<AppPermissionUsage> mAppPermissionUsages = new ArrayList<>();
-
-    private Collator mCollator;
-
-    private @NonNull List<TimeFilterItem> mFilterTimes;
-    private int mFilterTimeIndex;
 
     private boolean mShowSystem;
     private boolean mHasSystemApps;
     private MenuItem mShowSystemMenu;
     private MenuItem mHideSystemMenu;
+    private boolean mOtherExpanded;
 
     private ArrayMap<String, Integer> mGroupAppCounts = new ArrayMap<>();
 
@@ -120,20 +114,26 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
 
     private PermissionUsageGraphicPreference mGraphic;
 
+    /** Unique Id of a request */
+    private long mSessionId;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFinishedInitialLoad = false;
-        initializeTimeFilter();
-        mFilterTimeIndex = FILTER_24_HOURS;
-
-        if (savedInstanceState != null) {
-            mFilterTimeIndex = savedInstanceState.getInt(TIME_INDEX_KEY);
+        if (savedInstanceState == null) {
+            mSessionId = new Random().nextLong();
+        } else {
+            mSessionId = savedInstanceState.getLong(KEY_SESSION_ID);
         }
+
+        mFinishedInitialLoad = false;
 
         // By default, do not show system app usages.
         mShowSystem = false;
+
+        // Start out with 'other' permissions not expanded.
+        mOtherExpanded = false;
 
         setLoading(true, false);
         setHasOptionsMenu(true);
@@ -143,8 +143,6 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
         }
 
         Context context = getPreferenceManager().getContext();
-        mCollator = Collator.getInstance(
-                context.getResources().getConfiguration().getLocales().get(0));
         mPermissionUsages = new PermissionUsages(context);
         mRoleManager = Utils.getSystemServiceSafe(context, RoleManager.class);
 
@@ -198,12 +196,17 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
 
         // This is a hacky way of getting the expand button preference for advanced info
         if (preference.getOrder() == EXPAND_BUTTON_ORDER) {
+            mOtherExpanded = false;
             preference.setTitle(R.string.perm_usage_adv_info_title);
             preference.setSummary(preferenceScreen.getSummary());
+            if (SdkLevel.isAtLeastS()) {
+                preference.setLayoutResource(R.layout.expand_button_with_large_title);
+            }
             if (mGraphic != null) {
                 mGraphic.setShowOtherCategory(false);
             }
         } else {
+            mOtherExpanded = true;
             if (mGraphic != null) {
                 mGraphic.setShowOtherCategory(true);
             }
@@ -214,33 +217,9 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
     public void onStart() {
         super.onStart();
         getActivity().setTitle(R.string.permission_usage_title);
-    }
 
-    /**
-     * Initialize the time filter to show the smallest entry greater than the time passed in as an
-     * argument.  If nothing is passed, this simply initializes the possible values.
-     */
-    private void initializeTimeFilter() {
-        Context context = getPreferenceManager().getContext();
-        mFilterTimes = new ArrayList<>();
-        mFilterTimes.add(new TimeFilterItem(Long.MAX_VALUE,
-                context.getString(R.string.permission_usage_any_time)));
-        mFilterTimes.add(new TimeFilterItem(DAYS.toMillis(7),
-                context.getString(R.string.permission_usage_last_7_days)));
-        mFilterTimes.add(new TimeFilterItem(DAYS.toMillis(1),
-                context.getString(R.string.permission_usage_last_day)));
-        mFilterTimes.add(new TimeFilterItem(HOURS.toMillis(1),
-                context.getString(R.string.permission_usage_last_hour)));
-        mFilterTimes.add(new TimeFilterItem(MINUTES.toMillis(15),
-                context.getString(R.string.permission_usage_last_15_minutes)));
-        mFilterTimes.add(new TimeFilterItem(MINUTES.toMillis(1),
-                context.getString(R.string.permission_usage_last_minute)));
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(TIME_INDEX_KEY, mFilterTimeIndex);
+        write(PERMISSION_USAGE_FRAGMENT_INTERACTION, mSessionId,
+                PERMISSION_USAGE_FRAGMENT_INTERACTION__ACTION__OPEN);
     }
 
     @Override
@@ -269,6 +248,9 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
                 getActivity().finishAfterTransition();
                 return true;
             case MENU_SHOW_SYSTEM:
+                write(PERMISSION_USAGE_FRAGMENT_INTERACTION, mSessionId,
+                        PERMISSION_USAGE_FRAGMENT_INTERACTION__ACTION__SHOW_SYSTEM_CLICKED);
+                // fall through
             case MENU_HIDE_SYSTEM:
                 mShowSystem = item.getItemId() == MENU_SHOW_SYSTEM;
                 // We already loaded all data, so don't reload
@@ -303,6 +285,14 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
         return R.string.no_permission_usages;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (outState != null) {
+            outState.putLong(KEY_SESSION_ID, mSessionId);
+        }
+    }
+
     private void updateUI() {
         if (mAppPermissionUsages.isEmpty() || getActivity() == null) {
             return;
@@ -315,11 +305,20 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
             setPreferenceScreen(screen);
         }
         screen.removeAll();
-        screen.setInitialExpandedChildrenCount(PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT);
 
-        final TimeFilterItem timeFilterItem = mFilterTimes.get(mFilterTimeIndex);
+        if (mOtherExpanded) {
+            screen.setInitialExpandedChildrenCount(Integer.MAX_VALUE);
+        } else {
+            screen.setInitialExpandedChildrenCount(
+                    PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT);
+        }
+        screen.setOnExpandButtonClickListener(() -> {
+            write(PERMISSION_USAGE_FRAGMENT_INTERACTION, mSessionId,
+                    PERMISSION_USAGE_FRAGMENT_INTERACTION__ACTION__SEE_OTHER_PERMISSIONS_CLICKED);
+        });
+
         long curTime = System.currentTimeMillis();
-        long startTime = Math.max(timeFilterItem == null ? 0 : (curTime - timeFilterItem.getTime()),
+        long startTime = Math.max(curTime - TIME_FILTER_MILLIS,
                 Instant.EPOCH.toEpochMilli());
 
         mGroupAppCounts.clear();
@@ -479,14 +478,18 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
                 Map.Entry<String, Integer> currentEntry = usages.get(i);
                 PermissionUsageV2ControlPreference permissionUsagePreference =
                         new PermissionUsageV2ControlPreference(context, currentEntry.getKey(),
-                                currentEntry.getValue(), mShowSystem);
+                                currentEntry.getValue(), mShowSystem, mSessionId);
                 category.addPreference(permissionUsagePreference);
             }
 
             setLoading(false, true);
             mFinishedInitialLoad = true;
             setProgressBarVisible(false);
-            mPermissionUsages.stopLoader(getActivity().getLoaderManager());
+
+            Activity activity = getActivity();
+            if (activity != null) {
+                mPermissionUsages.stopLoader(activity.getLoaderManager());
+            }
         }).execute(permApps.toArray(new PermissionApps.PermissionApp[0]));
     }
 
@@ -503,9 +506,8 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
      * Reloads the data to show.
      */
     private void reloadData() {
-        final TimeFilterItem timeFilterItem = mFilterTimes.get(mFilterTimeIndex);
         final long filterTimeBeginMillis = Math.max(System.currentTimeMillis()
-                - timeFilterItem.getTime(), Instant.EPOCH.toEpochMilli());
+                - TIME_FILTER_MILLIS, Instant.EPOCH.toEpochMilli());
         mPermissionUsages.load(null /*filterPackageName*/, null /*filterPermissionGroups*/,
                 filterTimeBeginMillis, Long.MAX_VALUE, PermissionUsages.USAGE_FLAG_LAST
                         | PermissionUsages.USAGE_FLAG_HISTORICAL, getActivity().getLoaderManager(),
@@ -514,59 +516,6 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
         if (mFinishedInitialLoad) {
             setProgressBarVisible(true);
         }
-    }
-
-    /**
-     * Compare two usages by their access time.
-     *
-     * Can be used as a {@link java.util.Comparator}.
-     *
-     * @param x a usage.
-     * @param y a usage.
-     *
-     * @return see {@link java.util.Comparator#compare(Object, Object)}.
-     */
-    private static int compareAccessTime(@NonNull Pair<AppPermissionUsage, GroupUsage> x,
-            @NonNull Pair<AppPermissionUsage, GroupUsage> y) {
-        return compareAccessTime(x.second, y.second);
-    }
-
-    /**
-     * Compare two usages by their access time.
-     *
-     * Can be used as a {@link java.util.Comparator}.
-     *
-     * @param x a usage.
-     * @param y a usage.
-     *
-     * @return see {@link java.util.Comparator#compare(Object, Object)}.
-     */
-    private static int compareAccessTime(@NonNull GroupUsage x, @NonNull GroupUsage y) {
-        final int timeDiff = compareLong(x.getLastAccessTime(), y.getLastAccessTime());
-        if (timeDiff != 0) {
-            return timeDiff;
-        }
-        // Make sure we lose no data if same
-        return x.hashCode() - y.hashCode();
-    }
-
-    /**
-     * Compare two longs. Will order the long values from big to small.
-     *
-     * Can be used as a {@link java.util.Comparator}.
-     *
-     * @param x the first long.
-     * @param y the second long.
-     *
-     * @return see {@link java.util.Comparator#compare(Object, Object)}.
-     */
-    private static int compareLong(long x, long y) {
-        if (x > y) {
-            return -1;
-        } else if (x < y) {
-            return 1;
-        }
-        return 0;
     }
 
     private static int comparePermissionGroupUsage(@NonNull Map.Entry<String, Integer> first,
@@ -607,60 +556,5 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
             }
         }
         return groups;
-    }
-
-    /**
-     * Get an AppPermissionGroup that represents the given permission group (and an arbitrary app).
-     *
-     * @param groupName The name of the permission group.
-     *
-     * @return an AppPermissionGroup rerepsenting the given permission group or null if no such
-     * AppPermissionGroup is found.
-     */
-    private @Nullable AppPermissionGroup getGroup(@NonNull String groupName) {
-        List<AppPermissionGroup> groups = getOSPermissionGroups();
-        int numGroups = groups.size();
-        for (int i = 0; i < numGroups; i++) {
-            if (groups.get(i).getName().equals(groupName)) {
-                return groups.get(i);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Callback when the user selects a time by which to filter.
-     *
-     * @param selectedIndex The index of the dialog option selected by the user.
-     */
-    private void onTimeSelected(int selectedIndex) {
-        mFilterTimeIndex = selectedIndex;
-        reloadData();
-    }
-
-    /**
-     * A class representing a given time, e.g., "in the last hour".
-     */
-    private static class TimeFilterItem {
-        private final long mTime;
-        private final @NonNull String mLabel;
-
-        TimeFilterItem(long time, @NonNull String label) {
-            mTime = time;
-            mLabel = label;
-        }
-
-        /**
-         * Get the time represented by this object in milliseconds.
-         *
-         * @return the time represented by this object.
-         */
-        public long getTime() {
-            return mTime;
-        }
-
-        public @NonNull String getLabel() {
-            return mLabel;
-        }
     }
 }
