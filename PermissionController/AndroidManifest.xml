@@ -61,6 +61,7 @@
     <uses-permission android:name="android.permission.SEND_SAFETY_CENTER_UPDATE" />
     <!--SYSTEM_APPLICATION_OVERLAY will be granted on T+, as installer protection is added in T -->
     <uses-permission android:name="android.permission.SYSTEM_APPLICATION_OVERLAY"/>
+    <uses-permission android:name="android.permission.SET_UNRESTRICTED_KEEP_CLEAR_AREAS"/>
 
     <application android:name="com.android.permissioncontroller.PermissionControllerApplication"
             android:label="@string/app_name"
@@ -350,16 +351,6 @@
                 <action android:name="android.app.role.RoleControllerService"/>
             </intent-filter>
         </service>
-
-         <service android:name="com.android.permissioncontroller.permission.service.v33.SafetyCenterQsTileService"
-                  android:exported="true"
-                  android:label="@string/safety_privacy_qs_tile_title"
-                  android:icon ="@drawable/safety_shield"
-                  android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-             <intent-filter>
-                 <action android:name="android.service.quicksettings.action.QS_TILE" />
-             </intent-filter>
-         </service>
 
         <service android:name="com.android.permissioncontroller.auto.DrivingDecisionReminderService" />
 
