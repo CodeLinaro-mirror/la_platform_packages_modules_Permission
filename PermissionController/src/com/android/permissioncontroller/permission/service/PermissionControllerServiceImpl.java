@@ -34,6 +34,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
@@ -50,6 +51,7 @@ import android.util.Xml;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.android.permissioncontroller.PermissionControllerProto.PermissionControllerDumpProto;
 import com.android.permissioncontroller.PermissionControllerStatsLog;
@@ -59,12 +61,12 @@ import com.android.permissioncontroller.permission.model.Permission;
 import com.android.permissioncontroller.permission.model.livedatatypes.AppPermGroupUiInfo;
 import com.android.permissioncontroller.permission.model.livedatatypes.AppPermGroupUiInfo.PermGrantState;
 import com.android.permissioncontroller.permission.ui.AutoGrantPermissionsNotifier;
-import com.android.permissioncontroller.permission.utils.AdminRestrictedPermissionsUtils;
 import com.android.permissioncontroller.permission.utils.ArrayUtils;
 import com.android.permissioncontroller.permission.utils.KotlinUtils;
 import com.android.permissioncontroller.permission.utils.PermissionMapping;
 import com.android.permissioncontroller.permission.utils.UserSensitiveFlagsUtils;
 import com.android.permissioncontroller.permission.utils.Utils;
+import com.android.permissioncontroller.permission.utils.v31.AdminRestrictedPermissionsUtils;
 import com.android.role.controller.model.Role;
 import com.android.role.controller.model.Roles;
 
@@ -545,8 +547,6 @@ public final class PermissionControllerServiceImpl extends PermissionControllerL
 
         final boolean isManagedProfile = getSystemService(UserManager.class).isManagedProfile();
         DevicePolicyManager dpm = getSystemService(DevicePolicyManager.class);
-        final boolean isOrganizationOwnedDevice = dpm.isOrganizationOwnedDeviceWithManagedProfile();
-
         int numPerms = expandedPermissions.size();
         for (int i = 0; i < numPerms; i++) {
             String permName = expandedPermissions.get(i);
@@ -563,8 +563,7 @@ public final class PermissionControllerServiceImpl extends PermissionControllerL
             switch (grantState) {
                 case PERMISSION_GRANT_STATE_GRANTED:
                     if (AdminRestrictedPermissionsUtils.mayAdminGrantPermission(perm.getName(),
-                            canAdminGrantSensorsPermissions, isManagedProfile,
-                            isOrganizationOwnedDevice)) {
+                            canAdminGrantSensorsPermissions, isManagedProfile, dpm)) {
                         perm.setPolicyFixed(true);
                         group.grantRuntimePermissions(false, false, new String[]{permName});
                         autoGrantPermissionsNotifier.onPermissionAutoGranted(permName);
@@ -777,6 +776,7 @@ public final class PermissionControllerServiceImpl extends PermissionControllerL
     }
 
     @Override
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public void onRevokeSelfPermissionsOnKill(@NonNull String packageName,
             @NonNull List<String> permissions, @NonNull Runnable callback) {
         PackageInfo pkgInfo = getPkgInfo(packageName);

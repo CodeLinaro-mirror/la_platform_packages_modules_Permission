@@ -19,6 +19,7 @@ package android.safetycenter.functional.ui
 import android.content.Context
 import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 import android.os.Bundle
+import android.platform.test.rule.ScreenRecordRule
 import android.safetycenter.SafetyCenterManager.EXTRA_SAFETY_SOURCES_GROUP_ID
 import android.safetycenter.SafetySourceData
 import android.safetycenter.SafetySourceIssue
@@ -27,15 +28,18 @@ import android.safetycenter.config.SafetySourcesGroup
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import com.android.compatibility.common.util.DisableAnimationRule
 import com.android.compatibility.common.util.FreezeRotationRule
+import com.android.compatibility.common.util.RetryRule
 import com.android.compatibility.common.util.UiAutomatorUtils2
 import com.android.safetycenter.resources.SafetyCenterResourcesContext
 import com.android.safetycenter.testing.Coroutines.TIMEOUT_LONG
 import com.android.safetycenter.testing.Coroutines.TIMEOUT_SHORT
 import com.android.safetycenter.testing.SafetyCenterActivityLauncher.launchSafetyCenterActivity
 import com.android.safetycenter.testing.SafetyCenterActivityLauncher.openPageAndExit
+import com.android.safetycenter.testing.SafetyCenterActivityLauncher.openPageAndExitAllowingRetries
 import com.android.safetycenter.testing.SafetyCenterFlags
 import com.android.safetycenter.testing.SafetyCenterFlags.deviceSupportsSafetyCenter
 import com.android.safetycenter.testing.SafetyCenterTestConfigs
@@ -72,11 +76,13 @@ import com.android.safetycenter.testing.UiTestHelper.waitPageTitleDisplayed
 import com.android.safetycenter.testing.UiTestHelper.waitPageTitleNotDisplayed
 import com.android.safetycenter.testing.UiTestHelper.waitSourceIssueDisplayed
 import com.android.safetycenter.testing.UiTestHelper.waitSourceIssueNotDisplayed
+import java.util.concurrent.TimeUnit
 import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.Timeout
 import org.junit.runner.RunWith
 
 /** Functional tests for generic subpages in Safety Center. */
@@ -87,6 +93,18 @@ class SafetyCenterSubpagesTest {
     @get:Rule val disableAnimationRule = DisableAnimationRule()
 
     @get:Rule val freezeRotationRule = FreezeRotationRule()
+
+    @get:Rule val screenRecordRule = ScreenRecordRule()
+
+    // It is necessery to couple RetryRule and Timeout to ensure that all the retries together are
+    // restricted with the test timeout
+    @get:Rule val retryRule = RetryRule(/* retries= */ 3)
+    @get:Rule
+    val timeoutRule =
+        Timeout(
+            InstrumentationRegistry.getArguments().getString("timeout_msec", "60000").toLong(),
+            TimeUnit.MILLISECONDS
+        )
 
     private val context: Context = getApplicationContext()
     private val safetyCenterTestHelper = SafetyCenterTestHelper(context)
@@ -313,6 +331,7 @@ class SafetyCenterSubpagesTest {
     }
 
     @Test
+    @ScreenRecordRule.ScreenRecord
     fun entryListWithSingleSource_clickingTheInfoIcon_redirectsToDifferentScreen() {
         safetyCenterTestHelper.setConfig(safetyCenterTestConfigs.singleSourceConfig)
         val sourceTestData = safetySourceTestData.informationWithIconAction
@@ -477,6 +496,7 @@ class SafetyCenterSubpagesTest {
     }
 
     @Test
+    @ScreenRecordRule.ScreenRecord
     fun issueCard_updateSafetySourceData_subpageDisplaysUpdatedIssue() {
         val initialDataToDisplay = safetySourceTestData.informationWithIssueWithAttributionTitle
         val updatedDataToDisplay = safetySourceTestData.criticalWithIssueWithAttributionTitle
@@ -512,7 +532,7 @@ class SafetyCenterSubpagesTest {
         )
 
         context.launchSafetyCenterActivity(withReceiverPermission = true) {
-            openPageAndExit(context.getString(sourcesGroup.titleResId)) {
+            openPageAndExitAllowingRetries(context.getString(sourcesGroup.titleResId)) {
                 waitSourceIssueDisplayed(issue)
                 waitButtonDisplayed(action.label) { it.click() }
 
@@ -532,7 +552,7 @@ class SafetyCenterSubpagesTest {
         val issue = sourceData.issues[0]
 
         context.launchSafetyCenterActivity {
-            openPageAndExit(context.getString(sourcesGroup.titleResId)) {
+            openPageAndExitAllowingRetries(context.getString(sourcesGroup.titleResId)) {
                 waitSourceIssueDisplayed(issue)
                 clickDismissIssueCard()
 
@@ -553,7 +573,7 @@ class SafetyCenterSubpagesTest {
         val issue = sourceData.issues[0]
 
         context.launchSafetyCenterActivity {
-            openPageAndExit(context.getString(sourcesGroup.titleResId)) {
+            openPageAndExitAllowingRetries(context.getString(sourcesGroup.titleResId)) {
                 waitSourceIssueDisplayed(issue)
                 clickDismissIssueCard()
                 waitAllTextDisplayed("Dismiss this alert?")
@@ -596,7 +616,7 @@ class SafetyCenterSubpagesTest {
         val issue = sourceData.issues[0]
 
         context.launchSafetyCenterActivity {
-            openPageAndExit(context.getString(sourcesGroup.titleResId)) {
+            openPageAndExitAllowingRetries(context.getString(sourcesGroup.titleResId)) {
                 waitSourceIssueDisplayed(issue)
                 clickDismissIssueCard()
                 waitAllTextDisplayed("Dismiss this alert?")
@@ -620,7 +640,7 @@ class SafetyCenterSubpagesTest {
         val issue = sourceData.issues[0]
 
         context.launchSafetyCenterActivity {
-            openPageAndExit(context.getString(sourcesGroup.titleResId)) {
+            openPageAndExitAllowingRetries(context.getString(sourcesGroup.titleResId)) {
                 waitSourceIssueDisplayed(issue)
                 clickDismissIssueCard()
                 waitAllTextDisplayed("Dismiss this alert?")
@@ -909,6 +929,7 @@ class SafetyCenterSubpagesTest {
     }
 
     @Test
+    @ScreenRecordRule.ScreenRecord
     fun settingsSearch_openWithGenericIntentExtra_showsGenericSubpage() {
         val config = safetyCenterTestConfigs.multipleSourcesConfig
         safetyCenterTestHelper.setConfig(config)

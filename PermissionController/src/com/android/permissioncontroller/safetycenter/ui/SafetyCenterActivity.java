@@ -28,6 +28,7 @@ import static com.android.permissioncontroller.safetycenter.SafetyCenterConstant
 import static com.android.permissioncontroller.safetycenter.SafetyCenterConstants.PRIVACY_SOURCES_GROUP_ID;
 import static com.android.permissioncontroller.safetycenter.SafetyCenterConstants.WORK_PROFILE_SUFFIX;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -63,6 +64,8 @@ public final class SafetyCenterActivity extends CollapsingToolbarBaseActivity {
             "android.provider.extra.SETTINGS_EMBEDDED_DEEP_LINK_INTENT_URI";
     private static final String EXTRA_SETTINGS_EMBEDDED_DEEP_LINK_HIGHLIGHT_MENU_KEY =
             "android.provider.extra.SETTINGS_EMBEDDED_DEEP_LINK_HIGHLIGHT_MENU_KEY";
+    private static final String EXTRA_PREVENT_TRAMPOLINE_TO_SETTINGS =
+            "com.android.permissioncontroller.safetycenter.extra.PREVENT_TRAMPOLINE_TO_SETTINGS";
 
     private SafetyCenterManager mSafetyCenterManager;
 
@@ -104,10 +107,18 @@ public final class SafetyCenterActivity extends CollapsingToolbarBaseActivity {
                     .commitNow();
         }
 
-        if (getActionBar() != null
-                && ActivityEmbeddingUtils.shouldHideNavigateUpButton(this, true)) {
-            getActionBar().setDisplayHomeAsUpEnabled(false);
-            getActionBar().setHomeButtonEnabled(false);
+        ActionBar actionBar = getActionBar();
+        // Only the homepage can be considered a "second layer" page as it's the only one that
+        // can be reached from the Settings menu. The other pages are only reachable using
+        // a direct intent (e.g. notification, "first layer") and/or by navigating within Safety
+        // Center ("third layer").
+        // Note that the homepage can also be a "first layer" page, but that would only happen
+        // if the activity is not embedded.
+        boolean isSecondLayerPage = frag instanceof SafetyCenterScrollWrapperFragment;
+        if (actionBar != null
+                && ActivityEmbeddingUtils.shouldHideNavigateUpButton(this, isSecondLayerPage)) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setHomeButtonEnabled(false);
         }
     }
 
@@ -136,6 +147,12 @@ public final class SafetyCenterActivity extends CollapsingToolbarBaseActivity {
         if (!ActivityEmbeddingUtils.isEmbeddingActivityEnabled(this)) {
             return false;
         }
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.getBoolean(EXTRA_PREVENT_TRAMPOLINE_TO_SETTINGS, false)) {
+            return false;
+        }
+
         return isTaskRoot() && !ActivityEmbeddingUtils.isActivityEmbedded(this);
     }
 
@@ -223,8 +240,10 @@ public final class SafetyCenterActivity extends CollapsingToolbarBaseActivity {
         String[] splitKey;
         if (preferenceKey.endsWith(PERSONAL_PROFILE_SUFFIX)) {
             splitKey = preferenceKey.split("_" + PERSONAL_PROFILE_SUFFIX);
-        } else {
+        } else if (preferenceKey.endsWith(WORK_PROFILE_SUFFIX)) {
             splitKey = preferenceKey.split("_" + WORK_PROFILE_SUFFIX);
+        } else {
+            return "";
         }
 
         if (safetyCenterConfig == null || splitKey.length == 0) {
@@ -233,6 +252,10 @@ public final class SafetyCenterActivity extends CollapsingToolbarBaseActivity {
 
         List<SafetySourcesGroup> groups = safetyCenterConfig.getSafetySourcesGroups();
         for (SafetySourcesGroup group : groups) {
+            if (group.getType() != SafetySourcesGroup.SAFETY_SOURCES_GROUP_TYPE_STATEFUL) {
+                // Hidden and static groups are not opened in a subpage.
+                continue;
+            }
             for (SafetySource source : group.getSafetySources()) {
                 if (Objects.equals(source.getId(), splitKey[0])) {
                     return group.getId();

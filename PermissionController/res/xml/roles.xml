@@ -68,12 +68,8 @@
     </permission-set>
 
     <permission-set name="sensors">
-        <permission name="android.permission.BODY_SENSORS"/>
-        <permission name="android.permission.BODY_SENSORS_BACKGROUND" minSdkVersion="33"/>
-        <permission name="android.permission.BODY_SENSORS_WRIST_TEMPERATURE"
-                    minSdkVersion="34"/>
-        <permission name="android.permission.BODY_SENSORS_WRIST_TEMPERATURE_BACKGROUND"
-                    minSdkVersion="34"/>
+        <permission name="android.permission.BODY_SENSORS" />
+        <permission name="android.permission.BODY_SENSORS_BACKGROUND" minSdkVersion="33" />
     </permission-set>
 
     <permission-set name="storage">
@@ -189,6 +185,9 @@
           ~ Not need to set preferred activity because PackageManager handles browser intents
           ~ specially.
           -->
+        <permissions>
+            <permission name="android.permission.PROVIDE_OWN_AUTOFILL_SUGGESTIONS" minSdkVersion="34" />
+        </permissions>
     </role>
 
     <!--
@@ -579,6 +578,7 @@
             <permission name="android.permission.SEND_SMS" />
             <permission name="android.permission.TOGGLE_AUTOMOTIVE_PROJECTION" minSdkVersion="33" />
             <permission name="android.permission.ADD_TRUSTED_DISPLAY" minSdkVersion="34"/>
+            <permission name="android.permission.ASSOCIATE_COMPANION_DEVICES" minSdkVersion="34"/>
         </permissions>
     </role>
 
@@ -737,6 +737,9 @@
             <permission name="android.permission.SUSPEND_APPS"/>
             <permission name="android.permission.SYSTEM_APPLICATION_OVERLAY"/>
         </permissions>
+        <app-op-permissions>
+            <app-op-permission name="android.permission.SCHEDULE_EXACT_ALARM" minSdkVersion="34"/>
+        </app-op-permissions>
     </role>
 
     <!---
@@ -1586,6 +1589,7 @@
     -->
     <role
         name="android.app.role.SYSTEM_CALL_STREAMING"
+        allowBypassingQualification="true"
         defaultHolders="config_systemCallStreaming"
         exclusive="true"
         minSdkVersion="34"
