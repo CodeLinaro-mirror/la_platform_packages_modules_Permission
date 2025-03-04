@@ -340,19 +340,15 @@ public class Role {
             Integer exclusivity = mBehavior.getExclusivity();
             if (exclusivity != null) {
                 if (!sExclusivityValues.get(exclusivity)) {
-                    throw new IllegalArgumentException(
-                        "Role " + mName + " has invalid exclusivity: "
-                            + exclusivity);
+                    throw new IllegalArgumentException("Invalid exclusivity: " + exclusivity);
                 }
                 if (mShowNone && exclusivity == EXCLUSIVITY_NONE) {
                     throw new IllegalArgumentException(
-                        "Role " + mName + " cannot be non-exclusive when showNone is true: "
-                            + exclusivity);
+                        "Role cannot be non-exclusive when showNone is true: " + exclusivity);
                 }
                 if (!mPreferredActivities.isEmpty() && exclusivity == EXCLUSIVITY_PROFILE_GROUP) {
                     throw new IllegalArgumentException(
-                        "Role " + mName + " cannot have preferred activities when exclusivity is "
-                            + "profileGroup");
+                        "Role cannot have preferred activities when exclusivity is profileGroup");
                 }
                 return exclusivity;
             }
@@ -996,14 +992,7 @@ public class Role {
      */
     public void onHolderAddedAsUser(@NonNull String packageName, @NonNull UserHandle user,
             @NonNull Context context) {
-        if (RoleFlags.isProfileGroupExclusivityAvailable()
-                && com.android.permission.flags.Flags.crossUserRoleUxBugfixEnabled()
-                && getExclusivity() == Role.EXCLUSIVITY_PROFILE_GROUP) {
-            UserHandle profileParent = UserUtils.getProfileParentOrSelf(user, context);
-            RoleManagerCompat.setRoleFallbackEnabledAsUser(this, true, profileParent, context);
-        } else {
-            RoleManagerCompat.setRoleFallbackEnabledAsUser(this, true, user, context);
-        }
+        RoleManagerCompat.setRoleFallbackEnabledAsUser(this, true, user, context);
     }
 
     /**

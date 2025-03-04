@@ -21,7 +21,6 @@ import android.Manifest.permission.WRITE_ALLOWLISTED_DEVICE_CONFIG
 import android.Manifest.permission.WRITE_DEVICE_CONFIG
 import android.annotation.TargetApi
 import android.app.job.JobInfo
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 import android.provider.DeviceConfig
@@ -39,15 +38,11 @@ import com.android.modules.utils.build.SdkLevel
 import com.android.safetycenter.testing.Coroutines.TEST_TIMEOUT
 import com.android.safetycenter.testing.Coroutines.TIMEOUT_LONG
 import com.android.safetycenter.testing.ShellPermissions.callWithShellPermissionIdentity
-import com.android.settingslib.widget.SettingsThemeHelper
 import java.time.Duration
 import kotlin.reflect.KProperty
 
 /** A class that facilitates working with Safety Center flags. */
 object SafetyCenterFlags {
-
-    /** This is a hidden API constant within [DeviceConfig]. */
-    private const val NAMESPACE_SETTINGS_UI = "settings_ui"
 
     /** Flag that determines whether Safety Center is enabled. */
     private val isEnabledFlag =
@@ -148,25 +143,14 @@ object SafetyCenterFlags {
         )
 
     /**
-     * Flag that determines how long Safety Center will wait before hiding the resolved issue UI.
+     * Flag that determines the time for which Safety Center will wait before starting dismissal of
+     * resolved issue UI
      */
     private val hideResolveUiTransitionDelayFlag =
         Flag(
             "safety_center_hide_resolved_ui_transition_delay_millis",
             defaultValue = Duration.ofMillis(400),
             DurationParser(),
-        )
-
-    /**
-     * Flag that determines how long an expressive BannerMessagePreference will wait before hiding
-     * the resolved UI.
-     */
-    private val bannerMessagePrefHideResolvedContentTransitionDelayFlag =
-        Flag(
-            "banner_message_pref_hide_resolved_content_delay_millis",
-            defaultValue = Duration.ofMillis(400),
-            DurationParser(),
-            namespace = NAMESPACE_SETTINGS_UI,
         )
 
     /**
@@ -328,7 +312,6 @@ object SafetyCenterFlags {
             resolveActionTimeoutFlag,
             tempHiddenIssueResurfaceDelayFlag,
             hideResolveUiTransitionDelayFlag,
-            bannerMessagePrefHideResolvedContentTransitionDelayFlag,
             untrackedSourcesFlag,
             resurfaceIssueMaxCountsFlag,
             resurfaceIssueDelaysFlag,
@@ -374,27 +357,8 @@ object SafetyCenterFlags {
     /** A property that allows getting and setting the [tempHiddenIssueResurfaceDelayFlag]. */
     var tempHiddenIssueResurfaceDelay: Duration by tempHiddenIssueResurfaceDelayFlag
 
-    // TODO: b/379849464 - replace remaining usages and make this private
     /** A property that allows getting and setting the [hideResolveUiTransitionDelayFlag]. */
     var hideResolvedIssueUiTransitionDelay: Duration by hideResolveUiTransitionDelayFlag
-
-    /**
-     * A property that allows getting and setting the
-     * [bannerMessagePrefHideResolvedContentTransitionDelayFlag]
-     */
-    private var bannerMessagePrefHideResolvedContentTransitionDelay: Duration by
-        bannerMessagePrefHideResolvedContentTransitionDelayFlag
-
-    /**
-     * Sets the proper hide_resolved_issue_ui_transition_delay flag based on expressive design
-     * state.
-     */
-    fun setHideResolvedIssueUiTransitionDelay(context: Context, value: Duration) =
-        if (SettingsThemeHelper.isExpressiveTheme(context)) {
-            bannerMessagePrefHideResolvedContentTransitionDelay = value
-        } else {
-            hideResolvedIssueUiTransitionDelay = value
-        }
 
     /** A property that allows getting and setting the [untrackedSourcesFlag]. */
     var untrackedSources: Set<String> by untrackedSourcesFlag
@@ -432,22 +396,13 @@ object SafetyCenterFlags {
      * This snapshot is only taken once and cached afterwards. [setup] must be called at least once
      * prior to modifying any flag for the snapshot to be taken with the right values.
      */
-    @Volatile lateinit var snapshot: Map<String, Properties>
+    @Volatile lateinit var snapshot: Properties
 
-    private val lazySnapshot: Map<String, Properties> by lazy {
+    private val lazySnapshot: Properties by lazy {
         callWithShellPermissionIdentity(READ_DEVICE_CONFIG) {
-            mapOf(
-                NAMESPACE_PRIVACY to fetchPropertiesForNamespace(NAMESPACE_PRIVACY),
-                NAMESPACE_SETTINGS_UI to fetchPropertiesForNamespace(NAMESPACE_SETTINGS_UI),
-            )
+            DeviceConfig.getProperties(NAMESPACE_PRIVACY, *FLAGS.map { it.name }.toTypedArray())
         }
     }
-
-    private fun fetchPropertiesForNamespace(namespace: String) =
-        DeviceConfig.getProperties(
-            namespace,
-            *FLAGS.filter { it.namespace == namespace }.map { it.name }.toTypedArray(),
-        )
 
     /**
      * Takes a snapshot of all Safety Center flags and sets them up to their default values.
@@ -459,7 +414,7 @@ object SafetyCenterFlags {
     fun setup() {
         snapshot = lazySnapshot
         FLAGS.filter { it.name != isEnabledFlag.name }
-            .forEach { it.writeToDeviceConfig(it.defaultStringValue) }
+            .forEach { writeDeviceConfigProperty(it.name, it.defaultStringValue) }
     }
 
     /**
@@ -476,8 +431,8 @@ object SafetyCenterFlags {
         FLAGS.filter { it.name != isEnabledFlag.name }
             .forEach {
                 val key = it.name
-                val value = snapshot[it.namespace]?.getString(key, /* defaultValue */ null)
-                it.writeToDeviceConfig(value)
+                val value = snapshot.getString(key, /* defaultValue */ null)
+                writeDeviceConfigProperty(key, value)
             }
     }
 
@@ -487,8 +442,8 @@ object SafetyCenterFlags {
     }
 
     /** Returns the [isEnabledFlag] value of the Safety Center flags snapshot. */
-    fun Map<String, Properties>.isSafetyCenterEnabled(): Boolean =
-        this[NAMESPACE_PRIVACY]!!.getBoolean(isEnabledFlag.name, isEnabledFlag.defaultValue)
+    fun Properties.isSafetyCenterEnabled() =
+        getBoolean(isEnabledFlag.name, isEnabledFlag.defaultValue)
 
     @TargetApi(UPSIDE_DOWN_CAKE)
     private fun getAllRefreshTimeoutsMap(refreshTimeout: Duration): Map<Int, Duration> =
@@ -561,32 +516,32 @@ object SafetyCenterFlags {
                 .joinToString(entriesDelimiter)
     }
 
-    private class Flag<T>(
-        val name: String,
-        val defaultValue: T,
-        private val parser: Parser<T>,
-        val namespace: String = NAMESPACE_PRIVACY,
-    ) {
+    private class Flag<T>(val name: String, val defaultValue: T, private val parser: Parser<T>) {
         val defaultStringValue = parser.toString(defaultValue)
 
         operator fun getValue(thisRef: Any?, property: KProperty<*>): T =
-            readFromDeviceConfig(name)?.let(parser::parseFromString) ?: defaultValue
-
-        private fun readFromDeviceConfig(name: String): String? =
-            callWithShellPermissionIdentity(READ_DEVICE_CONFIG) {
-                DeviceConfig.getProperty(namespace, name)
-            }
+            readDeviceConfigProperty(name)?.let(parser::parseFromString) ?: defaultValue
 
         operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-            writeToDeviceConfig(parser.toString(value))
+            writeDeviceConfigProperty(name, parser.toString(value))
+        }
+    }
+
+    private fun readDeviceConfigProperty(name: String): String? =
+        callWithShellPermissionIdentity(READ_DEVICE_CONFIG) {
+            DeviceConfig.getProperty(NAMESPACE_PRIVACY, name)
         }
 
-        fun writeToDeviceConfig(stringValue: String?) {
-            callWithShellPermissionIdentity(WRITE_DEVICE_CONFIG, WRITE_ALLOWLISTED_DEVICE_CONFIG) {
-                val valueWasSet =
-                    DeviceConfig.setProperty(namespace, name, stringValue, /* makeDefault */ false)
-                require(valueWasSet) { "Could not set $name to: $stringValue" }
-            }
+    private fun writeDeviceConfigProperty(name: String, stringValue: String?) {
+        callWithShellPermissionIdentity(WRITE_DEVICE_CONFIG, WRITE_ALLOWLISTED_DEVICE_CONFIG) {
+            val valueWasSet =
+                DeviceConfig.setProperty(
+                    NAMESPACE_PRIVACY,
+                    name,
+                    stringValue, /* makeDefault */
+                    false,
+                )
+            require(valueWasSet) { "Could not set $name to: $stringValue" }
         }
     }
 }

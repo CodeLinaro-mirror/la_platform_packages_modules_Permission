@@ -27,14 +27,12 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SuppressLint;
 import android.annotation.UserIdInt;
-import android.annotation.WorkerThread;
 import android.app.AppOpsManager;
 import android.app.ecm.EnhancedConfirmationManager;
 import android.app.ecm.IEnhancedConfirmationManager;
 import android.app.role.RoleManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.InstallSourceInfo;
 import android.content.pm.PackageInstaller;
@@ -45,8 +43,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Looper;
 import android.os.SystemConfigManager;
 import android.os.UserHandle;
 import android.permission.flags.Flags;
@@ -76,7 +72,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -95,9 +90,8 @@ public class EnhancedConfirmationService extends SystemService {
 
     private Map<String, List<byte[]>> mTrustedPackageCertDigests;
     private Map<String, List<byte[]>> mTrustedInstallerCertDigests;
-    // A map of call ID to call type. Thread safe because it is queried on the main thread, but
-    // added/removed on a background thread.
-    private final Map<String, Integer> mOngoingCalls = new ConcurrentHashMap<>();
+    // A map of call ID to call type
+    private final Map<String, Integer> mOngoingCalls = new ArrayMap<>();
 
     private static final int CALL_TYPE_UNTRUSTED = 0;
     private static final int CALL_TYPE_TRUSTED = 1;
@@ -116,6 +110,7 @@ public class EnhancedConfirmationService extends SystemService {
                 new EnhancedConfirmationManagerLocalImpl(this));
     }
 
+    private ContentResolver mContentResolver;
     private TelephonyManager mTelephonyManager;
 
     @GuardedBy("mUserAccessibilityManagers")
@@ -133,6 +128,7 @@ public class EnhancedConfirmationService extends SystemService {
                 systemConfigManager.getEnhancedConfirmationTrustedInstallers());
 
         publishBinderService(Context.ECM_ENHANCED_CONFIRMATION_SERVICE, new Stub());
+        mContentResolver = getContext().getContentResolver();
         mTelephonyManager = getContext().getSystemService(TelephonyManager.class);
     }
 
@@ -147,7 +143,6 @@ public class EnhancedConfirmationService extends SystemService {
     }
 
     void addOngoingCall(Call call) {
-        assertNotMainThread();
         if (!Flags.unknownCallPackageInstallBlockingEnabled()) {
             return;
         }
@@ -157,9 +152,7 @@ public class EnhancedConfirmationService extends SystemService {
         mOngoingCalls.put(call.getDetails().getId(), getCallType(call));
     }
 
-    @WorkerThread
     void removeOngoingCall(String callId) {
-        assertNotMainThread();
         if (!Flags.unknownCallPackageInstallBlockingEnabled()) {
             return;
         }
@@ -169,15 +162,11 @@ public class EnhancedConfirmationService extends SystemService {
         }
     }
 
-    @WorkerThread
     void clearOngoingCalls() {
-        assertNotMainThread();
         mOngoingCalls.clear();
     }
 
-    @WorkerThread
     private @CallType int getCallType(Call call) {
-        assertNotMainThread();
         String number = getPhoneNumber(call);
         try {
             if (number != null && mTelephonyManager.isEmergencyNumber(number)) {
@@ -188,16 +177,10 @@ public class EnhancedConfirmationService extends SystemService {
             // device, either because the device lacks telephony calling, or the telephony service
             // is unavailable.
         }
-        UserHandle user = getContext().getUser();
-        Bundle extras = call.getDetails().getExtras();
-        if (extras != null) {
-                user = extras.getParcelable(Intent.EXTRA_USER_HANDLE, UserHandle.class);
-        }
         if (number != null) {
-            return hasContactWithPhoneNumber(number, user)
-                    ? CALL_TYPE_TRUSTED : CALL_TYPE_UNTRUSTED;
+            return hasContactWithPhoneNumber(number) ? CALL_TYPE_TRUSTED : CALL_TYPE_UNTRUSTED;
         } else {
-            return hasContactWithDisplayName(call.getDetails().getCallerDisplayName(), user)
+            return hasContactWithDisplayName(call.getDetails().getCallerDisplayName())
                     ? CALL_TYPE_TRUSTED : CALL_TYPE_UNTRUSTED;
         }
     }
@@ -213,9 +196,7 @@ public class EnhancedConfirmationService extends SystemService {
         return handle.getSchemeSpecificPart();
     }
 
-    @WorkerThread
-    private boolean hasContactWithPhoneNumber(String phoneNumber, UserHandle user) {
-        assertNotMainThread();
+    private boolean hasContactWithPhoneNumber(String phoneNumber) {
         if (phoneNumber == null) {
             return false;
         }
@@ -225,14 +206,12 @@ public class EnhancedConfirmationService extends SystemService {
                 PhoneLookup.DISPLAY_NAME,
                 ContactsContract.PhoneLookup._ID
         };
-        try (Cursor res = getUserContentResolver(user).query(uri, projection, null, null)) {
+        try (Cursor res = mContentResolver.query(uri, projection, null, null)) {
             return res != null && res.getCount() > 0;
         }
     }
 
-    @WorkerThread
-    private boolean hasContactWithDisplayName(String displayName, UserHandle user) {
-        assertNotMainThread();
+    private boolean hasContactWithDisplayName(String displayName) {
         if (displayName == null) {
             return false;
         }
@@ -240,14 +219,9 @@ public class EnhancedConfirmationService extends SystemService {
         String[] projection = new String[]{PhoneLookup._ID};
         String selection = StructuredName.DISPLAY_NAME + " = ?";
         String[] selectionArgs = new String[]{displayName};
-        try (Cursor res = getUserContentResolver(user)
-                .query(uri, projection, selection, selectionArgs, null)) {
+        try (Cursor res = mContentResolver.query(uri, projection, selection, selectionArgs, null)) {
             return res != null && res.getCount() > 0;
         }
-    }
-
-    private ContentResolver getUserContentResolver(UserHandle user) {
-        return getContext().createContextAsUser(user, 0).getContentResolver();
     }
 
     private boolean hasCallOfType(@CallType int callType) {
@@ -257,12 +231,6 @@ public class EnhancedConfirmationService extends SystemService {
             }
         }
         return false;
-    }
-
-    private void assertNotMainThread() throws IllegalStateException {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            throw new IllegalStateException("Ecm WorkerThread method called on main thread");
-        }
     }
 
     private class Stub extends IEnhancedConfirmationManager.Stub {

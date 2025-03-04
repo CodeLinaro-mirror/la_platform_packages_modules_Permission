@@ -131,7 +131,6 @@ android_library {
         "SettingsLibSearchWidget",
         "SettingsLibLayoutPreference",
         "SettingsLibBarChartPreference",
-        "SettingsLibBannerMessagePreference",
         "SettingsLibActionBarShadow",
         "SettingsLibProgressBar",
         "SettingsLibCollapsingToolbarBaseActivity",

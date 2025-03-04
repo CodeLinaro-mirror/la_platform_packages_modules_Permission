@@ -36,7 +36,6 @@ android_library {
         "kotlinx-coroutines-android",
         "safety-center-internal-data",
         "safety-center-resources-lib",
-        "SettingsLibSettingsTheme",
         // TODO(b/326414126): aconfig: support multi-container library
         "com.android.permission.flags-aconfig-java",
     ],

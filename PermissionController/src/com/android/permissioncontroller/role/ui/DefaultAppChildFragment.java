@@ -16,8 +16,6 @@
 
 package com.android.permissioncontroller.role.ui;
 
-import static com.android.permissioncontroller.PermissionControllerStatsLog.ROLE_SETTINGS_FRAGMENT_ACTION_REPORTED;
-
 import android.app.Activity;
 import android.app.role.RoleManager;
 import android.content.Context;
@@ -25,7 +23,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Process;
 import android.os.UserHandle;
 import android.util.ArrayMap;
 
@@ -44,7 +41,6 @@ import androidx.preference.TwoStatePreference;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.permission.flags.Flags;
-import com.android.permissioncontroller.PermissionControllerStatsLog;
 import com.android.permissioncontroller.R;
 import com.android.permissioncontroller.permission.utils.Utils;
 import com.android.permissioncontroller.role.utils.PackageUtils;
@@ -82,8 +78,8 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
             DefaultAppChildFragment.class.getName() + ".preference.OTHER_NFC_SERVICES";
     private static final String PREFERENCE_EXTRA_PACKAGE_NAME =
             DefaultAppChildFragment.class.getName() + ".extra.PACKAGE_NAME";
-    private static final String PREFERENCE_EXTRA_UID = DefaultAppChildFragment.class.getName()
-            + ".extra.UID";
+    private static final String PREFERENCE_EXTRA_USER = DefaultAppChildFragment.class.getName()
+            + ".extra.USER";
 
     @NonNull
     private String mRoleName;
@@ -313,7 +309,7 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
                                 context, applicationInfo.packageName, user.getIdentifier()));
                 Bundle extras = preference.getExtras();
                 extras.putString(PREFERENCE_EXTRA_PACKAGE_NAME, applicationInfo.packageName);
-                extras.putInt(PREFERENCE_EXTRA_UID, applicationInfo.uid);
+                extras.putParcelable(PREFERENCE_EXTRA_USER, user);
             }
         } else {
             preference = roleApplicationPreference.asTwoStatePreference();
@@ -352,31 +348,28 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
     public boolean onPreferenceClick(@NonNull Preference preference) {
         String key = preference.getKey();
         if (Objects.equals(key, PREFERENCE_KEY_NONE)) {
-            PermissionControllerStatsLog.write(
-                    ROLE_SETTINGS_FRAGMENT_ACTION_REPORTED, Process.INVALID_UID, null, mRoleName);
             mViewModel.setNoneDefaultApp();
         } else {
             String packageName =
                     preference.getExtras().getString(PREFERENCE_EXTRA_PACKAGE_NAME);
-            int uid = preference.getExtras().getInt(PREFERENCE_EXTRA_UID);
+            UserHandle user =
+                    preference.getExtras().getParcelable(PREFERENCE_EXTRA_USER);
             CharSequence confirmationMessage =
                     RoleUiBehaviorUtils.getConfirmationMessage(mRole, packageName,
                             requireContext());
             if (confirmationMessage != null) {
-                DefaultAppConfirmationDialogFragment.show(packageName, uid, confirmationMessage,
+                DefaultAppConfirmationDialogFragment.show(packageName, user, confirmationMessage,
                         this);
             } else {
-                setDefaultApp(packageName, uid);
+                setDefaultApp(packageName, user);
             }
         }
         return true;
     }
 
     @Override
-    public void setDefaultApp(@NonNull String packageName, int uid) {
-        PermissionControllerStatsLog.write(
-                ROLE_SETTINGS_FRAGMENT_ACTION_REPORTED, uid, packageName, mRoleName);
-        mViewModel.setDefaultApp(packageName, UserHandle.getUserHandleForUid(uid));
+    public void setDefaultApp(@NonNull String packageName, @NonNull UserHandle user) {
+        mViewModel.setDefaultApp(packageName, user);
     }
 
     private void addNonPaymentNfcServicesPreference(@NonNull PreferenceScreen preferenceScreen,

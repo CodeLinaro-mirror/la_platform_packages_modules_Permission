@@ -28,9 +28,6 @@ import android.telecom.InCallService;
 
 import com.android.server.LocalManagerRegistry;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  * @hide
  *
@@ -43,8 +40,6 @@ import java.util.concurrent.Executors;
 @TargetApi(Build.VERSION_CODES.BAKLAVA)
 public class EnhancedConfirmationCallTrackerService extends InCallService {
     private EnhancedConfirmationManagerLocal mEnhancedConfirmationManagerLocal;
-
-    private final ExecutorService mBackgroundExecutor = Executors.newSingleThreadExecutor();
 
     @Override
     public void onCreate() {
@@ -61,7 +56,7 @@ public class EnhancedConfirmationCallTrackerService extends InCallService {
             return;
         }
 
-        mBackgroundExecutor.submit(() -> mEnhancedConfirmationManagerLocal.addOngoingCall(call));
+        mEnhancedConfirmationManagerLocal.addOngoingCall(call);
     }
 
     @Override
@@ -70,8 +65,7 @@ public class EnhancedConfirmationCallTrackerService extends InCallService {
             return;
         }
 
-        mBackgroundExecutor.submit(() ->
-                mEnhancedConfirmationManagerLocal.removeOngoingCall(call.getDetails().getId()));
+        mEnhancedConfirmationManagerLocal.removeOngoingCall(call.getDetails().getId());
     }
 
     /**
@@ -79,8 +73,7 @@ public class EnhancedConfirmationCallTrackerService extends InCallService {
      */
     public boolean onUnbind(@Nullable Intent intent) {
         if (mEnhancedConfirmationManagerLocal != null) {
-            mBackgroundExecutor.submit(() ->
-                    mEnhancedConfirmationManagerLocal.clearOngoingCalls());
+            mEnhancedConfirmationManagerLocal.clearOngoingCalls();
         }
         return super.onUnbind(intent);
     }

@@ -53,8 +53,7 @@ class PermissionDecisionsTest : BaseUsePermissionTest() {
         openPermissionDecisions()
         waitFindObject(
             By.hasChild(
-                    By.text("You gave $APP_PACKAGE_NAME access to location").displayId(displayId)
-                )
+                    By.text("You gave $APP_PACKAGE_NAME access to location").displayId(displayId))
                 .hasChild(By.text("Today").displayId(displayId))
                 .displayId(displayId)
         )
@@ -70,8 +69,7 @@ class PermissionDecisionsTest : BaseUsePermissionTest() {
         openPermissionDecisions()
         waitFindObject(
             By.hasChild(
-                    By.text("You denied $APP_PACKAGE_NAME access to location").displayId(displayId)
-                )
+                    By.text("You denied $APP_PACKAGE_NAME access to location").displayId(displayId))
                 .hasChild(By.text("Today").displayId(displayId))
                 .displayId(displayId)
         )
@@ -88,13 +86,11 @@ class PermissionDecisionsTest : BaseUsePermissionTest() {
         openPermissionDecisions()
         assertNull(
             waitFindObjectOrNull(
-                By.hasChild(
-                        By.text("You denied $APP_PACKAGE_NAME access to location")
-                            .displayId(displayId)
-                    )
+                By.hasChild(By.text("You denied $APP_PACKAGE_NAME access to location")
+                        .displayId(displayId))
                     .hasChild(By.text("Today").displayId(displayId))
                     .displayId(displayId),
-                ASSERT_ABSENT_SELECTOR_TIMEOUT_MS,
+                ASSERT_ABSENT_SELECTOR_TIMEOUT_MS
             )
         )
     }
@@ -109,10 +105,8 @@ class PermissionDecisionsTest : BaseUsePermissionTest() {
         openPermissionDecisions()
 
         waitFindObject(
-                By.hasChild(
-                        By.text("You gave $APP_PACKAGE_NAME access to location")
-                            .displayId(displayId)
-                    )
+                By.hasChild(By.text("You gave $APP_PACKAGE_NAME access to location")
+                        .displayId(displayId))
                     .hasChild(By.text("Today").displayId(displayId))
                     .displayId(displayId)
             )
@@ -127,8 +121,7 @@ class PermissionDecisionsTest : BaseUsePermissionTest() {
         pressBack()
         waitFindObject(
             By.hasChild(
-                    By.text("You denied $APP_PACKAGE_NAME access to location").displayId(displayId)
-                )
+                    By.text("You denied $APP_PACKAGE_NAME access to location").displayId(displayId))
                 .hasChild(By.text("Today").displayId(displayId))
                 .displayId(displayId)
         )
@@ -139,7 +132,7 @@ class PermissionDecisionsTest : BaseUsePermissionTest() {
             SystemUtil.runWithShellPermissionIdentity {
                 context.startActivity(
                     Intent(PermissionManager.ACTION_REVIEW_PERMISSION_DECISIONS).apply {
-                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     }
                 )
             }
