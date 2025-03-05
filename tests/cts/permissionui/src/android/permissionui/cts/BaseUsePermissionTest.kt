@@ -36,8 +36,10 @@ import android.os.Build
 import android.os.Process
 import android.provider.DeviceConfig
 import android.provider.Settings
+import android.server.wm.WindowManagerStateHelper
 import android.text.Spanned
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.test.uiautomator.By
@@ -51,6 +53,7 @@ import com.android.compatibility.common.util.SystemUtil
 import com.android.compatibility.common.util.SystemUtil.callWithShellPermissionIdentity
 import com.android.compatibility.common.util.SystemUtil.eventually
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
+import com.android.compatibility.common.util.UiDumpUtils
 import com.android.modules.utils.build.SdkLevel
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
@@ -64,6 +67,7 @@ import org.junit.Before
 
 abstract class BaseUsePermissionTest : BasePermissionTest() {
     companion object {
+        const val LOG_TAG = "BaseUsePermissionTest"
         const val APP_APK_NAME_31 = "CtsUsePermissionApp31.apk"
         const val APP_APK_NAME_31_WITH_ASL = "CtsUsePermissionApp31WithAsl.apk"
         const val APP_APK_NAME_LATEST = "CtsUsePermissionAppLatest.apk"
@@ -243,6 +247,8 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
         DENIED,
         DENIED_WITH_PREJUDICE
     }
+
+    private val windowManagerStateHelper = WindowManagerStateHelper()
 
     private val platformResources = context.createPackageContext("android", 0).resources
     private val permissionToLabelResNameMap =
@@ -671,21 +677,20 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
         crossinline block: () -> Unit,
     ): Instrumentation.ActivityResult {
         // Request the permissions
-        lateinit var future: CompletableFuture<Instrumentation.ActivityResult>
-        doAndWaitForWindowTransition {
-            future =
-                startActivityForFuture(
-                    Intent().apply {
-                        component =
-                            ComponentName(
-                                APP_PACKAGE_NAME,
-                                "$APP_PACKAGE_NAME.RequestPermissionsActivity"
-                            )
-                        putExtra("$APP_PACKAGE_NAME.PERMISSIONS", permissions)
-                        putExtra("$APP_PACKAGE_NAME.ASK_TWICE", askTwice)
-                    }
-                )
-        }
+        val future =
+            startActivityForFuture(
+                Intent().apply {
+                    component =
+                        ComponentName(
+                            APP_PACKAGE_NAME,
+                            "$APP_PACKAGE_NAME.RequestPermissionsActivity"
+                        )
+                    putExtra("$APP_PACKAGE_NAME.PERMISSIONS", permissions)
+                    putExtra("$APP_PACKAGE_NAME.ASK_TWICE", askTwice)
+                }
+            )
+
+        waitForPermissionRequestActivity()
 
         // Notification permission prompt is shown first, so get it out of the way
         clickNotificationPermissionRequestAllowButtonIfAvailable()
@@ -696,6 +701,25 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
             block()
         }
         return future.get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
+    }
+
+    /**
+     * This method waits for permission controller activity to be in a valid state, the timeout
+     * is 5 seconds.
+     */
+    fun waitForPermissionRequestActivity() {
+        val requestPermissionIntent = Intent(PackageManager.ACTION_REQUEST_PERMISSIONS)
+        val componentName =
+            requestPermissionIntent.resolveActivity(context.packageManager)
+                ?: throw RuntimeException("Permission request is not handled by any activity.")
+        try {
+            windowManagerStateHelper.waitForValidState(componentName)
+        } catch (ex: Exception) {
+            // It doesn't mean a test would fail, it just meant that the test would proceed before
+            // waiting for permission request dialog. Permission request dialog should eventually
+            // come on the screen when ui-automator is trying to search for ui element.
+            Log.w(LOG_TAG, "Couldn't wait for permission request activity.", ex)
+        }
     }
 
     protected inline fun requestAppPermissionsAndAssertResult(
@@ -791,6 +815,9 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
             )
 
         if (timeoutOccurred) {
+            val uiDump = StringBuilder()
+            UiDumpUtils.dumpNodes(uiDump)
+            Log.w(LOG_TAG, "Timed out waiting for window transition, UI dump: $uiDump")
             throw RuntimeException("Timed out waiting for window transition.")
         }
     }

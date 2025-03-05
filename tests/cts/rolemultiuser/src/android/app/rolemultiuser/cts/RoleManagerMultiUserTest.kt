@@ -27,6 +27,7 @@ import android.os.Process
 import android.os.UserHandle
 import android.os.UserManager.DISALLOW_CONFIG_DEFAULT_APPS
 import android.provider.Settings
+import android.util.Log
 import android.util.Pair
 import androidx.test.filters.SdkSuppress
 import androidx.test.rule.ActivityTestRule
@@ -95,16 +96,24 @@ class RoleManagerMultiUserTest {
         ActivityTestRule(WaitForResultActivity::class.java)
 
     @Before
-    @Throws(java.lang.Exception::class)
     fun setUp() {
         assumeTrue(RoleManagerUtil.isCddCompliantScreenSize())
         installAppForAllUsers()
+
+        // If "none" selected in test, ensure we re-enable fallback for other test runs
+        permissions().withPermission(MANAGE_ROLE_HOLDERS, INTERACT_ACROSS_USERS_FULL).use {
+            setRoleFallbackEnabledForAllUsers()
+        }
     }
 
     @After
-    @Throws(java.lang.Exception::class)
     fun tearDown() {
         uninstallAppForAllUsers()
+
+        // If "none" selected in test, ensure we re-enable fallback for other test runs
+        permissions().withPermission(MANAGE_ROLE_HOLDERS, INTERACT_ACROSS_USERS_FULL).use {
+            setRoleFallbackEnabledForAllUsers()
+        }
     }
 
     @RequireFlagsEnabled(com.android.permission.flags.Flags.FLAG_CROSS_USER_ROLE_ENABLED)
@@ -379,7 +388,7 @@ class RoleManagerMultiUserTest {
         val initialUser = deviceState.workProfile().userHandle()
         // setActiveUserForRole and getActiveUserForRole is used to ensure initial active users
         // state and requires INTERACT_ACROSS_USERS_FULL
-        permissions().withPermission(INTERACT_ACROSS_USERS_FULL).use { _ ->
+        permissions().withPermission(INTERACT_ACROSS_USERS_FULL).use {
             roleManager.setActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, initialUser, 0)
             assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                 .isEqualTo(initialUser)
@@ -407,7 +416,7 @@ class RoleManagerMultiUserTest {
 
         // getActiveUserForRole is used to ensure addRoleHolderAsUser didn't set active user, and
         // requires INTERACT_ACROSS_USERS_FULL
-        permissions().withPermission(INTERACT_ACROSS_USERS_FULL).use { _ ->
+        permissions().withPermission(INTERACT_ACROSS_USERS_FULL).use {
             assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                 .isEqualTo(initialUser)
         }
@@ -472,6 +481,47 @@ class RoleManagerMultiUserTest {
         assertExpectedProfileHasRoleUsingGetRoleHoldersAsUser(targetActiveUser)
     }
 
+    @RequireFlagsEnabled(
+        com.android.permission.flags.Flags.FLAG_CROSS_USER_ROLE_ENABLED,
+        com.android.permission.flags.Flags.FLAG_CROSS_USER_ROLE_UX_BUGFIX_ENABLED,
+    )
+    @EnsureHasPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS)
+    @EnsureHasWorkProfile
+    @RequireRunOnPrimaryUser
+    @Test
+    @Throws(java.lang.Exception::class)
+    fun addRoleHolderAsUserReenablesFallbackOnProfileParent() {
+        // Set other user as active
+        val initialUserReference = deviceState.initialUser()
+        val initialUser = initialUserReference.userHandle()
+        roleManager.setActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, initialUser, 0)
+        assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
+            .isEqualTo(initialUser)
+
+        val profileParentRoleManager = getRoleManagerForUser(initialUserReference)
+        profileParentRoleManager.setRoleFallbackEnabled(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, false)
+        assertThat(
+                profileParentRoleManager.isRoleFallbackEnabled(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME)
+            )
+            .isFalse()
+
+        val targetActiveUser = deviceState.workProfile().userHandle()
+        val future = CallbackFuture()
+        roleManager.addRoleHolderAsUser(
+            PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME,
+            APP_PACKAGE_NAME,
+            0,
+            targetActiveUser,
+            context.mainExecutor,
+            future,
+        )
+        assertThat(future.get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)).isTrue()
+        assertThat(
+                profileParentRoleManager.isRoleFallbackEnabled(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME)
+            )
+            .isTrue()
+    }
+
     @RequireFlagsEnabled(com.android.permission.flags.Flags.FLAG_CROSS_USER_ROLE_ENABLED)
     @EnsureHasPermission(MANAGE_DEFAULT_APPLICATIONS)
     @EnsureDoesNotHavePermission(INTERACT_ACROSS_USERS_FULL)
@@ -484,7 +534,7 @@ class RoleManagerMultiUserTest {
         val initialUser = deviceState.workProfile().userHandle()
         // setActiveUserForRole and getActiveUserForRole is used to ensure initial active users
         // state and requires INTERACT_ACROSS_USERS_FULL
-        permissions().withPermission(INTERACT_ACROSS_USERS_FULL).use { _ ->
+        permissions().withPermission(INTERACT_ACROSS_USERS_FULL).use {
             roleManager.setActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, initialUser, 0)
             assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                 .isEqualTo(initialUser)
@@ -504,7 +554,7 @@ class RoleManagerMultiUserTest {
 
         // getActiveUserForRole is used to ensure setDefaultApplication didn't set active user,
         // and requires INTERACT_ACROSS_USERS_FULL
-        permissions().withPermission(INTERACT_ACROSS_USERS_FULL).use { _ ->
+        permissions().withPermission(INTERACT_ACROSS_USERS_FULL).use {
             assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                 .isEqualTo(initialUser)
         }
@@ -564,6 +614,50 @@ class RoleManagerMultiUserTest {
         assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
             .isEqualTo(targetActiveUser)
         eventually { assertExpectedProfileHasRoleUsingGetDefaultApplication(targetActiveUser) }
+    }
+
+    @RequireFlagsEnabled(
+        com.android.permission.flags.Flags.FLAG_CROSS_USER_ROLE_ENABLED,
+        com.android.permission.flags.Flags.FLAG_CROSS_USER_ROLE_UX_BUGFIX_ENABLED,
+    )
+    @EnsureHasPermission(
+        INTERACT_ACROSS_USERS_FULL,
+        MANAGE_DEFAULT_APPLICATIONS,
+        MANAGE_ROLE_HOLDERS,
+    )
+    @EnsureHasWorkProfile
+    @RequireRunOnPrimaryUser
+    @Test
+    @Throws(java.lang.Exception::class)
+    fun setDefaultApplicationReenablesFallbackOnProfileParent() {
+        // Set other user as active
+        val initialUserReference = deviceState.initialUser()
+        val initialUser = initialUserReference.userHandle()
+        roleManager.setActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, initialUser, 0)
+        assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
+            .isEqualTo(initialUser)
+
+        val profileParentRoleManager = getRoleManagerForUser(initialUserReference)
+        profileParentRoleManager.setRoleFallbackEnabled(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, false)
+        assertThat(
+                profileParentRoleManager.isRoleFallbackEnabled(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME)
+            )
+            .isFalse()
+
+        val future = CallbackFuture()
+        getRoleManagerForUser(deviceState.workProfile())
+            .setDefaultApplication(
+                PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME,
+                APP_PACKAGE_NAME,
+                0,
+                context.mainExecutor,
+                future,
+            )
+        assertThat(future.get(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)).isTrue()
+        assertThat(
+                profileParentRoleManager.isRoleFallbackEnabled(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME)
+            )
+            .isTrue()
     }
 
     @RequireFlagsEnabled(com.android.permission.flags.Flags.FLAG_CROSS_USER_ROLE_ENABLED)
@@ -1281,7 +1375,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -1308,7 +1402,7 @@ class RoleManagerMultiUserTest {
             // getActiveUserForRole and getRoleHoldersAsUser require INTERACT_ACROSS_USERS_FULL and
             // MANAGE_ROLE_HOLDERS permissions to validate cross user role active user and role
             // holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                     .isEqualTo(targetActiveUser)
                 assertExpectedProfileHasRoleUsingGetRoleHoldersAsUser(targetActiveUser)
@@ -1317,7 +1411,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -1334,7 +1428,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -1361,7 +1455,7 @@ class RoleManagerMultiUserTest {
             // getActiveUserForRole and getRoleHoldersAsUser require INTERACT_ACROSS_USERS_FULL and
             // MANAGE_ROLE_HOLDERS permissions to validate cross user role active user and role
             // holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                     .isEqualTo(targetActiveUser)
                 assertExpectedProfileHasRoleUsingGetRoleHoldersAsUser(targetActiveUser)
@@ -1370,7 +1464,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -1387,7 +1481,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -1412,7 +1506,7 @@ class RoleManagerMultiUserTest {
             // getActiveUserForRole and getRoleHoldersAsUser require INTERACT_ACROSS_USERS_FULL and
             // MANAGE_ROLE_HOLDERS permissions to validate cross user role active user and role
             // holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                     .isEqualTo(deviceState.initialUser().userHandle())
                 assertNoRoleHoldersUsingGetRoleHoldersAsUser()
@@ -1421,7 +1515,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -1438,7 +1532,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -1465,7 +1559,7 @@ class RoleManagerMultiUserTest {
             // getActiveUserForRole and getRoleHoldersAsUser require INTERACT_ACROSS_USERS_FULL and
             // MANAGE_ROLE_HOLDERS permissions to validate cross user role active user and role
             // holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                     .isEqualTo(targetActiveUser)
                 assertExpectedProfileHasRoleUsingGetRoleHoldersAsUser(targetActiveUser)
@@ -1474,7 +1568,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -1491,7 +1585,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -1518,7 +1612,7 @@ class RoleManagerMultiUserTest {
             // getActiveUserForRole and getRoleHoldersAsUser require INTERACT_ACROSS_USERS_FULL and
             // MANAGE_ROLE_HOLDERS permissions to validate cross user role active user and role
             // holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                     .isEqualTo(targetActiveUser)
                 assertExpectedProfileHasRoleUsingGetRoleHoldersAsUser(targetActiveUser)
@@ -1527,7 +1621,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -1544,7 +1638,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -1569,7 +1663,7 @@ class RoleManagerMultiUserTest {
             // getActiveUserForRole and getRoleHoldersAsUser require INTERACT_ACROSS_USERS_FULL and
             // MANAGE_ROLE_HOLDERS permissions to validate cross user role active user and role
             // holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                     .isEqualTo(deviceState.initialUser().userHandle())
                 assertNoRoleHoldersUsingGetRoleHoldersAsUser()
@@ -1578,7 +1672,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -1950,7 +2044,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -1977,7 +2071,7 @@ class RoleManagerMultiUserTest {
             // getActiveUserForRole and getRoleHoldersAsUser require INTERACT_ACROSS_USERS_FULL and
             // MANAGE_ROLE_HOLDERS permissions to validate cross user role active user and role
             // holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 assertThat(roleManager.getActiveUserForRole(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME))
                     .isEqualTo(targetActiveUser)
                 assertExpectedProfileHasRoleUsingGetRoleHoldersAsUser(targetActiveUser)
@@ -1986,7 +2080,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -2007,7 +2101,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -2032,7 +2126,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -2053,7 +2147,7 @@ class RoleManagerMultiUserTest {
             // setDefaultHoldersForTestForAllUsers and setRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 // Set test default role holder. Ensures fallbacks to a default holder
                 setDefaultHoldersForTestForAllUsers()
                 setRoleVisibleForTestForAllUsers()
@@ -2078,7 +2172,7 @@ class RoleManagerMultiUserTest {
             // clearDefaultHoldersForTestForAllUsers and clearRoleVisibleForTestForAllUsers require
             // INTERACT_ACROSS_USERS_FULL and MANAGE_ROLE_HOLDERS permissions to validate cross user
             // role active user and role holder states
-            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use { _ ->
+            permissions().withPermission(INTERACT_ACROSS_USERS_FULL, MANAGE_ROLE_HOLDERS).use {
                 clearDefaultHoldersForTestForAllUsers()
                 clearRoleVisibleForTestForAllUsers()
             }
@@ -2215,7 +2309,7 @@ class RoleManagerMultiUserTest {
     private fun setDefaultHoldersForTestForAllUsers() {
         // Set test default role holder. Ensures fallbacks to a default holder
         for (userRoleManager in
-            users().profileGroup(deviceState.initialUser()).map { getRoleManagerForUser(it) }) {
+            users().profileGroup(users().current()).map { getRoleManagerForUser(it) }) {
             userRoleManager.setDefaultHoldersForTest(
                 PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME,
                 listOf(APP_PACKAGE_NAME),
@@ -2226,7 +2320,7 @@ class RoleManagerMultiUserTest {
     private fun clearDefaultHoldersForTestForAllUsers() {
         // Set test default role holder. Ensures fallbacks to a default holder
         for (userRoleManager in
-            users().profileGroup(deviceState.initialUser()).map { getRoleManagerForUser(it) }) {
+            users().profileGroup(users().current()).map { getRoleManagerForUser(it) }) {
             userRoleManager.setDefaultHoldersForTest(
                 PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME,
                 emptyList(),
@@ -2237,7 +2331,7 @@ class RoleManagerMultiUserTest {
     private fun setRoleVisibleForTestForAllUsers() {
         // Set test default role holder. Ensures fallbacks to a default holder
         for (userRoleManager in
-            users().profileGroup(deviceState.initialUser()).map { getRoleManagerForUser(it) }) {
+            users().profileGroup(users().current()).map { getRoleManagerForUser(it) }) {
             userRoleManager.setRoleVisibleForTest(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, true)
         }
     }
@@ -2245,8 +2339,25 @@ class RoleManagerMultiUserTest {
     private fun clearRoleVisibleForTestForAllUsers() {
         // Set test default role holder. Ensures fallbacks to a default holder
         for (userRoleManager in
-            users().profileGroup(deviceState.initialUser()).map { getRoleManagerForUser(it) }) {
+            users().profileGroup(users().current()).map { getRoleManagerForUser(it) }) {
             userRoleManager.setRoleVisibleForTest(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, false)
+        }
+    }
+
+    private fun setRoleFallbackEnabledForAllUsers() {
+        for (userReference in users().profileGroup(users().current())) {
+            try {
+                val userRoleManager = getRoleManagerForUser(userReference)
+                userRoleManager.setRoleFallbackEnabled(PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME, true)
+            } catch (e: Exception) {
+                Log.w(
+                    LOG_TAG,
+                    "Encountered error setting fallback enabled for" +
+                        " $PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME@" +
+                        "${userReference.userHandle().identifier}",
+                    e,
+                )
+            }
         }
     }
 
@@ -2262,6 +2373,8 @@ class RoleManagerMultiUserTest {
     }
 
     companion object {
+        private val LOG_TAG = RoleManagerMultiUserTest::class.java.simpleName
+
         private const val TIMEOUT_MILLIS: Long = (15 * 1000).toLong()
         private const val IDLE_TIMEOUT_MILLIS: Long = (2 * 1000).toLong()
         private const val PROFILE_GROUP_EXCLUSIVITY_ROLE_NAME =
