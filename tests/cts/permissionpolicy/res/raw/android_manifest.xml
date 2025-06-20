@@ -916,7 +916,7 @@
 
     <!-- This permission protects a content provider within home/launcher applications, enabling management of home screen metadata such as shortcut placement, launch intents, and labels. -->
     <!-- @FlaggedApi(android.provider.Flags.FLAG_LAUNCHER_DATA_ACCESS) -->
-    <permission android:name="android.permission.LAUNCHER_DATA_ACCESS"
+    <permission android:name="android.permission.ACCESS_LAUNCHER_DATA"
       android:protectionLevel="signatureOrSystem"
       android:featureFlag="android.provider.launcher_data_access" />
 
@@ -1886,12 +1886,12 @@
         android:permissionFlags="hardRestricted" />
 
    <!-- Allows an app to access moisture intrusion sensor data
-        <p>Protection level: normal
+        <p>Protection level: signature | privileged
          @hide
     -->
     <permission android:name="android.permission.READ_MOISTURE_INTRUSION"
                 android:permissionGroup="android.permission-group.SENSORS"
-                android:protectionLevel="normal"
+                android:protectionLevel="signature|privileged"
                 android:featureFlag="com.android.tradeinmode.flags.trade_in_mode_2025q4"/>
 
     <!-- Allows an app to use fingerprint hardware.
@@ -8581,11 +8581,21 @@
     <!-- Allows an application to perform actions on behalf of users inside of
          applications.
          <p>This permission is currently only granted to privileged system apps.
-         <p>Protection level: internal|privileged
-         @FlaggedApi(android.app.appfunctions.flags.Flags.FLAG_ENABLE_APP_FUNCTION_MANAGER)  -->
+         <p>Protection level: internal|privileged -->
     <permission android:name="android.permission.EXECUTE_APP_FUNCTIONS"
-        android:featureFlag="android.app.appfunctions.flags.enable_app_function_manager"
+        android:featureFlag="!android.permission.flags.app_function_access_api_enabled"
         android:protectionLevel="internal|privileged" />
+
+    <!-- Allows an application to perform actions on behalf of users inside of
+     applications.
+     <p>To execute a function in another app, an application must first hold the
+        android.permission.EXECUTE_APP_FUNCTIONS permission. In addition, the application must be
+        on a device allowlist, and its ability to execute functions is subject to user approval or
+        disapproval.
+     <p>Protection level: normal -->
+    <permission android:name="android.permission.EXECUTE_APP_FUNCTIONS"
+        android:featureFlag="android.permission.flags.app_function_access_api_enabled"
+        android:protectionLevel="normal" />
 
     <!-- Allows an application to display its suggestions using the autofill framework.
          <p>For now, this permission is only granted to the Browser application.
@@ -8715,6 +8725,18 @@
          @hide -->
     <permission android:name="android.permission.MONITOR_STICKY_MODIFIER_STATE"
                 android:protectionLevel="signature" />
+
+    <!--
+        @FlaggedApi(com.android.hardware.input.Flags.FLAG_REQUEST_KEY_CAPTURE_API)
+        Allows an application to be able to capture keys before Android system get chance to
+        process system keys and shortcuts.
+        <p> Protection level: normal
+    -->
+    <permission android:name="android.permission.CAPTURE_KEYBOARD"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_capture_keyboard"
+        android:description="@string/permdesc_capture_keyboard"
+        android:featureFlag="com.android.hardware.input.request_key_capture_api"/>
 
     <!-- Allows low-level access to manage key gestures.
          <p>Not for use by third-party applications.
@@ -8979,7 +9001,7 @@
         <p>Protection level: signature|role
     -->
     <permission android:name="android.permission.RECEIVE_SENSITIVE_NOTIFICATIONS"
-        android:protectionLevel="signature|role" />
+        android:protectionLevel="signature|preinstalled|knownSigner|role" />
 
     <!-- @SystemApi
          @FlaggedApi("android.app.bic_client")
@@ -9148,35 +9170,49 @@
 
     <!-- @SystemApi
         @FlaggedApi("android.content.pm.verification_service")
-        Allows app to be the verification agent to verify packages.
+        Allows app to be the developer verification agent to verify packages.
         <p>Protection level: signature|privileged
         @hide
     -->
-    <permission android:name="android.permission.VERIFICATION_AGENT"
+    <permission android:name="android.permission.DEVELOPER_VERIFICATION_AGENT"
         android:protectionLevel="signature|privileged"
         android:featureFlag="android.content.pm.verification_service"/>
 
     <!-- @SystemApi
         @FlaggedApi("android.content.pm.verification_service")
-        Must be required by a privileged {@link android.content.pm.verify.pkg.VerifierService}
+        Must be required by a privileged {@link android.content.pm.verify.developer.DeveloperVerifierService}
         to ensure that only the system can bind to it.
         This permission should not be held by anything other than the system.
         <p>Not for use by third-party applications. </p>
         <p>Protection level: signature
         @hide
     -->
-    <permission android:name="android.permission.BIND_VERIFICATION_AGENT"
+    <permission android:name="android.permission.BIND_DEVELOPER_VERIFICATION_AGENT"
         android:protectionLevel="internal"
         android:featureFlag="android.content.pm.verification_service" />
 
+    <!-- Permission required to access TV Watchdog Metrics
+     <p>Not for use by third-party applications.</p>
+     @hide -->
+    <permission android:name="android.permission.COLLECT_TV_WATCHDOG_METRICS"
+        android:protectionLevel="signature|privileged"
+        android:featureFlag="android.media.tv.flags.enable_tv_watchdog_emmc_protection" />
+
+    <!-- Permission required to control configuration for TV Watchdog Metrics
+     <p>Not for use by third-party applications.</p>
+     @hide -->
+    <permission android:name="android.permission.CONTROL_TV_WATCHDOG_CONFIG"
+        android:protectionLevel="signature|privileged"
+        android:featureFlag="android.media.tv.flags.enable_tv_watchdog_emmc_protection" />
+
     <!-- @SystemApi
         @FlaggedApi("android.content.pm.verification_service")
-        Allows an application to set user's response for an incomplete verification. This can be
+        Allows an application to set user's response for an incomplete developer verification. This can be
         held only by the default PackageInstaller package on the device
         <p>Protection level: internal|installer
         @hide
     -->
-    <permission android:name="android.permission.SET_VERIFICATION_USER_RESPONSE"
+    <permission android:name="android.permission.SET_DEVELOPER_VERIFICATION_USER_RESPONSE"
         android:protectionLevel="internal|installer"
         android:featureFlag="android.content.pm.verification_service" />
 
