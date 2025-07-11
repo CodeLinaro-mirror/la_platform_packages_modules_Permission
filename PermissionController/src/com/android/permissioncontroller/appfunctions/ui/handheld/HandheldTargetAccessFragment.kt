@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.permissioncontroller.appfunctions.ui.handheld.v36r1
+package com.android.permissioncontroller.appfunctions.ui.handheld
 
 import androidx.annotation.StringRes
 import androidx.preference.PreferenceFragmentCompat
 import com.android.permissioncontroller.R
-import com.android.permissioncontroller.role.ui.handheld.SettingsFragment
+import com.android.permissioncontroller.common.ui.handheld.SettingsFragment
 
 // TODO(b/424652480): Use SettingsWithLargeHeader instead to get larger header components (e.g.
 //  icon, title, summary), and ensure supports style overlay
 /** Fragment for the app function agent list. */
-class HandheldAgentAccessFragment(val agentPackageName: String) :
-    SettingsFragment(), HandheldAgentAccessPreferenceFragment.Parent {
+class HandheldTargetAccessFragment(val targetPackage: String) :
+    SettingsFragment(), HandheldTargetAccessPreferenceFragment.Parent {
     override fun onCreatePreferenceFragment(): PreferenceFragmentCompat {
-        return HandheldAgentAccessPreferenceFragment.newInstance(agentPackageName)
+        return HandheldTargetAccessPreferenceFragment.newInstance(targetPackage)
     }
 
     @Override
     @StringRes
     override fun getEmptyTextResource(): Int {
-        return R.string.app_function_agent_access_empty
+        return R.string.app_function_target_access_empty
     }
 
     companion object {
@@ -42,8 +42,8 @@ class HandheldAgentAccessFragment(val agentPackageName: String) :
          * @return a new instance of this fragment
          */
         @JvmStatic
-        fun newInstance(agentPackageName: String): HandheldAgentAccessFragment {
-            return HandheldAgentAccessFragment(agentPackageName)
+        fun newInstance(targetPackage: String): HandheldTargetAccessFragment {
+            return HandheldTargetAccessFragment(targetPackage)
         }
     }
 }

@@ -13,33 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.permissioncontroller.appfunctions.ui.v36r1
+package com.android.permissioncontroller.appfunctions.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.android.permissioncontroller.appfunctions.ui.handheld.v36r1.HandheldTargetAccessFragment
-import com.android.permissioncontroller.role.ui.SettingsActivity
+import com.android.permissioncontroller.appfunctions.ui.handheld.HandheldAgentListFragment
+import com.android.permissioncontroller.common.ui.SettingsActivity
 
-/** Activity to manage app function target access. */
-class TargetAccessActivity : SettingsActivity() {
+/** Activity for the app function agent list. */
+class AgentListActivity : SettingsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val targetPackageName: String? = intent.getStringExtra(Intent.EXTRA_PACKAGE_NAME)
-        if (targetPackageName.isNullOrEmpty()) {
-            Log.e(LOG_TAG, "Unknown package: $targetPackageName")
-            finish()
-            return
-        }
-
         if (savedInstanceState == null) {
-            val fragment = HandheldTargetAccessFragment.newInstance(targetPackageName)
+            val fragment = HandheldAgentListFragment.newInstance()
             supportFragmentManager.beginTransaction().add(android.R.id.content, fragment).commit()
         }
-    }
-
-    companion object {
-        private val LOG_TAG = TargetAccessActivity::class.java.simpleName
     }
 }
