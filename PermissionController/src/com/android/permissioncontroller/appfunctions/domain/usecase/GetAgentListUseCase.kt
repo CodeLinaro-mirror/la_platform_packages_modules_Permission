@@ -19,29 +19,21 @@ package com.android.permissioncontroller.appfunctions.domain.usecase
 import android.os.Process
 import com.android.permissioncontroller.appfunctions.data.repository.AppFunctionRepository
 import com.android.permissioncontroller.appfunctions.domain.model.AppFunctionPackageInfo
-import com.android.permissioncontroller.common.model.Stateful
-import com.android.permissioncontroller.pm.data.repository.v31.PackageRepository
 
 /**
  * This use case returns a list of all valid app function agents.
  *
  * @param appFunctionRepository The repository to use to get the app function agents.
- * @param packageRepository The repository to use to get the package labels and icons.
+ * @param getAppFunctionPackageInfoUseCase The usecase to get [AppFunctionPackageInfo].
  */
 class GetAgentListUseCase(
     private val appFunctionRepository: AppFunctionRepository,
-    private val packageRepository: PackageRepository,
+    private val getAppFunctionPackageInfoUseCase: GetAppFunctionPackageInfoUseCase,
 ) {
-    suspend operator fun invoke(): Stateful<List<AppFunctionPackageInfo>> {
+    suspend operator fun invoke(): List<AppFunctionPackageInfo> {
         val agentPackageNames = appFunctionRepository.getValidAgents()
-        val agents =
-            agentPackageNames.map { agentPackageName ->
-                val label =
-                    packageRepository.getPackageLabel(agentPackageName, Process.myUserHandle())
-                val icon =
-                    packageRepository.getBadgedPackageIcon(agentPackageName, Process.myUserHandle())
-                AppFunctionPackageInfo(agentPackageName, label, icon)
-            }
-        return Stateful.Success(agents)
+        return agentPackageNames.map { agentPackageName ->
+            getAppFunctionPackageInfoUseCase(agentPackageName, Process.myUserHandle())
+        }
     }
 }
