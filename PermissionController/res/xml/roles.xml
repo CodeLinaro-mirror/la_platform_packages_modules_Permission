@@ -666,7 +666,7 @@
             <permission name="android.permission.ADD_TRUSTED_DISPLAY" minSdkVersion="33" />
             <permission name="android.permission.ADD_ALWAYS_UNLOCKED_DISPLAY" minSdkVersion="33" />
             <permission name="android.permission.ADD_MIRROR_DISPLAY"
-                featureFlag="android.companion.virtualdevice.flags.Flags.enableLimitedVdmRole" />
+                featureFlag="android.companion.virtualdevice.flags.Flags.vdmMirrorDisplayPermission" />
             <permission name="android.permission.SUBSCRIBE_TO_KEYGUARD_LOCKED_STATE"
                 minSdkVersion="33" />
             <permission name="android.permission.MANAGE_DEVICE_POLICY_ACCOUNT_MANAGEMENT"
@@ -1244,7 +1244,6 @@
     <role
         name="android.app.role.COMPANION_DEVICE_APP_STREAMING"
         behavior="v33.CompanionDeviceAppStreamingRoleBehavior"
-        description="@string/role_app_streaming_description"
         exclusive="false"
         exclusivity="none"
         minSdkVersion="33"
@@ -1257,7 +1256,7 @@
             <permission name="android.permission.RECORD_AUDIO" />
             <permission
                 name="android.permission.ADD_MIRROR_DISPLAY"
-                featureFlag="android.companion.virtualdevice.flags.Flags.enableLimitedVdmRole" />
+                featureFlag="android.companion.virtualdevice.flags.Flags.vdmMirrorDisplayPermission" />
             <!--TODO(b/201605314) For calling Telecom framework API for audio streaming-->
             <!--<permission name="android.permission.PROVIDE_CALL_ENDPOINTS" />-->
        </permissions>
@@ -1271,7 +1270,6 @@
         name="android.app.role.COMPANION_DEVICE_COMPUTER"
         allowBypassingQualification="true"
         behavior="v33.CompanionDeviceComputerRoleBehavior"
-        description="@string/role_companion_device_computer_description"
         exclusive="false"
         exclusivity="none"
         minSdkVersion="33"
@@ -1987,6 +1985,23 @@
         <app-ops>
             <app-op name="android:receive_sensitive_notifications" mode="allowed" minSdkVersion="35"/>
         </app-ops>
+    </role>
+
+    <role
+        name="android.app.role.COMPANION_DEVICE_MEDICAL"
+        behavior="v37.CompanionDeviceMedicalRoleBehavior"
+        featureFlag="android.companion.Flags.enableMedicalProfile"
+        exclusive="false"
+        exclusivity="none"
+        systemOnly="false"
+        visible="false">
+        <permissions>
+            <permission-set name="notifications" />
+            <permission-set name="nearby_devices" />
+        </permissions>
+        <app-op-permissions>
+            <app-op-permission name="android.permission.SCHEDULE_EXACT_ALARM" />
+        </app-op-permissions>
     </role>
 
 </roles>
