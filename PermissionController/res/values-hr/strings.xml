@@ -132,7 +132,7 @@
     <string name="perm_usage_adv_info_summary_2_items" msgid="3702175198750127822">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_summary_more_items" msgid="949055326299562218">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g> i još <xliff:g id="NUM">%3$s</xliff:g>"</string>
     <string name="permission_group_usage_subtitle_24h" msgid="5120155996322114181">"Vremenski slijed u kojem su aplikacije koristile dopuštenje <xliff:g id="PERMGROUP">%1$s</xliff:g> u posljednja 24 sata"</string>
-    <string name="permission_group_usage_subtitle_7d" msgid="1465828402260324654">"Kad su aplikacije koristile dopuštenje <xliff:g id="PERMGROUP">%1$s</xliff:g> u posljednjih sedam dana"</string>
+    <string name="permission_group_usage_subtitle_7d" msgid="1465828402260324654">"Vremenski slijed u kojem su aplikacije koristile dopuštenje <xliff:g id="PERMGROUP">%1$s</xliff:g> u posljednjih sedam dana"</string>
     <string name="permission_usage_access_dialog_subtitle" msgid="4171772805196955753">"Kad je ova aplikacija koristili vaše dopuštenje <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"Saznajte više"</string>
     <string name="learn_more_content_description" msgid="8673699744544502539">"Saznajte što podrazumijeva <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -715,8 +715,10 @@
     <string name="app_function_target_access_title" msgid="7415628605578155761">"Pristup agenta"</string>
     <string name="app_function_target_access_summary" msgid="6099120829640806490">"Agenti koji mogu pristupati informacijama i poduzimati radnje u ovoj aplikaciji u vaše ime"</string>
     <string name="app_function_device_settings_target_title" msgid="7310525289514611525">"Postavke uređaja"</string>
-    <string name="request_app_function_access_dialog_title" msgid="6549957496184641967">"Želite li aplikaciji <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> dopustiti pristup aplikaciji <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g>?"</string>
-    <string name="request_app_function_access_dialog_description" msgid="8841298093381343286">"To omogućuje aplikaciji <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> da pristupa podacima aplikacije <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> i poduzima radnje u ime korisnika."</string>
+    <!-- no translation found for request_app_function_access_dialog_title (877934835928912474) -->
+    <skip />
+    <!-- no translation found for request_app_function_access_dialog_description (155777384496379754) -->
+    <skip />
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Dopusti"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Nemoj dopustiti"</string>
 </resources>

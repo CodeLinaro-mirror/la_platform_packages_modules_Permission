@@ -2328,6 +2328,15 @@
     <permission android:name="android.permission.NETWORK_FACTORY"
                 android:protectionLevel="signature|role" />
 
+    <!-- @SystemApi @hide Allows applications to register a NetworkAgent for its own use.
+         <p>Such networks are not available to other applications on the device unless they have
+         the CONNECTIVITY_USE_RESTRICTED_NETWORKS permission.
+         @FlaggedApi(android.net.platform.flags.Flags.FLAG_CREATE_APP_SPECIFIC_NETWORK_PERMISSION)
+    -->
+    <permission android:name="android.permission.CREATE_APP_SPECIFIC_NETWORK"
+                android:protectionLevel="signature|privileged"
+                android:featureFlag="android.net.platform.flags.create_app_specific_network_permission" />
+
     <!-- @SystemApi @hide Allows applications to access network stats provider -->
     <permission android:name="android.permission.NETWORK_STATS_PROVIDER"
                 android:protectionLevel="signature" />
@@ -2511,6 +2520,16 @@
                 android:description="@string/permdesc_nearby_wifi_devices"
                 android:label="@string/permlab_nearby_wifi_devices"
                 android:protectionLevel="dangerous" />
+
+    <!-- Required to be able to advertise and connect to local network devices.
+         @FlaggedApi(android.permission.flags.Flags.FLAG_ACCESS_LOCAL_NETWORK_PERMISSION_ENABLED)
+         <p>Protection level: dangerous -->
+    <permission android:name="android.permission.ACCESS_LOCAL_NETWORK"
+        android:permissionGroup="android.permission-group.UNDEFINED"
+        android:description="@string/permdesc_access_local_network"
+        android:label="@string/permlab_access_local_network"
+        android:protectionLevel="dangerous"
+        android:featureFlag="android.permission.flags.access_local_network_permission_enabled" />
 
     <!-- Required to be able to range to devices using generic ranging module.
          @FlaggedApi("android.permission.flags.ranging_permission_enabled")
@@ -9233,11 +9252,12 @@
 
     <!-- Allows an application to programmatically move and resize its tasks when the system is in
         a state that allows such operations, e.g. in a desktop-like environment. It is only
-        extended to the {@link android.app.role.RoleManager#ROLE_BROWSER default browser}.
-        <p>Protection level: internal|role
+        extended to the {@link android.app.role.RoleManager#ROLE_BROWSER default browser} and OEM
+        specific signature apps.
+        <p>Protection level: signature|role
         @FlaggedApi(com.android.window.flags.Flags.FLAG_ENABLE_WINDOW_REPOSITIONING_API) -->
     <permission android:name="android.permission.REPOSITION_SELF_WINDOWS"
-        android:protectionLevel="internal|role"
+        android:protectionLevel="signature|role"
         android:featureFlag="com.android.window.flags.enable_window_repositioning_api" />
 
     <!-- @SystemApi

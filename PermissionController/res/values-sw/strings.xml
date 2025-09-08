@@ -128,7 +128,7 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Dashibodi ya faragha"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Angalia programu zilizotumia ruhusa hivi majuzi"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Matumizi ya <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
-    <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Angalia ruhusa zingine"</string>
+    <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Angalia ruhusa nyingine"</string>
     <string name="perm_usage_adv_info_summary_2_items" msgid="3702175198750127822">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_summary_more_items" msgid="949055326299562218">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g> na <xliff:g id="NUM">%3$s</xliff:g> zaidi"</string>
     <string name="permission_group_usage_subtitle_24h" msgid="5120155996322114181">"Rekodi ya wakati ambapo programu zilitumia <xliff:g id="PERMGROUP">%1$s</xliff:g> katika saa 24 zilizopita"</string>
@@ -715,8 +715,10 @@
     <string name="app_function_target_access_title" msgid="7415628605578155761">"Ruhusa za ufikiaji za mifumo tekelezi"</string>
     <string name="app_function_target_access_summary" msgid="6099120829640806490">"Mifumo tekelezi inayoweza kufikia maelezo na kutekeleza vitendo kwa niaba yako katika programu hii"</string>
     <string name="app_function_device_settings_target_title" msgid="7310525289514611525">"Mipangilio ya Kifaa"</string>
-    <string name="request_app_function_access_dialog_title" msgid="6549957496184641967">"Ungependa kuruhusu <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> ifikie <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g>?"</string>
-    <string name="request_app_function_access_dialog_description" msgid="8841298093381343286">"Hii huruhusu <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> ifikie maelezo ya <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> na itekeleze vitendo kwa niaba ya mtumiaji."</string>
+    <!-- no translation found for request_app_function_access_dialog_title (877934835928912474) -->
+    <skip />
+    <!-- no translation found for request_app_function_access_dialog_description (155777384496379754) -->
+    <skip />
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Ruhusu"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Usiruhusu"</string>
 </resources>
