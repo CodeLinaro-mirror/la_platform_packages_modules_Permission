@@ -106,7 +106,7 @@
     <string name="permission_summary_disabled_by_admin_background_only" msgid="3127091456731845646">"Prístup na pozadí bol zakázaný správcom"</string>
     <string name="permission_summary_enabled_by_admin_background_only" msgid="9132423838440275757">"Prístup na pozadí bol povolený správcom"</string>
     <string name="permission_summary_enabled_by_admin_foreground_only" msgid="1298432715610745358">"Prístup na popredí bol povolený správcom"</string>
-    <string name="permission_summary_enabled_system_fixed" msgid="2438344700184127274">"Zariadenie vyžaduje toto povolenie na prevádzku"</string>
+    <string name="permission_summary_enabled_system_fixed" msgid="2438344700184127274">"Zariadenie vyžaduje toto povolenie, aby mohlo fungovať"</string>
     <!-- no translation found for background_access_chooser_dialog_choices:0 (1351721623256561996) -->
     <!-- no translation found for background_access_chooser_dialog_choices:1 (9127301153688725448) -->
     <!-- no translation found for background_access_chooser_dialog_choices:2 (4305536986042401191) -->
@@ -715,8 +715,10 @@
     <string name="app_function_target_access_title" msgid="7415628605578155761">"Prístup agenta"</string>
     <string name="app_function_target_access_summary" msgid="6099120829640806490">"Agenty, ktoré majú prístup k informáciám a môžu za vás vykonávať akcie v tejto aplikácii"</string>
     <string name="app_function_device_settings_target_title" msgid="7310525289514611525">"Nastavenia zariadenia"</string>
-    <string name="request_app_function_access_dialog_title" msgid="6549957496184641967">"Chcete povoliť aplikácii <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> prístup k aplikácii <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g>?"</string>
-    <string name="request_app_function_access_dialog_description" msgid="8841298093381343286">"Aplikácii <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> to umožňuje získať prístup k informáciám aplikácie <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> a vykonávať akcie v mene používateľa."</string>
+    <!-- no translation found for request_app_function_access_dialog_title (877934835928912474) -->
+    <skip />
+    <!-- no translation found for request_app_function_access_dialog_description (155777384496379754) -->
+    <skip />
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Povoliť"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Nepovoliť"</string>
 </resources>
