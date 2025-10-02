@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.android.permissioncontroller.appfunctions.ui.viewmodel
 
 import android.app.Application
+import android.app.appfunctions.AppFunctionManager
 import android.app.appfunctions.AppFunctionManager.OnAppFunctionAccessChangedListener
 import android.graphics.drawable.Drawable
-import android.icu.text.Collator
+import android.os.Build
 import android.os.Process
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
@@ -27,8 +30,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.android.permissioncontroller.appfunctions.data.repository.AppFunctionRepository
-import com.android.permissioncontroller.appfunctions.data.repository.AppFunctionRepository.Companion.DEVICE_SETTINGS_TARGET_PACKAGE_NAME
-import com.android.permissioncontroller.appfunctions.domain.model.AppFunctionPackageInfo
 import com.android.permissioncontroller.appfunctions.domain.usecase.GetAccessRequestStateUseCase
 import com.android.permissioncontroller.appfunctions.domain.usecase.GetAppFunctionPackageInfoUseCase
 import com.android.permissioncontroller.appfunctions.domain.usecase.GetDeviceSettingsTargetIconUseCase
@@ -43,29 +44,25 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class AgentAccessViewModel(
-    private val application: Application,
+class ManageAccessViewModel(
+    application: Application,
     private val agentPackageName: String,
+    private val targetPackageName: String,
     private val appFunctionRepository: AppFunctionRepository,
-    private val getDeviceSettingsTargetIconUseCase: GetDeviceSettingsTargetIconUseCase,
     private val getAppFunctionPackageInfoUseCase: GetAppFunctionPackageInfoUseCase,
+    private val getDeviceSettingsTargetIconUseCase: GetDeviceSettingsTargetIconUseCase,
     private val getAccessRequestStateUseCase: GetAccessRequestStateUseCase,
     private val updateAccessUseCase: UpdateAccessUseCase,
     scope: CoroutineScope? = null,
     val dispatcher: CoroutineDispatcher = Dispatchers.Default,
-    collator: Collator =
-        Collator.getInstance(application.resources.configuration.getLocales().get(0)),
 ) : AndroidViewModel(application) {
     private val coroutineScope = scope ?: viewModelScope
-    private val targetListComparator: Comparator<TargetItem> =
-        compareBy(collator) { it.packageInfo.label }
 
     private val accessChangedListener = OnAppFunctionAccessChangedListener { refresh() }
     private val packageChangeListener = PackageChangeListener(::refresh)
 
-    // Backing property to avoid state updates from other classes
-    private val _uiStateFlow = MutableStateFlow<Stateful<AgentAccessUiState>>(Stateful.Loading())
-    val uiStateFlow: StateFlow<Stateful<AgentAccessUiState>> = _uiStateFlow
+    private val _uiStateFlow = MutableStateFlow<Stateful<ManageAccessUiState>>(Stateful.Loading())
+    val uiStateFlow: StateFlow<Stateful<ManageAccessUiState>> = _uiStateFlow
 
     init {
         appFunctionRepository.addAccessChangedListener(
@@ -85,84 +82,84 @@ class AgentAccessViewModel(
     private fun refresh() {
         coroutineScope.launch(dispatcher) {
             try {
+                val grantState = getAccessRequestStateUseCase(agentPackageName, targetPackageName)
                 val agentPackageInfo =
                     getAppFunctionPackageInfoUseCase(agentPackageName, Process.myUserHandle())
-                val targetPackageNames = appFunctionRepository.getValidTargets()
-                val accessRequestStates =
-                    getAccessRequestStateUseCase(agentPackageName, targetPackageNames)
+
+                val targetLabel: CharSequence
+                val targetIcon: Drawable?
+                if (
+                    targetPackageName == AppFunctionRepository.DEVICE_SETTINGS_TARGET_PACKAGE_NAME
+                ) {
+                    targetLabel = targetPackageName
+                    targetIcon = getDeviceSettingsTargetIconUseCase(Process.myUserHandle())
+                } else {
+                    val targetPackageInfo =
+                        getAppFunctionPackageInfoUseCase(targetPackageName, Process.myUserHandle())
+                    targetLabel = targetPackageInfo.label
+                    targetIcon = targetPackageInfo.icon
+                }
                 _uiStateFlow.value =
-                    Stateful.Success(
-                        createAgentAccessUiState(agentPackageInfo, accessRequestStates)
-                    )
+                    if (grantState != AppFunctionManager.ACCESS_REQUEST_STATE_UNREQUESTABLE) {
+                        Stateful.Success(
+                            ManageAccessUiState(
+                                agentPackageInfo.label,
+                                targetLabel,
+                                agentPackageInfo.icon,
+                                targetIcon,
+                                grantState == AppFunctionManager.ACCESS_REQUEST_STATE_GRANTED,
+                            )
+                        )
+                    } else {
+                        Stateful.Failure(
+                            throwable =
+                                IllegalArgumentException("ACCESS_REQUEST_STATE_UNREQUESTABLE")
+                        )
+                    }
             } catch (e: Exception) {
                 _uiStateFlow.value = Stateful.Failure(throwable = e)
             }
         }
     }
 
-    private fun createAgentAccessUiState(
-        agentPackageInfo: AppFunctionPackageInfo,
-        accessRequestStates: Map<String, Boolean> = emptyMap(),
-    ): AgentAccessUiState {
-        val deviceSettings =
-            accessRequestStates.get(DEVICE_SETTINGS_TARGET_PACKAGE_NAME)?.let {
-                DeviceSettingsItem(getDeviceSettingsTargetIconUseCase(Process.myUserHandle()), it)
-            }
-        val targets =
-            accessRequestStates
-                .filter { it.key != DEVICE_SETTINGS_TARGET_PACKAGE_NAME }
-                .mapNotNull {
-                    val targetPackageInfo =
-                        getAppFunctionPackageInfoUseCase(it.key, Process.myUserHandle())
-                    return@mapNotNull TargetItem(targetPackageInfo, it.value)
-                }
-                .sortedWith(targetListComparator)
-        return AgentAccessUiState(agentPackageInfo, deviceSettings, targets)
-    }
-
-    fun updateDeviceSettingsAccessState(granted: Boolean) {
-        coroutineScope.launch(dispatcher) {
-            updateAccessUseCase(agentPackageName, DEVICE_SETTINGS_TARGET_PACKAGE_NAME, granted)
-        }
-    }
-
-    fun updateAccessState(targetPackageName: String, granted: Boolean) {
+    fun updateAccessState(granted: Boolean) {
         coroutineScope.launch(dispatcher) {
             updateAccessUseCase(agentPackageName, targetPackageName, granted)
         }
     }
 }
 
-data class AgentAccessUiState(
-    val agent: AppFunctionPackageInfo,
-    val deviceSettings: DeviceSettingsItem? = null,
-    val targets: List<TargetItem> = emptyList(),
+/** The data class for UI state of ManageAccess screen. */
+data class ManageAccessUiState(
+    val agentLabel: String,
+    val targetLabel: String,
+    val agentIcon: Drawable?,
+    val targetIcon: Drawable?,
+    val accessGranted: Boolean,
 )
 
-data class DeviceSettingsItem(val icon: Drawable?, val accessGranted: Boolean)
-
-data class TargetItem(val packageInfo: AppFunctionPackageInfo, val accessGranted: Boolean)
-
-/** Factory for [AgentAccessViewModel]. */
-class AgentAccessViewModelFactory(
+@RequiresApi(Build.VERSION_CODES.BAKLAVA)
+class ManageAccessViewModelFactory(
     private val application: Application,
     private val agentPackageName: String,
+    private val targetPackageName: String,
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-        val appFunctionRepository = AppFunctionRepository.getInstance(application)
         val packageRepository = PackageRepository.getInstance(application)
+        val appFunctionRepository = AppFunctionRepository.getInstance(application)
+        val getAppFunctionPackageInfoUseCase = GetAppFunctionPackageInfoUseCase(packageRepository)
         val getDeviceSettingsTargetIconUseCase =
             GetDeviceSettingsTargetIconUseCase(packageRepository)
-        val getAppFunctionPackageInfoUseCase = GetAppFunctionPackageInfoUseCase(packageRepository)
         val getAccessRequestStateUseCase = GetAccessRequestStateUseCase(appFunctionRepository)
         val updateAccessUseCase = UpdateAccessUseCase(appFunctionRepository)
-        return AgentAccessViewModel(
+        return ManageAccessViewModel(
             application,
             agentPackageName,
+            targetPackageName,
             appFunctionRepository,
-            getDeviceSettingsTargetIconUseCase,
             getAppFunctionPackageInfoUseCase,
+            getDeviceSettingsTargetIconUseCase,
             getAccessRequestStateUseCase,
             updateAccessUseCase,
         )
