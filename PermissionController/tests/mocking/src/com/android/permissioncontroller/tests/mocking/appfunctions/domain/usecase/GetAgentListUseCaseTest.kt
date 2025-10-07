@@ -21,6 +21,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import com.android.permissioncontroller.appfunctions.domain.model.AppFunctionPackageInfo
 import com.android.permissioncontroller.appfunctions.domain.usecase.GetAgentListUseCase
+import com.android.permissioncontroller.appfunctions.domain.usecase.GetAppFunctionPackageInfoUseCase
 import com.android.permissioncontroller.tests.mocking.appfunctions.data.repository.FakeAppFunctionRepository
 import com.android.permissioncontroller.tests.mocking.pm.data.repository.FakePackageRepository
 import com.google.common.truth.Truth.assertThat
@@ -39,10 +40,12 @@ class GetAgentListUseCaseTest {
             agentPackagesAndLabels.map { AppFunctionPackageInfo(it.key, it.value, null) }
         val useCase =
             GetAgentListUseCase(
-                FakeAppFunctionRepository(agentPackageNames),
-                FakePackageRepository(packagesAndLabels = agentPackagesAndLabels),
+                FakeAppFunctionRepository(agents = agentPackageNames),
+                GetAppFunctionPackageInfoUseCase(
+                    FakePackageRepository(packagesAndLabels = agentPackagesAndLabels)
+                ),
             )
-        val actualAgents = useCase().value
+        val actualAgents = useCase()
         assertThat(actualAgents).containsExactlyElementsIn(expectedAgents)
     }
 

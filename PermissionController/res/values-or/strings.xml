@@ -404,8 +404,6 @@
     <string name="role_automotive_navigation_request_title" msgid="7525693151489384300">"<xliff:g id="APP_NAME">%1$s</xliff:g>କୁ ଆପଣଙ୍କ ଡିଫଲ୍ଟ ନାଭିଗେସନ ଆପ ଭାବେ ସେଟ କରିବେ?"</string>
     <string name="role_automotive_navigation_request_description" msgid="7073023813249245540">"କୌଣସି ଅନୁମତି ଆବଶ୍ୟକ ନାହିଁ"</string>
     <string name="role_watch_description" msgid="267003778693177779">"ଆପଣଙ୍କ ବିଜ୍ଞପ୍ତିଗୁଡ଼ିକ ସହ ଇଣ୍ଟରାକ୍ଟ କରିବା ଏବଂ ଆପଣଙ୍କ ଫୋନ୍, SMS, ଯୋଗାଯୋଗ ଓ କ୍ୟାଲେଣ୍ଡର ଅନୁମତିଗୁଡ଼ିକୁ ଆକ୍ସେସ୍ କରିବା ପାଇଁ <xliff:g id="APP_NAME">%1$s</xliff:g>କୁ ଅନୁମତି ଦିଆଯିବ।"</string>
-    <string name="role_app_streaming_description" msgid="7341638576226183992">"ଆପଣଙ୍କ ବିଜ୍ଞପ୍ତିଗୁଡ଼ିକ ସହ ଇଣ୍ଟରାକ୍ଟ କରିବା ଏବଂ ସଂଯୋଗ କରାଯାଇଥିବା ଡିଭାଇସଗୁଡ଼ିକରେ ଆପଣଙ୍କର ଆପଗୁଡ଼ିକ ଷ୍ଟ୍ରିମ କରିବା ପାଇଁ <xliff:g id="APP_NAME">%1$s</xliff:g>କୁ ଅନୁମତି ଦିଆଯିବ।"</string>
-    <string name="role_companion_device_computer_description" msgid="416099879217066377">"ଏହି ସେବା ଆପଣଙ୍କ ଫୋନରୁ ଆପଣଙ୍କ ଫଟୋ, ମିଡିଆ ଏବଂ ବିଜ୍ଞପ୍ତିଗୁଡ଼ିକୁ ଅନ୍ୟ ଡିଭାଇସଗୁଡ଼ିକ ସହ ସେୟାର କରେ।"</string>
     <string name="role_notes_label" msgid="7451627001058089536">"ଡିଫଲ୍ଟ ନୋଟ୍ସ ଆପ"</string>
     <string name="role_notes_short_label" msgid="8796604147546125285">"ନୋଟ୍ସ ଆପ"</string>
     <string name="role_notes_description" msgid="8496852798616883551">"ଆପଣଙ୍କ ଡିଭାଇସରେ ଆପଣଙ୍କୁ ନୋଟ ନେବା ପାଇଁ ଅନୁମତି ଦେଉଥିବା ଆପ୍ସ"</string>
@@ -703,4 +701,22 @@
     <string name="wear_check_your_phone_title" msgid="7957291983474981420">"ଆପଣଙ୍କ ଫୋନ ଯାଞ୍ଚ କରନ୍ତୁ"</string>
     <string name="wear_phone_connection_error" msgid="8934350845737930783">"ଆପଣଙ୍କ ଫୋନ ସହ କନେକ୍ଟ କରାଯାଇପାରିଲା ନାହିଁ"</string>
     <string name="wear_phone_connection_should_retry" msgid="2835355845567088003">"ପୁଣି ଚେଷ୍ଟା କରିବେ?"</string>
+    <string name="app_function_access_settings_title" msgid="8891907044622237648">"ଏଜେଣ୍ଟ"</string>
+    <string name="app_function_access_settings_summary" msgid="8574075661031712914">"ଆପ୍ସରେ ସୂଚନାକୁ ଆକ୍ସେସ କରିପାରୁଥିବା କିମ୍ବା ପଦକ୍ଷେପ ନେଇପାରୁଥିବା ଏଜେଣ୍ଟ"</string>
+    <string name="app_function_agent_list_title" msgid="5292351554854465261">"ଏଜେଣ୍ଟ"</string>
+    <string name="app_function_agent_list_summary" msgid="5591295514604863634">"ଏହି ଡିଭାଇସରେ ଏଜେଣ୍ଟଗୁଡ଼ିକ ପାଇଁ ଆକ୍ସେସ ପରିଚାଳନା କରନ୍ତୁ"</string>
+    <string name="app_function_agent_list_empty_title" msgid="397515613920663055">"କୌଣସି ଏଜେଣ୍ଟ ଆପ୍ସ ଉପଲବ୍ଧ ନାହିଁ"</string>
+    <string name="app_function_agent_list_empty_summary" msgid="610653760323174019">"ଏହି ଫିଚରକୁ ସକ୍ଷମ କରିବା ପାଇଁ ଆପଣଙ୍କ ଡିଭାଇସରେ ଏକ ଏଜେଣ୍ଟ ଆପ ଇନଷ୍ଟଲ କରନ୍ତୁ"</string>
+    <string name="app_function_agent_access_title" msgid="2066670300909436012">"ଆପ ଆକ୍ସେସ"</string>
+    <string name="app_function_agent_access_summary" msgid="6732843077882189740">"ଆପଣଙ୍କ ପାଇଁ ସୂଚନା ପାଇବା ଏବଂ ପଦକ୍ଷେପ ନେବାକୁ ଏହି ଏଜେଣ୍ଟ ଆକ୍ସେସ କରିପାରୁଥିବା ଆପ୍ସ ଏବଂ ସେଟିଂସ"</string>
+    <string name="app_function_agent_access_app_targets_empty_title" msgid="774337187158063143">"<xliff:g id="APP_NAME">%1$s</xliff:g> ଆକ୍ସେସ ପାଇଁ କୌଣସି ଆପ୍ସ ଉପଲବ୍ଧ ନାହିଁ"</string>
+    <string name="app_function_agent_access_system_targets_category_title" msgid="7563475048220758703">"ସିଷ୍ଟମ"</string>
+    <string name="app_function_agent_access_app_targets_category_title" msgid="620431387701237004">"ଆପ୍ସ"</string>
+    <string name="app_function_target_access_title" msgid="7415628605578155761">"ଏଜେଣ୍ଟ ଆକ୍ସେସ"</string>
+    <string name="app_function_target_access_summary" msgid="6099120829640806490">"ଏହି ଆପରେ ସୂଚନା ଆକ୍ସେସ କରିପାରୁଥିବା ଏବଂ ଆପଣଙ୍କ ପାଇଁ ପଦକ୍ଷେପ ନେଇପାରୁଥିବା ଏଜେଣ୍ଟ"</string>
+    <string name="app_function_device_settings_target_title" msgid="7310525289514611525">"ଡିଭାଇସ ସେଟିଂସ"</string>
+    <string name="request_app_function_access_dialog_title" msgid="6549957496184641967">"<xliff:g id="TARGET_APP_NAME">%2$s</xliff:g>କୁ ଆକ୍ସେସ କରିବାକୁ <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g>କୁ ଅନୁମତି ଦେବେ?"</string>
+    <string name="request_app_function_access_dialog_description" msgid="8841298093381343286">"ଏହା <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g>କୁ <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> ସୂଚନା ଆକ୍ସେସ କରି ୟୁଜରଙ୍କ ତରଫରୁ ପଦକ୍ଷେପ ନେବାକୁ ଅନୁମତି ଦିଏ।"</string>
+    <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"ଅନୁମତି ଦିଅନ୍ତୁ"</string>
+    <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"ଅନୁମତି ଦିଅନାହିଁ"</string>
 </resources>

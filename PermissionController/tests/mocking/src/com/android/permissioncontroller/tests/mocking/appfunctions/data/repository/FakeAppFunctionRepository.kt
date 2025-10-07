@@ -13,28 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.android.permissioncontroller.tests.mocking.appfunctions.data.repository
 
+import android.app.appfunctions.AppFunctionManager.ACCESS_FLAG_USER_DENIED
+import android.app.appfunctions.AppFunctionManager.ACCESS_FLAG_USER_GRANTED
+import android.app.appfunctions.AppFunctionManager.ACCESS_REQUEST_STATE_DENIED
+import android.app.appfunctions.AppFunctionManager.ACCESS_REQUEST_STATE_GRANTED
+import android.app.appfunctions.AppFunctionManager.ACCESS_REQUEST_STATE_UNREQUESTABLE
 import com.android.permissioncontroller.appfunctions.data.repository.AppFunctionRepository
 
 /** Fake implementation of [AppFunctionRepository] for testing. */
 class FakeAppFunctionRepository(
     private val agents: List<String> = emptyList(),
     private val targets: List<String> = emptyList(),
-    private val accessFlags: Map<Pair<String, String>, Int> = emptyMap(),
+    accessFlags: Map<Pair<String, String>, Int> = mutableMapOf(),
 ) : AppFunctionRepository {
+    private val _accessFlags: MutableMap<Pair<String, String>, Int> = accessFlags.toMutableMap()
+
     override suspend fun getValidAgents(): List<String> = agents
 
     override suspend fun getValidTargets(): List<String> = targets
 
-    // ACCESS_REQUEST_STATE_GRANTED is 0, so returning default value 2 which is
-    // ACCESS_REQUEST_STATE_UNREQUESTABLE
     override suspend fun getAccessRequestState(
         agentPackageName: String,
         targetPackageName: String,
-    ): Int = accessFlags.getOrDefault(agentPackageName to targetPackageName, 2)
+    ): Int {
+        val flags = _accessFlags.getOrDefault(agentPackageName to targetPackageName, 0)
+        return when {
+            (flags and FLAG_MASK) == ACCESS_FLAG_USER_GRANTED -> ACCESS_REQUEST_STATE_GRANTED
+            (flags and FLAG_MASK) == ACCESS_FLAG_USER_DENIED -> ACCESS_REQUEST_STATE_DENIED
+            else -> ACCESS_REQUEST_STATE_UNREQUESTABLE
+        }
+    }
 
     override suspend fun getAccessFlags(agentPackageName: String, targetPackageName: String): Int =
-        accessFlags.getOrDefault(agentPackageName to targetPackageName, 0)
+        _accessFlags.getOrDefault(agentPackageName to targetPackageName, 0)
+
+    override suspend fun updateAccessFlags(
+        agentPackageName: String,
+        targetPackageName: String,
+        flagMask: Int,
+        flags: Int,
+    ) {
+        _accessFlags[agentPackageName to targetPackageName] = flagMask and flags
+    }
+
+    companion object {
+        private const val FLAG_MASK = ACCESS_FLAG_USER_GRANTED or ACCESS_FLAG_USER_DENIED
+    }
 }
