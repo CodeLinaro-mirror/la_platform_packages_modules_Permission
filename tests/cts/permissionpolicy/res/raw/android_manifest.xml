@@ -6694,6 +6694,14 @@
     <permission android:name="android.permission.USE_COMPANION_TRANSPORTS"
         android:protectionLevel="signature" />
 
+    <!-- @SystemApi Allows an application to send and receive PCC messages via CDM transports.
+        @FlaggedApi(android.companion.Flags.FLAG_TRUSTED_DEVICES)
+         @hide -->
+    <permission android:name="android.permission.ACCESS_COMPANION_MESSAGE_PCC"
+        android:protectionLevel="signature|knownSigner"
+        android:knownCerts="@array/config_cdmKnownSignersPCC"
+        android:featureFlag="android.companion.trusted_devices" />
+
     <!-- Allows an application to create new companion device associations.
          @SystemApi
          @hide -->
@@ -9382,6 +9390,19 @@
     <permission android:name="android.permission.CONTROL_TV_WATCHDOG_CONFIG"
         android:protectionLevel="signature|privileged"
         android:featureFlag="android.media.tv.flags.enable_tv_watchdog_emmc_protection" />
+
+    <!-- Permission required to set or update the anomaly detector configuration via
+         {@see android.os.AnomalyDetectorManager}.
+         Only one app per device is permitted to hold this permission and set or update the config.
+         This uniqueness is enforced by CTS tests.
+         <p>Protection level: signature|privileged
+         @FlaggedApi(android.os.profiling.anomaly.flags.Flags.FLAG_ANOMALY_DETECTOR_CORE)
+         @SystemApi
+         @hide
+    -->
+    <permission android:name="android.permission.CONFIGURE_ANOMALY_DETECTOR"
+        android:protectionLevel="signature|privileged"
+        android:featureFlag="android.os.profiling.anomaly.flags.anomaly_detector_core" />
 
     <!-- @FlaggedApi(android.media.audio.Flags.FLAG_GUARD_STREAM_VOLUME_APIS)
     Purpose guarded permission to query volume-related APIs.

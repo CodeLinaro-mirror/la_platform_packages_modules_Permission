@@ -18,6 +18,8 @@ package com.android.permissioncontroller.tests.mocking.appfunctions.ui.viewmodel
 import android.app.appfunctions.AppFunctionManager.ACCESS_FLAG_USER_DENIED
 import android.app.appfunctions.AppFunctionManager.ACCESS_FLAG_USER_GRANTED
 import android.os.Build
+import android.platform.test.annotations.RequiresFlagsEnabled
+import android.platform.test.flag.junit.DeviceFlagsValueProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import com.android.dx.mockito.inline.extended.ExtendedMockito
@@ -40,6 +42,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
@@ -56,8 +59,14 @@ import org.mockito.quality.Strictness
  * [TargetAccessViewModel]
  */
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.BAKLAVA)
+@RequiresFlagsEnabled(
+    TargetAccessViewModelTest.FLAG_APP_FUNCTION_ACCESS_API_ENABLED,
+    TargetAccessViewModelTest.FLAG_APP_FUNCTION_ACCESS_UI_ENABLED,
+)
 @RunWith(AndroidJUnit4::class)
 class TargetAccessViewModelTest {
+    @get:Rule val checkFlagsRule = DeviceFlagsValueProvider.createCheckFlagsRule()
+
     @Mock private lateinit var application: PermissionControllerApplication
 
     private lateinit var appFunctionRepository: AppFunctionRepository
@@ -105,7 +114,7 @@ class TargetAccessViewModelTest {
         val uiState = getTargetAccessUiState(viewModel)
 
         assertTrue(uiState is Stateful.Success)
-        // Correct Target AppFunctionPackageInfo returned
+        // Correct Target returned
         assertThat(uiState.value!!.targetPackageName).isEqualTo(testTarget)
 
         // Correct Agents returned
@@ -136,7 +145,7 @@ class TargetAccessViewModelTest {
         val uiState = getTargetAccessUiState(viewModel)
 
         assertTrue(uiState is Stateful.Success)
-        // Correct Target AppFunctionPackageInfo returned
+        // Correct Target returned
         assertThat(uiState.value!!.targetPackageName).isEqualTo(testTarget)
 
         // Correct Targets returned
@@ -147,11 +156,12 @@ class TargetAccessViewModelTest {
     }
 
     @Test
-    fun updateAccessState() = runTest {
+    fun onAccessStateUpdated() = runTest {
         val testAgent = TEST_AGENT_PACKAGE_NAME
         val viewModel = getViewModel(TEST_TARGET_PACKAGE_NAME)
+        val updateAccessUseCase = UpdateAccessUseCase(appFunctionRepository)
 
-        viewModel.updateAccessState(testAgent, false)
+        updateAccessUseCase(TEST_AGENT_PACKAGE_NAME, TEST_TARGET_PACKAGE_NAME, false)
         assertThat(
                 getTargetAccessUiState(viewModel).value!!.allowedAgentPackageNames.filter {
                     it == testAgent
@@ -165,7 +175,7 @@ class TargetAccessViewModelTest {
             )
             .contains(testAgent)
 
-        viewModel.updateAccessState(testAgent, true)
+        updateAccessUseCase(TEST_AGENT_PACKAGE_NAME, TEST_TARGET_PACKAGE_NAME, true)
         assertThat(
                 getTargetAccessUiState(viewModel).value!!.allowedAgentPackageNames.filter {
                     it == testAgent
@@ -186,7 +196,6 @@ class TargetAccessViewModelTest {
             agentPackageName,
             appFunctionRepository,
             GetAccessRequestStateUseCase(appFunctionRepository),
-            UpdateAccessUseCase(appFunctionRepository),
             backgroundScope,
             StandardTestDispatcher(testScheduler),
         )
@@ -200,6 +209,13 @@ class TargetAccessViewModelTest {
     }
 
     companion object {
+        // Flag lib changes has caused issues with jarjar and now annotations require the jarjar
+        // package prepended to the flag string
+        const val FLAG_APP_FUNCTION_ACCESS_API_ENABLED =
+            "com.android.permissioncontroller.jarjar.android.permission.flags.app_function_access_api_enabled"
+        const val FLAG_APP_FUNCTION_ACCESS_UI_ENABLED =
+            "com.android.permissioncontroller.jarjar.android.permission.flags.app_function_access_ui_enabled"
+
         private const val TEST_AGENT_PACKAGE_NAME = "test.agent.package"
         private const val TEST_AGENT_PACKAGE_NAME2 = "test.agent.package2"
         private const val TEST_AGENT_PACKAGE_NAME3 = "test.agent.package3"
