@@ -1548,6 +1548,10 @@
                 featureFlag="android.app.appfunctions.flags.Flags.enableAppFunctionManager" />
             <permission name="android.permission.MANAGE_DEFAULT_APPLICATIONS" minSdkVersion="36"
                 featureFlag="com.android.permission.flags.Flags.crossUserRoleEnabled" />
+            <permission name="android.permission.COPY_ACCOUNTS"
+                        featureFlag="android.permission.flags.Flags.devicePolicyManagementRoleSplitCreateManagedProfileEnabled" />
+            <permission name="android.permission.REMOVE_ACCOUNTS"
+                        featureFlag="android.permission.flags.Flags.devicePolicyManagementRoleSplitCreateManagedProfileEnabled" />
         </permissions>
     </role>
 
@@ -1778,6 +1782,10 @@
             <permission name="android.permission.ACCESS_BACKGROUND_LOCATION" />
             <permission name="android.permission.ACTIVITY_RECOGNITION" />
             <permission name="android.permission.health.READ_HEART_RATE" minSdkVersion="36"/>
+            <permission name="android.permission.health.READ_OXYGEN_SATURATION"
+                featureFlag="android.permission.flags.Flags.granularHealthPermissionsPhaseTwoEnabled" />
+            <permission name="android.permission.health.READ_SKIN_TEMPERATURE"
+                featureFlag="android.permission.flags.Flags.granularHealthPermissionsPhaseTwoEnabled" />
             <permission name="android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND" minSdkVersion="36"/>
         </permissions>
     </role>
