@@ -660,7 +660,7 @@
     <string name="data_sharing_updates_title" msgid="7996933386875213859">"Локация деректерін бөлісудегі өзгерістер"</string>
     <string name="data_sharing_updates_summary" msgid="764113985772233889">"Локация деректеріңізді бөлісу жолын өзгерткен қолданбаларды тексеру"</string>
     <string name="data_sharing_updates_subtitle" msgid="6311537708950632329">"Осы қолданбалар локация деректерін бөлісу жолын өзгертті. Олар деректерді бұрын бөліспей, енді жарнамалау не маркетинг үшін бөлісуі мүмкін."</string>
-    <string name="data_sharing_updates_footer_message" msgid="1582711655172892107">"Бұл қолданбалардың әзірлеушілері App Store дүкенінде өздерінің деректерді бөлісу тәртібі туралы ақпарат берді. Олар уақыт өте келе оны жаңарта алады.\n\nДеректерді бөлісу тәртібі қолданбаңыздың нұсқасына, пайдаланылуына, аймағыңыз бен жасыңызға байланысты әртүрлі болуы мүмкін."</string>
+    <string name="data_sharing_updates_footer_message" msgid="1582711655172892107">"Бұл қолданбалардың әзірлеушілері қолданбалар дүкенінде өздерінің деректерді бөлісу тәртібі туралы ақпарат берді. Уақыт өте келе олар берген сол мәліметті жаңарта алады.\n\nДеректерді бөлісу тәртібі қолданбаңыздың нұсқасына, пайдаланылуына, аймағыңыз бен жасыңызға байланысты әртүрлі болуы мүмкін."</string>
     <string name="learn_about_data_sharing" msgid="4200480587079488045">"Деректерді бөлісу туралы ақпарат"</string>
     <string name="shares_location_with_third_parties" msgid="2278051743742057767">"Енді локация деректеріңіз үшінші тараптарға жіберіледі."</string>
     <string name="shares_location_with_third_parties_for_advertising" msgid="1918588064014480513">"Енді геодерегіңіз жарнамалау не маркетинг мақсатында үшінші тараптарға жіберіледі."</string>
@@ -715,8 +715,8 @@
     <string name="app_function_target_access_title" msgid="7415628605578155761">"Агенттің кіру рұқсаты"</string>
     <string name="app_function_target_access_summary" msgid="6099120829640806490">"Бұл қолданбада ақпаратты пайдаланып, сіздің орныңызға әрекетке кірісе алатын агенттер"</string>
     <string name="app_function_device_settings_target_title" msgid="7310525289514611525">"Құрылғы параметрлері"</string>
-    <string name="request_app_function_access_dialog_title" msgid="6549957496184641967">"<xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> қолданбасына қолданбаны (<xliff:g id="TARGET_APP_NAME">%2$s</xliff:g>) пайдалануға рұқсат беру қажет пе?"</string>
-    <string name="request_app_function_access_dialog_description" msgid="8841298093381343286">"<xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> пайдаланушының орнына <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> туралы ақпаратты пайдаланып, әрекетке кірісе алады."</string>
+    <string name="request_app_function_access_dialog_title" msgid="877934835928912474">"<xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> қолданбасына <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> агенті болуға рұқсат беру қажет пе?"</string>
+    <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"Бұл агент ақпарат алу және сізге қажетті әрекеттерді орындау үшін <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> пайдалана алады"</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Рұқсат беру"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Рұқсат бермеу"</string>
 </resources>

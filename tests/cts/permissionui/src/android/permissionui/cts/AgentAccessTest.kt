@@ -30,7 +30,9 @@ import android.platform.test.annotations.RequiresFlagsEnabled
 import android.platform.test.flag.junit.DeviceFlagsValueProvider
 import androidx.test.filters.SdkSuppress
 import androidx.test.uiautomator.By
+import com.android.compatibility.common.util.DeviceConfigStateChangerRule
 import com.android.compatibility.common.util.SystemUtil.callWithShellPermissionIdentity
+import com.android.compatibility.common.util.SystemUtil.eventually
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
@@ -48,6 +50,15 @@ import org.junit.Test
 )
 class AgentAccessTest : BaseUsePermissionTest() {
     @get:Rule val checkFlagsRule = DeviceFlagsValueProvider.createCheckFlagsRule()
+
+    @get:Rule
+    val setAgentAllowlistRule: DeviceConfigStateChangerRule =
+        DeviceConfigStateChangerRule(
+            context,
+            "machine_learning",
+            "allowlisted_app_functions_agents",
+            "android.permissionui.cts.appfunctions.agent",
+        )
 
     private val appFunctionManager = context.getSystemService(AppFunctionManager::class.java)!!
 
@@ -123,8 +134,38 @@ class AgentAccessTest : BaseUsePermissionTest() {
         // Trigger grant/revoke access from setting entry
         try {
             click(By.textContains(TARGET_APP_LABEL))
+
+            waitFindObject(
+                By.clickable(true)
+                    .hasDescendant(
+                        By.checkable(true)
+                            .checked(expectedAccessRequestState == ACCESS_REQUEST_STATE_GRANTED)
+                    )
+                    .hasDescendant(By.text(TARGET_APP_LABEL))
+            )
+
             assertThat(getAccessRequestState(AGENT_APP_PACKAGE_NAME, TARGET_APP_PACKAGE_NAME))
                 .isEqualTo(expectedAccessRequestState)
+        } finally {
+            pressBack()
+        }
+    }
+
+    @Test
+    fun targetAppAddedAndRemoved_uiStateUpdated() {
+        startAppFunctionAgentAccessActivity()
+
+        try {
+            // Verify target is shown initially
+            findView(By.textContains(TARGET_APP_LABEL), true)
+
+            // Uninstall target and verify it's not shown
+            uninstallPackage(TARGET_APP_PACKAGE_NAME)
+            eventually { findView(By.textContains(TARGET_APP_LABEL), false) }
+
+            // Install target and verify it's shown
+            installPackage(TARGET_APP_APK_PATH)
+            eventually { findView(By.textContains(TARGET_APP_LABEL), true) }
         } finally {
             pressBack()
         }

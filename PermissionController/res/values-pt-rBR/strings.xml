@@ -252,7 +252,7 @@
     <string name="app_permission_most_recent_denied_summary" msgid="7659497197737708112">"Negado atualmente/último acesso: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="app_permission_never_accessed_summary" msgid="401346181461975090">"Nunca acessou"</string>
     <string name="app_permission_never_accessed_denied_summary" msgid="6596000497490905146">"Negado/nunca acessado"</string>
-    <string name="allowed_header" msgid="7769277978004790414">"Permitidas"</string>
+    <string name="allowed_header" msgid="7769277978004790414">"Com permissão"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"Permitidos sempre"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Permitidos durante o uso"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Com permissão para acessar apenas mídia"</string>
@@ -345,7 +345,7 @@
     <string name="app_perms_content_provider_7d_all_files" msgid="7962416229708835558">"Acessado nos últimos sete dias • Todos os arquivos"</string>
     <string name="no_permissions_allowed" msgid="6081976856354669209">"Nenhuma permissão autorizada"</string>
     <string name="no_permissions_denied" msgid="8159923922804043282">"Nenhuma permissão negada"</string>
-    <string name="no_apps_allowed" msgid="7718822655254468631">"Nenhum app permitido"</string>
+    <string name="no_apps_allowed" msgid="7718822655254468631">"Nenhum app com permissão"</string>
     <string name="no_apps_allowed_full" msgid="8011716991498934104">"Nenhum app é permitido para todos os arquivos"</string>
     <string name="no_apps_allowed_scoped" msgid="4908850477787659501">"Nenhum app com permissão para acesso exclusivo a arquivos de mídia"</string>
     <string name="no_apps_denied" msgid="7663435886986784743">"Nenhum app negado"</string>
@@ -715,8 +715,8 @@
     <string name="app_function_target_access_title" msgid="7415628605578155761">"Acesso do agente"</string>
     <string name="app_function_target_access_summary" msgid="6099120829640806490">"Agentes que podem acessar informações e realizar ações para você neste app"</string>
     <string name="app_function_device_settings_target_title" msgid="7310525289514611525">"Configurações do dispositivo"</string>
-    <string name="request_app_function_access_dialog_title" msgid="6549957496184641967">"Permitir que o app <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> acesse as informações do app <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g>?"</string>
-    <string name="request_app_function_access_dialog_description" msgid="8841298093381343286">"Isso permite que o app <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> acesse as informações do app <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> e realize ações em nome do usuário."</string>
+    <string name="request_app_function_access_dialog_title" msgid="877934835928912474">"Permitir que <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> seja agente do app <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g>?"</string>
+    <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"Esse agente poderá acessar o app <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> para receber informações e realizar ações para você"</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Permitir"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Não permitir"</string>
 </resources>
