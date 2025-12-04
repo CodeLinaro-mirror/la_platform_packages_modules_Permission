@@ -204,6 +204,12 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
         const val MAX_SDK_FOR_SDK_WARNING = 27
         const val MIN_SDK_FOR_RUNTIME_PERMS = 23
 
+        // The timeout for the "Deny in Settings" button to appear in the permission dialog.
+        // This is longer than the default because the "Deny in Settings" button is the last option
+        // in the dialog, and it can take a few seconds to scroll to it, especially on low-end
+        // devices or if permission rationale view is present.
+        private const val DENY_IN_SETTINGS_TIMEOUT_MILLIS = 30_000L
+
         val TEST_INSTALLER_ACTIVITY_COMPONENT_NAME =
             ComponentName(context, TestInstallerActivity::class.java)
 
@@ -682,13 +688,15 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
         vararg permissions: String?,
         askTwice: Boolean = false,
         waitForWindowTransition: Boolean = !isWatch,
+        inNewTask: Boolean = false,
         crossinline block: () -> Unit,
     ): Instrumentation.ActivityResult {
         // Request the permissions
         lateinit var future: CompletableFuture<Instrumentation.ActivityResult>
         // The WindowManagerStateHelper#waitForValidState only supports S+
         if (SdkLevel.isAtLeastS()) {
-            future = startActivityForFuture(*permissions, askTwice = askTwice)
+            future =
+                startActivityForFuture(*permissions, askTwice = askTwice, inNewTask = inNewTask)
             waitForPermissionRequestActivity()
         } else {
             doAndWaitForWindowTransition {
@@ -717,12 +725,14 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
     fun startActivityForFuture(
         vararg permissions: String?,
         askTwice: Boolean,
+        inNewTask: Boolean = false,
     ): CompletableFuture<Instrumentation.ActivityResult> =
         startActivityForFuture(
             Intent().apply {
                 component =
                     ComponentName(APP_PACKAGE_NAME, "$APP_PACKAGE_NAME.RequestPermissionsActivity")
                 putExtra("$APP_PACKAGE_NAME.PERMISSIONS", permissions)
+                putExtra("$APP_PACKAGE_NAME.IS_NEW_TASK", inNewTask)
                 putExtra("$APP_PACKAGE_NAME.ASK_TWICE", askTwice)
             }
         )
@@ -750,6 +760,7 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
         permissions: Array<out String?>,
         permissionAndExpectedGrantResults: Array<out Pair<String?, Boolean>>,
         askTwice: Boolean = false,
+        inNewTask: Boolean = false,
         waitForWindowTransition: Boolean = !isWatch,
         crossinline block: () -> Unit,
     ) {
@@ -772,6 +783,7 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
             requestAppPermissions(
                 *permissions,
                 askTwice = askTwice,
+                inNewTask = inNewTask,
                 waitForWindowTransition = shouldWaitForWindowTransition,
                 block = block,
             )
@@ -816,6 +828,7 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
     protected inline fun requestAppPermissionsAndAssertResult(
         vararg permissionAndExpectedGrantResults: Pair<String?, Boolean>,
         askTwice: Boolean = false,
+        inNewTask: Boolean = false,
         waitForWindowTransition: Boolean = !isWatch,
         crossinline block: () -> Unit,
     ) {
@@ -823,6 +836,7 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
             permissionAndExpectedGrantResults.map { it.first }.toTypedArray(),
             permissionAndExpectedGrantResults,
             askTwice,
+            inNewTask,
             waitForWindowTransition,
             block,
         )
@@ -929,11 +943,14 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
         if (isAutomotive || isWatch) {
             click(
                 By.text(getPermissionControllerString("app_permission_button_deny"))
-                    .displayId(displayId)
+                    .displayId(displayId),
+                DENY_IN_SETTINGS_TIMEOUT_MILLIS,
             )
         } else {
             click(
-                By.res("com.android.permissioncontroller:id/deny_radio_button").displayId(displayId)
+                By.res("com.android.permissioncontroller:id/deny_radio_button")
+                    .displayId(displayId),
+                DENY_IN_SETTINGS_TIMEOUT_MILLIS,
             )
         }
     }
@@ -1119,7 +1136,7 @@ abstract class BaseUsePermissionTest : BasePermissionTest() {
 
     protected fun clickPermissionRationaleViewInGrantDialog() {
         assertPermissionRationaleContainerOnGrantDialogIsVisible(true)
-        clickAndWaitForWindowTransition(
+        waitForFocusThenClickAndWaitForWindowTransition(
             By.res(GRANT_DIALOG_PERMISSION_RATIONALE_CONTAINER_VIEW).displayId(displayId)
         )
     }

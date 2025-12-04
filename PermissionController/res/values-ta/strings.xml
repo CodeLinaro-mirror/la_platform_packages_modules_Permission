@@ -197,7 +197,7 @@
     <string name="approximate_image_description" msgid="938803699637069884">"தோராயமான இருப்பிடம்"</string>
     <string name="app_permission_location_accuracy" msgid="7166912915040018669">"துல்லியமான இருப்பிடத்தைப் பயன்படுத்து"</string>
     <string name="app_permission_location_accuracy_subtitle" msgid="2654077606404987210">"துல்லியமான இருப்பிடம் ஆஃப் செய்யப்பட்டிருக்கும்போது உங்கள் தோராயமான இருப்பிடத்தை ஆப்ஸ் அணுகலாம்"</string>
-    <string name="app_permission_title" msgid="2090897901051370711">"<xliff:g id="PERM">%1$s</xliff:g> என்பதற்கான அனுமதி"</string>
+    <string name="app_permission_title" msgid="2090897901051370711">"<xliff:g id="PERM">%1$s</xliff:g> அனுமதி"</string>
     <string name="app_permission_header" msgid="2951363137032603806">"இந்த ஆப்ஸிற்கு <xliff:g id="PERM">%1$s</xliff:g> அணுகல்"</string>
     <string name="app_permission_header_with_device_name" msgid="7193042925656173271">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g> சாதனத்தில் இந்த ஆப்ஸுக்கான <xliff:g id="PERM">%1$s</xliff:g> அணுகல்"</string>
     <string name="app_permission_footer_app_permissions_link" msgid="4926890342636587393">"அனைத்து <xliff:g id="APP">%1$s</xliff:g> அனுமதிகளையும் காட்டு"</string>
@@ -714,6 +714,17 @@
     <string name="app_function_agent_access_app_targets_category_title" msgid="620431387701237004">"ஆப்ஸ்"</string>
     <string name="app_function_target_access_title" msgid="7415628605578155761">"ஏஜெண்ட் அணுகல்"</string>
     <string name="app_function_target_access_summary" msgid="6099120829640806490">"இந்த ஆப்ஸில் தகவல்களை அணுகி உங்களுக்காகச் செயல்களைச் செய்யக்கூடிய ஏஜெண்ட்டுகள்"</string>
+    <string name="app_function_access_allowed_header" msgid="139473645426829908">"அனுமதிக்கப்பட்டது"</string>
+    <string name="app_function_access_denied_header" msgid="6934818996725728911">"அனுமதிக்கப்படவில்லை"</string>
+    <string name="app_function_agent_access_none_allowed_title" msgid="4922794509336759858">"ஏஜெண்ட் அணுகல்கள் அனுமதிக்கப்படவில்லை"</string>
+    <string name="app_function_agent_access_none_denied_title" msgid="5745249773152088458">"ஏஜெண்ட் அணுகல்கள் மறுக்கப்படவில்லை"</string>
+    <string name="app_function_target_access_none_allowed_title" msgid="5994321178244800275">"ஆப்ஸ் அணுகல்கள் அனுமதிக்கப்படவில்லை"</string>
+    <string name="app_function_target_access_none_denied_title" msgid="3717686680310691344">"ஆப்ஸ் அணுகல்கள் மறுக்கப்படவில்லை"</string>
+    <string name="app_function_manage_access_default_title" msgid="2992299728169265212">"ஆப்ஸுக்கான அணுகல்"</string>
+    <string name="app_function_manage_access_title" msgid="5805361194157907463">"<xliff:g id="TARGET_APP_NAME">%1$s</xliff:g> ஆப்ஸுக்கான அணுகல்"</string>
+    <string name="app_function_manage_access_radiobutton_group_title" msgid="995463553024931659">"<xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> ஆப்ஸுக்கான <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> அணுகல்"</string>
+    <string name="manage_app_function_access_allow" msgid="957884395966109578">"அனுமதி"</string>
+    <string name="manage_app_function_access_dont_allow" msgid="4282220224010484177">"அனுமதிக்காதே"</string>
     <string name="app_function_device_settings_target_title" msgid="7310525289514611525">"சாதன அமைப்புகள்"</string>
     <string name="request_app_function_access_dialog_title" msgid="877934835928912474">"<xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> ஆப்ஸுக்கு ஏஜெண்ட்டாக இருக்க <xliff:g id="AGENT_APP_NAME">%1$s</xliff:g> ஆப்ஸை அனுமதிக்கவா?"</string>
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"உங்களுக்காகத் தகவல்களைப் பெற்று நடவடிக்கைகள் எடுக்க இந்த ஏஜெண்ட்டால் <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> ஆப்ஸை அணுக முடியும்"</string>
