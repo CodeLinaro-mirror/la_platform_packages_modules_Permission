@@ -210,8 +210,8 @@
     <string name="unused_apps_label" msgid="2595428768404901064">"撤消权限并释放空间"</string>
     <string name="unused_apps_label_v2" msgid="7058776770056517980">"暂停闲置应用的活动"</string>
     <string name="unused_apps_label_v3" msgid="693340578642156657">"管理闲置应用"</string>
-    <string name="unused_apps_summary" msgid="8839466950318403115">"撤消权限、删除临时文件并停收通知"</string>
-    <string name="unused_apps_summary_v2" msgid="5011313200815115802">"撤消权限、删除临时文件、停收通知并归档应用"</string>
+    <string name="unused_apps_summary" msgid="8839466950318403115">"撤销权限、删除临时文件并停收通知"</string>
+    <string name="unused_apps_summary_v2" msgid="5011313200815115802">"撤销权限、删除临时文件、停收通知并归档应用"</string>
     <string name="auto_revoke_summary" msgid="5867548789805911683">"为了保护您的数据，如果您连续几个月未使用此应用，系统会移除其权限。"</string>
     <string name="auto_revoke_summary_with_permissions" msgid="389712086597285013">"为了保护您的数据，如果您连续几个月未使用此应用，系统会移除其以下权限：<xliff:g id="PERMS">%1$s</xliff:g>"</string>
     <string name="auto_revoked_apps_page_summary" msgid="6594753657893756536">"为了保护您的数据，对于您连续几个月未使用过的应用，系统已将其权限移除。"</string>
@@ -730,4 +730,8 @@
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"此智能体将能够访问“<xliff:g id="TARGET_APP_NAME">%2$s</xliff:g>”，帮助您获取信息和执行操作"</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"允许"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"不允许"</string>
+    <string name="request_assist_structure_dialog_title" msgid="1108220895681014081">"要允许“<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>”访问屏幕和应用中的内容吗？"</string>
+    <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"允许默认助理应用访问可见应用共享的屏幕内容和数据"</string>
+    <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"允许"</string>
+    <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"不允许"</string>
 </resources>

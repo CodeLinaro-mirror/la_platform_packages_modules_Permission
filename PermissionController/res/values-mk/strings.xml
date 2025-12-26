@@ -562,7 +562,7 @@
     <string name="blocked_location_title" msgid="2005608279812892383">"Локацијата на уредот е исклучена"</string>
     <string name="blocked_sensor_summary" msgid="4443707628305027375">"За апликации и услуги"</string>
     <string name="blocked_mic_summary" msgid="8960466941528458347">"Податоците за микрофонот може сепак да се споделат кога се јавувате на бројот за итни случаи."</string>
-    <string name="blocked_sensor_button_label" msgid="6742092634984289658">"Измени"</string>
+    <string name="blocked_sensor_button_label" msgid="6742092634984289658">"Изменете"</string>
     <string name="automotive_blocked_camera_title" msgid="6142362431548829416">"Пристапот до камерата е исклучен"</string>
     <string name="automotive_blocked_microphone_title" msgid="3956311098238620220">"Пристапот до микрофонот е исклучен"</string>
     <string name="automotive_blocked_location_title" msgid="6047574747593264689">"Пристапот до локацијата е исклучен"</string>
@@ -730,4 +730,8 @@
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"Агентов ќе може да пристапува до <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> за да добива податоци и да презема дејства за вас"</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Дозволи"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Не дозволувај"</string>
+    <string name="request_assist_structure_dialog_title" msgid="1108220895681014081">"Да ѝ се дозволи на <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> да пристапува до контекстот на екранот и апликациите?"</string>
+    <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Ѝ дозволува на стандардната апликација „Помошник“ да пристапува до содржините на екранот и податоците што ги споделува видливата апликација"</string>
+    <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Дозволи"</string>
+    <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Не дозволувај"</string>
 </resources>

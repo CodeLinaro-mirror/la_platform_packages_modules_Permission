@@ -16,8 +16,6 @@
 
 package android.app.role;
 
-import static android.annotation.RestrictedForEnvironment.ENVIRONMENT_SDK_RUNTIME;
-
 import android.Manifest;
 import android.annotation.CallbackExecutor;
 import android.annotation.FlaggedApi;
@@ -25,7 +23,6 @@ import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
-import android.annotation.RestrictedForEnvironment;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.annotation.SystemService;
@@ -81,8 +78,6 @@ import java.util.function.Consumer;
  * Upon becoming a role holder, the application may be granted certain privileges that are role
  * specific. When the application loses its role, these privileges will also be revoked.
  */
-@RestrictedForEnvironment(
-        environments = ENVIRONMENT_SDK_RUNTIME, from = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @SystemService(Context.ROLE_SERVICE)
 public final class RoleManager {
     /**
@@ -309,12 +304,25 @@ public final class RoleManager {
      * A dependency installer installs missing SDK or static shared library dependencies that an app
      * requires to be installed.
      *
+     * @deprecated The automatic dependency installation feature is no longer supported.
      * @hide
      */
-    @FlaggedApi("android.content.pm.sdk_dependency_installer")
+    @SuppressWarnings("FlaggedApiLiteral")
+    @Deprecated
+    @FlaggedApi("android.content.pm.sdk_dependency_installer_deprecation")
     @SystemApi
     public static final String ROLE_SYSTEM_DEPENDENCY_INSTALLER =
             "android.app.role.SYSTEM_DEPENDENCY_INSTALLER";
+
+    /**
+     * The name of the role for the active watch face on Wear devices.
+     * This role is managed from a Wear system component for the lifecycle of the active watch face.
+     *
+     * @hide
+     */
+    @FlaggedApi(android.permission.flags.Flags.FLAG_ACTIVE_WATCH_FACE_ROLE_ENABLED)
+    @SystemApi
+    public static final String ROLE_WATCH_FACE = "android.app.role.WATCH_FACE";
 
     @NonNull
     private final Context mContext;

@@ -80,6 +80,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.core.util.Preconditions;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
 
 import com.android.modules.utils.build.SdkLevel;
@@ -112,7 +113,7 @@ import java.util.Set;
 /**
  * An activity which displays runtime permission prompts on behalf of an app.
  */
-public class GrantPermissionsActivity extends SettingsActivity
+public class GrantPermissionsActivity extends FragmentActivity
         implements GrantPermissionsViewHandler.ResultListener, ExpressiveDesignEnabledProvider {
 
     private static final String LOG_TAG = "GrantPermissionsActivity";
@@ -301,15 +302,6 @@ public class GrantPermissionsActivity extends SettingsActivity
                 mPackageManager.getPackageInfo(mTargetPackage, 0);
             } catch (PackageManager.NameNotFoundException e) {
                 Log.e(LOG_TAG, "Unable to get package info for the calling package.", e);
-                finishAfterTransition();
-                return;
-            }
-        }
-
-        if (!mIsSystemTriggered) {
-            if (isTaskRoot() || (getIntent().getFlags()
-                    & (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT)) != 0) {
-                Log.e(LOG_TAG, "Cannot call the permissions dialog in a new task.");
                 finishAfterTransition();
                 return;
             }
