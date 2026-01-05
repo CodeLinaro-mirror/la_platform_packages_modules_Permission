@@ -2,6 +2,10 @@
 # RoleParser.applyJarjarTransform(), by adding NO_IFTTT=reason to your commit
 # message.
 # LINT.IfChange
+rule android.app.*FeatureFlags* com.android.permission.jarjar.@0
+rule android.app.FeatureFlags* com.android.permission.jarjar.@0
+rule android.app.FeatureFlags com.android.permission.jarjar.@0
+rule android.app.Flags com.android.permission.jarjar.@0
 rule android.app.admin.flags.*FeatureFlags* com.android.permission.jarjar.@0
 rule android.app.admin.flags.FeatureFlags* com.android.permission.jarjar.@0
 rule android.app.admin.flags.FeatureFlags com.android.permission.jarjar.@0
@@ -35,6 +39,10 @@ rule android.security.*FeatureFlags* com.android.permission.jarjar.@0
 rule android.security.FeatureFlags* com.android.permission.jarjar.@0
 rule android.security.FeatureFlags com.android.permission.jarjar.@0
 rule android.security.Flags com.android.permission.jarjar.@0
+rule android.telecom.flags.*FeatureFlags* com.android.permission.jarjar.@0
+rule android.telecom.flags.FeatureFlags* com.android.permission.jarjar.@0
+rule android.telecom.flags.FeatureFlags com.android.permission.jarjar.@0
+rule android.telecom.flags.Flags com.android.permission.jarjar.@0
 rule android.util.IndentingPrintWriter com.android.permission.jarjar.@0
 rule android.view.contentprotection.flags.*FeatureFlags* com.android.permission.jarjar.@0
 rule android.view.contentprotection.flags.FeatureFlags* com.android.permission.jarjar.@0

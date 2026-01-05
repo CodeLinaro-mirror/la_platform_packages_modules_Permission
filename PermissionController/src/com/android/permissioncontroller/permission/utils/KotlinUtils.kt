@@ -257,6 +257,15 @@ object KotlinUtils {
             !DeviceUtils.isWear(context)
     }
 
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.CINNAMON_BUN, codename = "CinnamonBun")
+    fun isLocationPermissionNewRadioButtonsEnabled(context: Context): Boolean {
+        return SdkLevel.isAtLeastB() &&
+            android.permission.flags.Flags.locationPermissionNewRadioButtonsEnabled() &&
+            !DeviceUtils.isAuto(context) &&
+            !DeviceUtils.isTelevision(context) &&
+            !DeviceUtils.isWear(context)
+    }
+
     /** How often the safety label changes job will run. */
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE, codename = "UpsideDownCake")
     fun getSafetyLabelChangesJobIntervalMillis(): Long {
@@ -476,7 +485,7 @@ object KotlinUtils {
      * @return The package name for the Settings app, or a fallback if not found.
      */
     fun getSettingsPackageName(pm: PackageManager): String {
-       return getPackageNameForIntent(pm, Settings.ACTION_SETTINGS)
+        return getPackageNameForIntent(pm, Settings.ACTION_SETTINGS)
             ?: Constants.SETTINGS_PACKAGE_NAME_FALLBACK
     }
 
@@ -1208,13 +1217,16 @@ object KotlinUtils {
     ): Boolean {
         val user = UserHandle.getUserHandleForUid(packageInfo.uid)
         for ((index, permName) in packageInfo.requestedPermissions.withIndex()) {
-            if ((packageInfo.requestedPermissionsFlags[index] and
-                        PackageInfo.REQUESTED_PERMISSION_GRANTED) == 0) {
+            if (
+                (packageInfo.requestedPermissionsFlags[index] and
+                    PackageInfo.REQUESTED_PERMISSION_GRANTED) == 0
+            ) {
                 continue
             }
             val flags =
                 app.packageManager.getPermissionFlags(permName, packageInfo.packageName, user)
-            val isGrantedOneTime = (flags and FLAG_PERMISSION_REVOKED_COMPAT) == 0 &&
+            val isGrantedOneTime =
+                (flags and FLAG_PERMISSION_REVOKED_COMPAT) == 0 &&
                     (flags and FLAG_PERMISSION_ONE_TIME) != 0
             if (isGrantedOneTime) {
                 return true

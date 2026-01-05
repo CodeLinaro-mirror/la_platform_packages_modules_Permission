@@ -126,6 +126,8 @@
     <string name="message_staging" msgid="9110563899955511866">"Aplikazioa prestatzen…"</string>
     <string name="app_name_unknown" msgid="1319665005754048952">"Ezezaguna"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"Pribatutasun-panela"</string>
+    <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Aplikazio-baimenak"</string>
+    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Agentearen jarduerak"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Ikusi zein aplikaziok erabili berri dituzten baimenak"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> erabiltzeko baimenaren erabilera"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Ikusi beste baimen batzuk"</string>
@@ -165,6 +167,7 @@
     <string name="permission_usage_preference_summary_not_used_in_past_n_days" msgid="4771868094611359651">"{count,plural, =1{Ez da erabili azken # egunean}other{Ez da erabili azken # egunetan}}"</string>
     <string name="permission_usage_preference_summary_not_used_in_past_n_hours" msgid="3828973177433435742">"{count,plural, =1{Ez da erabili azken # orduan}other{Ez da erabili azken # orduetan}}"</string>
     <string name="permission_usage_preference_label" msgid="8343167938128676378">"{count,plural, =1{1 aplikaziok erabili du}other{# aplikaziok erabili dute}}"</string>
+    <string name="agent_usage_preference_label" msgid="3123976176446237103">"{count,plural, =1{Aplikazio bat atzitu du}other{# aplikazio atzitu ditu}}"</string>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Ikusi guztiak panelean"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Iragazteko irizpidea: <xliff:g id="PERM">%1$s</xliff:g>"</string>
     <string name="app_permission_usage_remove_filter" msgid="2926157607436428207">"Kendu iragazkia"</string>
@@ -443,6 +446,10 @@
     <string name="default_app_none" msgid="9084592086808194457">"Bat ere ez"</string>
     <string name="default_app_system_default" msgid="6218386768175513760">"(sistemaren aplikazio lehenetsia)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"Ez dago aplikaziorik"</string>
+    <!-- no translation found for default_app_confirmation_positive_button (7870227561758833590) -->
+    <skip />
+    <!-- no translation found for default_app_confirmation_negative_button (2564849389728106051) -->
+    <skip />
     <string name="default_payment_app_other_nfc_services" msgid="5957633798695758917">"NFC bidezko beste zerbitzu batzuk"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"Hautatuta"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"Hautatuta - <xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g>"</string>
@@ -451,8 +458,16 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Ez dago aplikazio-baimen berezirik"</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Ez dago aplikaziorik"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Ez ditu onartzen laneko profilak"</string>
+    <!-- no translation found for home_confirmation_title (5244574290223747640) -->
+    <skip />
+    <!-- no translation found for home_confirmation_message (248811491851505593) -->
+    <skip />
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Oharra: gailua berrabiarazten baduzu eta pantailaren blokeoa badaukazu ezarrita, ezingo da abiarazi aplikazioa gailua desblokeatzen duzun arte."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"Zure sistemak darabiltzan aplikazioei buruzko informazioa irakurri ahal izango du laguntzaileak; besteak beste, pantailan ikusgai duzun edo aplikazioetatik atzi daitekeen informazioa."</string>
+    <!-- no translation found for assistant_confirmation_title_v37 (1700973760643407047) -->
+    <skip />
+    <!-- no translation found for assistant_confirmation_message_v37 (7518084182823372974) -->
+    <skip />
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Partekatu arazketa-datuak"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Arazketa-datu xehatuak partekatu nahi dituzu?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g> aplikazioak arazketa-informazioa kargatu nahi du."</string>
@@ -468,7 +483,7 @@
     <string name="adjust_user_sensitive_globally_summary" msgid="129467818433773912">"Erakutsi egoera-barran sistema-aplikazioek nola erabiltzen dituzten baimenak, panelean eta dagokion toki guztietan"</string>
     <string name="adjust_user_sensitive_per_app_header" msgid="4543506440989005648">"Nabarmendu hauen erabilera"</string>
     <string name="assistant_record_audio_user_sensitive_title" msgid="5532123360322362378">"Erakutsi laguntzailea abiarazteko hautematea"</string>
-    <string name="assistant_record_audio_user_sensitive_summary" msgid="6482937591816401619">"Mikrofonoa erabiltzen denean ahozko laguntza aktibatzeko, erakutsi dagokion ikonoa egoera-barran"</string>
+    <string name="assistant_record_audio_user_sensitive_summary" msgid="6482937591816401619">"Mikrofonoa erabiltzen denean ahozko laguntzailea aktibatzeko, erakutsi dagokion ikonoa egoera-barran"</string>
     <string name="permgrouprequest_storage_isolated" msgid="4892154224026852295">"Gailuko argazkiak eta multimedia-edukia erabiltzeko baimena eman nahi diozu &lt;b&amp;gt<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; aplikazioari?"</string>
     <string name="permgrouprequest_device_aware_storage_isolated" msgid="6463062962458809752">"&lt;b&gt;<xliff:g id="DEVICE_NAME">%2$s</xliff:g>&lt;/b&gt; gailuko argazkiak eta multimedia-edukia erabiltzeko baimena eman nahi diozu &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; aplikazioari?"</string>
     <string name="permgrouprequest_contacts" msgid="8391550064551053695">"Kontaktuak erabiltzeko baimena eman nahi diozu &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; aplikazioari?"</string>
@@ -734,4 +749,10 @@
     <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Eman pantailako edukia eta ikusgai dagoen aplikazioak partekatutako datuak atzitzeko baimena laguntza-aplikazio lehenetsiari"</string>
     <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Eman baimena"</string>
     <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Ez eman baimenik"</string>
+    <!-- no translation found for assist_structure_setting_title (3448963992289353882) -->
+    <skip />
+    <!-- no translation found for assist_structure_setting_default_description (5286942439766192730) -->
+    <skip />
+    <!-- no translation found for assist_structure_setting_description (2865330212261060313) -->
+    <skip />
 </resources>

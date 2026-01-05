@@ -70,6 +70,7 @@
     <uses-permission android:name="android.permission.MANAGE_CLIPBOARD_ACCESS_NOTIFICATION" />
     <uses-permission android:name="android.permission.WATCH_APPOPS" />
     <uses-permission android:name="android.permission.MANAGE_APP_FUNCTION_ACCESS" />
+    <uses-permission android:name="android.permission.READ_APP_INTERACTION" />
     <uses-permission android:name="android.permission.READ_LOCATION_BYPASS_ALLOWLIST" />
 
     <application android:name="com.android.permissioncontroller.PermissionControllerApplication"
@@ -489,7 +490,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.android.permissioncontroller.role.ui.RequestAssistStructureActivity"
+        <activity android:name="com.android.permissioncontroller.role.ui.v37.RequestAssistStructureActivity"
             android:theme="@style/Theme.RequestAssistStructureActivity.FilterTouches"
             android:excludeFromRecents="true"
             android:exported="true"

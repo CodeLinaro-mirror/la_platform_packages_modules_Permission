@@ -126,6 +126,8 @@
     <string name="message_staging" msgid="9110563899955511866">"Forbereder appen…"</string>
     <string name="app_name_unknown" msgid="1319665005754048952">"Ukendt"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"Privatlivspanel"</string>
+    <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Apptilladelser"</string>
+    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Agentaktivitet"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Se, hvilke apps der har brugt tilladelser for nylig"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Brug af <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Se andre tilladelser"</string>
@@ -165,6 +167,7 @@
     <string name="permission_usage_preference_summary_not_used_in_past_n_days" msgid="4771868094611359651">"{count,plural, =1{Ikke brugt i # dag}one{Ikke brugt i # dag}other{Ikke brugt i de seneste # dage}}"</string>
     <string name="permission_usage_preference_summary_not_used_in_past_n_hours" msgid="3828973177433435742">"{count,plural, =1{Ikke brugt i # time}one{Ikke brugt i # time}other{Ikke brugt i de seneste # timer}}"</string>
     <string name="permission_usage_preference_label" msgid="8343167938128676378">"{count,plural, =1{Anvendes af 1 app}one{Anvendes af # app}other{Anvendes af # apps}}"</string>
+    <string name="agent_usage_preference_label" msgid="3123976176446237103">"{count,plural, =1{Har tilgået 1 app}one{Har tilgået # app}other{Har tilgået # apps}}"</string>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Se alt i kontrolpanelet"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Filtreret efter: <xliff:g id="PERM">%1$s</xliff:g>"</string>
     <string name="app_permission_usage_remove_filter" msgid="2926157607436428207">"Fjern filter"</string>
@@ -443,6 +446,10 @@
     <string name="default_app_none" msgid="9084592086808194457">"Ingen"</string>
     <string name="default_app_system_default" msgid="6218386768175513760">"(Systemstandard)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"Ingen apps"</string>
+    <!-- no translation found for default_app_confirmation_positive_button (7870227561758833590) -->
+    <skip />
+    <!-- no translation found for default_app_confirmation_negative_button (2564849389728106051) -->
+    <skip />
     <string name="default_payment_app_other_nfc_services" msgid="5957633798695758917">"Andre NFC-tjenester"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"Valgt"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"Valgt – <xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g>"</string>
@@ -451,8 +458,16 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Ingen særlig appadgang"</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Ingen apps"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Arbejdsprofilen understøttes ikke"</string>
+    <!-- no translation found for home_confirmation_title (5244574290223747640) -->
+    <skip />
+    <!-- no translation found for home_confirmation_message (248811491851505593) -->
+    <skip />
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Bemærk! Hvis du genstarter din enhed og har indstillet en skærmlås, kan denne app ikke starte, før du låser enheden op."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"Assistenten kan læse oplysninger om, hvilke apps der bruges i dit system, bl.a. oplysninger, der er synlige på din skærm eller tilgængelige i dine apps."</string>
+    <!-- no translation found for assistant_confirmation_title_v37 (1700973760643407047) -->
+    <skip />
+    <!-- no translation found for assistant_confirmation_message_v37 (7518084182823372974) -->
+    <skip />
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Del fejlretningsdata"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Vil du dele detaljerede fejlretningsdata?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g> vil gerne uploade fejretningsoplysninger."</string>
@@ -734,4 +749,10 @@
     <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Giv standardassistenteappen adgang til skærmens indhold og data, der deles af den synlige app"</string>
     <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Tillad"</string>
     <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Tillad ikke"</string>
+    <!-- no translation found for assist_structure_setting_title (3448963992289353882) -->
+    <skip />
+    <!-- no translation found for assist_structure_setting_default_description (5286942439766192730) -->
+    <skip />
+    <!-- no translation found for assist_structure_setting_description (2865330212261060313) -->
+    <skip />
 </resources>

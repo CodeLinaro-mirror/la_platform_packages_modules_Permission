@@ -126,6 +126,8 @@
     <string name="message_staging" msgid="9110563899955511866">"Se pregătește aplicația…"</string>
     <string name="app_name_unknown" msgid="1319665005754048952">"Necunoscut"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"Tablou de bord de confidențialitate"</string>
+    <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Permisiuni pentru aplicație"</string>
+    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Activitatea agentului"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Vezi aplicațiile care au folosit recent permisiuni"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Folosire grup de permisiuni <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Vezi alte permisiuni"</string>
@@ -165,6 +167,7 @@
     <string name="permission_usage_preference_summary_not_used_in_past_n_days" msgid="4771868094611359651">"{count,plural, =1{Permisiunea nu a fost folosită în ultima zi}few{Permisiunea nu a fost folosită în ultimele # zile}other{Permisiunea nu a fost folosită în ultimele # de zile}}"</string>
     <string name="permission_usage_preference_summary_not_used_in_past_n_hours" msgid="3828973177433435742">"{count,plural, =1{Permisiunea nu a fost folosită în ultima oră}few{Permisiunea nu a fost folosită în ultimele # ore}other{Permisiunea nu a fost folosită în ultimele # de ore}}"</string>
     <string name="permission_usage_preference_label" msgid="8343167938128676378">"{count,plural, =1{Folosit(ă) de o aplicație}few{Folosit(ă) de # aplicații}other{Folosit(ă) de # de aplicații}}"</string>
+    <string name="agent_usage_preference_label" msgid="3123976176446237103">"{count,plural, =1{A accesat o aplicație}few{A accesat # aplicații}other{A accesat # de aplicații}}"</string>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Vezi totul în Tabloul de bord"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Filtrat după: <xliff:g id="PERM">%1$s</xliff:g>"</string>
     <string name="app_permission_usage_remove_filter" msgid="2926157607436428207">"Elimină filtrul"</string>
@@ -443,6 +446,10 @@
     <string name="default_app_none" msgid="9084592086808194457">"Niciuna"</string>
     <string name="default_app_system_default" msgid="6218386768175513760">"(Prestabilită de sistem)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"Nicio aplicație"</string>
+    <!-- no translation found for default_app_confirmation_positive_button (7870227561758833590) -->
+    <skip />
+    <!-- no translation found for default_app_confirmation_negative_button (2564849389728106051) -->
+    <skip />
     <string name="default_payment_app_other_nfc_services" msgid="5957633798695758917">"Alte servicii NFC"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"Selectată"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"Selectat - <xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g>"</string>
@@ -451,8 +458,16 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Niciun acces special pentru aplicații"</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Nicio aplicație"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Nu acceptă profilul de serviciu"</string>
+    <!-- no translation found for home_confirmation_title (5244574290223747640) -->
+    <skip />
+    <!-- no translation found for home_confirmation_message (248811491851505593) -->
+    <skip />
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Notă: dacă repornești telefonul și ai activată blocarea ecranului, această aplicație nu poate porni până nu deblochezi telefonul."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"Aplicația asistent va putea să citească informații despre aplicațiile în uz de pe sistem, inclusiv informațiile vizibile pe ecran sau accesibile în aplicații."</string>
+    <!-- no translation found for assistant_confirmation_title_v37 (1700973760643407047) -->
+    <skip />
+    <!-- no translation found for assistant_confirmation_message_v37 (7518084182823372974) -->
+    <skip />
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Trimite datele despre remedierea erorilor"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Trimiți datele detaliate despre remedierea erorilor?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g> dorește să încarce informațiile despre remedierea erorilor."</string>
@@ -734,4 +749,10 @@
     <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Permite-i aplicației asistent prestabilite să acceseze conținutul ecranului și datele trimise de aplicația vizibilă"</string>
     <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Permite"</string>
     <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Nu permite"</string>
+    <!-- no translation found for assist_structure_setting_title (3448963992289353882) -->
+    <skip />
+    <!-- no translation found for assist_structure_setting_default_description (5286942439766192730) -->
+    <skip />
+    <!-- no translation found for assist_structure_setting_description (2865330212261060313) -->
+    <skip />
 </resources>

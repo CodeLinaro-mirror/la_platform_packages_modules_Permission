@@ -126,6 +126,8 @@
     <string name="message_staging" msgid="9110563899955511866">"Aplikacija se priprema…"</string>
     <string name="app_name_unknown" msgid="1319665005754048952">"Nepoznato"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"Kontrolna tabla za privatnost"</string>
+    <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Dozvole za aplikacije"</string>
+    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Aktivnosti agenta"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Pregledajte koje su aplikacije nedavno koristile dozvole"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Korišćenje dozvole <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Pogledajte druge dozvole"</string>
@@ -165,6 +167,7 @@
     <string name="permission_usage_preference_summary_not_used_in_past_n_days" msgid="4771868094611359651">"{count,plural, =1{Nije korišćeno tokom poslednjeg # dana}one{Nije korišćeno tokom poslednjeg # dana}few{Nije korišćeno tokom poslednja # dana}other{Nije korišćeno tokom poslednjih # dana}}"</string>
     <string name="permission_usage_preference_summary_not_used_in_past_n_hours" msgid="3828973177433435742">"{count,plural, =1{Nije korišćeno tokom poslednjeg # sata}one{Nije korišćeno tokom poslednjeg # sata}few{Nije korišćeno tokom poslednja # sata}other{Nije korišćeno tokom poslednjih # sati}}"</string>
     <string name="permission_usage_preference_label" msgid="8343167938128676378">"{count,plural, =1{Koristi 1 aplikacija}one{Koristi # aplikacija}few{Koriste # aplikacije}other{Koristi # aplikacija}}"</string>
+    <string name="agent_usage_preference_label" msgid="3123976176446237103">"{count,plural, =1{Pristupljeno jednoj aplikaciji}one{Pristupljeno – # aplikaciji}few{Pristupljeno – # aplikacije}other{Pristupljeno – # aplikacija}}"</string>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Prikaži sve na kontrolnoj tabli"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Filtrirano prema: <xliff:g id="PERM">%1$s</xliff:g>"</string>
     <string name="app_permission_usage_remove_filter" msgid="2926157607436428207">"Ukloni filter"</string>
@@ -443,6 +446,8 @@
     <string name="default_app_none" msgid="9084592086808194457">"Ništa"</string>
     <string name="default_app_system_default" msgid="6218386768175513760">"(Podrazumevano za sistem)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"Nema aplikacija"</string>
+    <string name="default_app_confirmation_positive_button" msgid="7870227561758833590">"Promeni"</string>
+    <string name="default_app_confirmation_negative_button" msgid="2564849389728106051">"Zadrži aktuelni"</string>
     <string name="default_payment_app_other_nfc_services" msgid="5957633798695758917">"Druge NFC usluge"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"Izabrano"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"Izabrano – <xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g>"</string>
@@ -451,8 +456,12 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Nema posebnog pristupa apl."</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Nema aplikacija"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Ne podržava poslovni profil"</string>
+    <string name="home_confirmation_title" msgid="5244574290223747640">"Želite da promenite podrazumevanu aplikaciju početne stranice?"</string>
+    <string name="home_confirmation_message" msgid="248811491851505593">"Ovo će zameniti početni ekran i može da utiče na pristup funkcijama na uređaju.&lt;br&gt;&lt;br&gt;Ovaj izbor možete da promenite u svakom trenutku u podešavanjima &lt;b&gt;Podrazumevane aplikacije početne stranice&lt;/b&gt;."</string>
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Napomena: Ako restartujete uređaj i podesili ste otključavanje ekrana, ova aplikacija ne može da se pokrene dok ne otključate uređaj."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"Pomoćnik će moći da čita informacije o aplikacijama koje se koriste u sistemu, uključujući informacije vidljive na ekranu ili kojima može da se pristupa u okviru aplikacija."</string>
+    <string name="assistant_confirmation_title_v37" msgid="1700973760643407047">"Želite da promenite podrazumevanu aplikaciju digitalnog pomoćnika?"</string>
+    <string name="assistant_confirmation_message_v37" msgid="7518084182823372974">"Ovaj pomoćnik će moći da čita informacije o aplikacijama koje se koriste u sistemu."</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Deljenje podataka o otklanjanju grešaka"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Delite detaljne podatke za otklanjanje grešaka?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g> želi da otpremi informacije za otklanjanje grešaka."</string>
@@ -734,4 +743,7 @@
     <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Dozvoljava podrazumevanom pomoćniku da pristupa sadržaju ekrana i podacima koje deli aplikacija"</string>
     <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Dozvoli"</string>
     <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Ne dozvoli"</string>
+    <string name="assist_structure_setting_title" msgid="3448963992289353882">"Koristite kontekst ekrana i aplikacije"</string>
+    <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"Dozvoljava podrazumevanom pomoćniku da pristupa ekranu i podacima koje deli aplikacija"</string>
+    <string name="assist_structure_setting_description" msgid="2865330212261060313">"Dozvolite da <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> pristupa ekranu i podacima koje deli aplikacija"</string>
 </resources>

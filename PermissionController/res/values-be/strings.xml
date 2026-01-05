@@ -126,6 +126,8 @@
     <string name="message_staging" msgid="9110563899955511866">"Падрыхтоўка праграмы…"</string>
     <string name="app_name_unknown" msgid="1319665005754048952">"Невядома"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"Панэль кіравання доступам"</string>
+    <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Дазволы праграм"</string>
+    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Дзеянні агента"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Прагляд праграм, якія нядаўна выкарыстоўвалі дазволы"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Выкарыстанне групы дазволаў \"<xliff:g id="PERMGROUP">%1$s</xliff:g>\""</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Праглядзець іншыя дазволы"</string>
@@ -165,6 +167,7 @@
     <string name="permission_usage_preference_summary_not_used_in_past_n_days" msgid="4771868094611359651">"{count,plural, =1{За апошнія # суткі дазвол не выкарыстоўваўся}one{За апошнія # суткі дазвол не выкарыстоўваўся}few{За апошнія # сутак дазвол не выкарыстоўваўся}many{За апошнія # сутак дазвол не выкарыстоўваўся}other{За апошнія # сутак дазвол не выкарыстоўваўся}}"</string>
     <string name="permission_usage_preference_summary_not_used_in_past_n_hours" msgid="3828973177433435742">"{count,plural, =1{За апошнюю # гадзіну дазвол не выкарыстоўваўся}one{За апошнюю # гадзіну дазвол не выкарыстоўваўся}few{За апошнія # гадзіны дазвол не выкарыстоўваўся}many{За апошнія # гадзін дазвол не выкарыстоўваўся}other{За апошнія # гадзіны дазвол не выкарыстоўваўся}}"</string>
     <string name="permission_usage_preference_label" msgid="8343167938128676378">"{count,plural, =1{Выкарыстоўваецца 1 праграмай}one{Выкарыстоўваецца # праграмай}few{Выкарыстоўваецца # праграмамі}many{Выкарыстоўваецца # праграмамі}other{Выкарыстоўваецца # праграмы}}"</string>
+    <string name="agent_usage_preference_label" msgid="3123976176446237103">"{count,plural, =1{Выкарыстоўвалася 1 праграма}one{Выкарыстоўвалася # праграма}few{Выкарыстоўваліся # праграмы}many{Выкарыстоўваліся # праграм}other{Выкарыстоўваліся # праграмы}}"</string>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Паказаць усе на панэлі кіравання"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Параметр фільтравання: <xliff:g id="PERM">%1$s</xliff:g>"</string>
     <string name="app_permission_usage_remove_filter" msgid="2926157607436428207">"Выдаліць фільтр"</string>
@@ -443,6 +446,8 @@
     <string name="default_app_none" msgid="9084592086808194457">"Няма"</string>
     <string name="default_app_system_default" msgid="6218386768175513760">"(Стандартная сістэмная)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"Няма праграм"</string>
+    <string name="default_app_confirmation_positive_button" msgid="7870227561758833590">"Змяніць"</string>
+    <string name="default_app_confirmation_negative_button" msgid="2564849389728106051">"Пакінуць цяперашнюю"</string>
     <string name="default_payment_app_other_nfc_services" msgid="5957633798695758917">"Іншыя сэрвісы NFC"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"Выбрана"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"Выбрана – <xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g>"</string>
@@ -451,8 +456,12 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Няма доступу для праграм"</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Няма праграм"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Працоўны профіль не падтрымліваецца"</string>
+    <string name="home_confirmation_title" msgid="5244574290223747640">"Змяніць стандартную праграму галоўнага экрана?"</string>
+    <string name="home_confirmation_message" msgid="248811491851505593">"Гэта прывядзе да замены галоўнага экрана і можа паўплываць на доступ да функцый на прыладзе.&lt;br&gt;&lt;br&gt;Змяніць гэты параметр заўсёды можна ў раздзеле налад &lt;b&gt;Стандартны галоўны экран&lt;/b&gt;."</string>
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Заўвага. Калі перазапусціць прыладу з наладжанай блакіроўкай экрана, праграма не запусціцца, пакуль вы не разблакіруеце прыладу."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"Памочнік атрымае доступ да інфармацыі пра праграмы, якія выкарыстоўваюцца ў вашай сістэме, у тым ліку да інфармацыі, бачнай на экране ці даступнай у праграмах."</string>
+    <string name="assistant_confirmation_title_v37" msgid="1700973760643407047">"Змяніць стандартную праграму лічбавага памочніка?"</string>
+    <string name="assistant_confirmation_message_v37" msgid="7518084182823372974">"Памочнік атрымае доступ да інфармацыі пра праграмы, якія выкарыстоўваюцца ў вашай сістэме."</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Абагульванне даных адладкі"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Абагуліць падрабязнасці адладкі?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"Праграма \"<xliff:g id="APP_NAME">%1$s</xliff:g>\" спрабуе запампаваць звесткі пра адладку."</string>
@@ -734,4 +743,7 @@
     <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Дазволіць стандартнай праграме-памочніку доступ да змесціва экрана і даных, якія абагульвае бачная праграма"</string>
     <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Дазволіць"</string>
     <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Не дазваляць"</string>
+    <string name="assist_structure_setting_title" msgid="3448963992289353882">"Выкарыстанне кантэксту з экрана і праграмы"</string>
+    <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"Дазвольце стандартнай праграме-памочніку доступ да экрана і даных, якія абагульвае бачная праграма"</string>
+    <string name="assist_structure_setting_description" msgid="2865330212261060313">"Дазвольце праграме-памочніку \"<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>\" доступ да экрана і даных, якія абагульвае бачная праграма"</string>
 </resources>

@@ -16,44 +16,66 @@
 
 package com.android.permissioncontroller.role.ui;
 
+import static com.android.permissioncontroller.PermissionControllerStatsLog.ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED;
+import static com.android.permissioncontroller.PermissionControllerStatsLog.ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED__RESULT__RESULT_CANCELLED;
+import static com.android.permissioncontroller.PermissionControllerStatsLog.ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED__RESULT__RESULT_OK;
+import static com.android.permissioncontroller.PermissionControllerStatsLog.ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED__RESULT__RESULT_UNSPECIFIED;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.os.BundleCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
+import com.android.permissioncontroller.PermissionControllerStatsLog;
+import com.android.permissioncontroller.R;
+import com.android.permissioncontroller.role.ui.behavior.ConfirmationDialogInfo;
+import com.android.settingslib.widget.SettingsThemeHelper;
 
 /**
  * {@link DialogFragment} for confirmation before setting a default app.
  */
 public class DefaultAppConfirmationDialogFragment extends DialogFragment {
 
+    private static final String EXTRA_INFO =
+            DefaultAppConfirmationDialogFragment.class.getName() + ".extra.INFO";
+
+    @NonNull
+    private String mRoleName;
+    @NonNull
     private String mPackageName;
     private int mUid;
-    private CharSequence mMessage;
+    @NonNull
+    private ConfirmationDialogInfo mInfo;
 
     /**
      * Create a new instance of this fragment.
      *
+     * @param roleName the name of the role being changed
      * @param packageName the package name of the application
      * @param uid the UID the specified package is running in
-     * @param message the confirmation message
+     * @param info the info for this confirmation dialog
      *
      * @return a new instance of this fragment
      *
-     * @see #show(String, int, CharSequence, Fragment)
+     * @see #show(String, String, int, ConfirmationDialogInfo, Fragment)
      */
     @NonNull
-    public static DefaultAppConfirmationDialogFragment newInstance(@NonNull String packageName,
-            int uid, @NonNull CharSequence message) {
+    public static DefaultAppConfirmationDialogFragment newInstance(@NonNull String roleName,
+            @NonNull String packageName, int uid, @NonNull ConfirmationDialogInfo info) {
         DefaultAppConfirmationDialogFragment fragment = new DefaultAppConfirmationDialogFragment();
         Bundle arguments = new Bundle();
+        arguments.putString(Intent.EXTRA_ROLE_NAME, roleName);
         arguments.putString(Intent.EXTRA_PACKAGE_NAME, packageName);
         arguments.putInt(Intent.EXTRA_UID, uid);
-        arguments.putCharSequence(Intent.EXTRA_TEXT, message);
+        arguments.putParcelable(EXTRA_INFO, info);
         fragment.setArguments(arguments);
         return fragment;
     }
@@ -61,16 +83,18 @@ public class DefaultAppConfirmationDialogFragment extends DialogFragment {
     /**
      * Show a new instance of this fragment.
      *
+     * @param roleName the name of the role being changed
      * @param packageName the package name of the application
      * @param uid the UID the specified package is running in
-     * @param message the confirmation message
+     * @param info the info for this confirmation dialog
      * @param fragment the parent fragment
      *
-     * @see #newInstance(String, int, CharSequence)
+     * @see #newInstance(String, String, int, ConfirmationDialogInfo)
      */
-    public static void show(@NonNull String packageName, int uid,
-            @NonNull CharSequence message, @NonNull Fragment fragment) {
-        newInstance(packageName, uid, message).show(fragment.getChildFragmentManager(), null);
+    public static void show(@NonNull String roleName, @NonNull String packageName, int uid,
+            @NonNull ConfirmationDialogInfo info, @NonNull Fragment fragment) {
+        newInstance(roleName, packageName, uid, info)
+                .show(fragment.getChildFragmentManager(), null);
     }
 
     @Override
@@ -78,24 +102,51 @@ public class DefaultAppConfirmationDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
+        mRoleName = arguments.getString(Intent.EXTRA_ROLE_NAME);
         mPackageName = arguments.getString(Intent.EXTRA_PACKAGE_NAME);
         mUid = arguments.getInt(Intent.EXTRA_UID);
-        mMessage = arguments.getCharSequence(Intent.EXTRA_TEXT);
+        mInfo = BundleCompat.getParcelable(arguments, EXTRA_INFO, ConfirmationDialogInfo.class);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return new AlertDialog.Builder(requireContext(), getTheme())
-                .setMessage(mMessage)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> onOk())
-                .setNegativeButton(android.R.string.cancel, null)
+        Context context = requireContext();
+        if (mInfo.isChangeConfirmation() && SettingsThemeHelper.isExpressiveTheme(context)) {
+            setStyle(DialogFragment.STYLE_NORMAL,
+                    R.style.Theme_DeviceDefault_AlertDialog_DefaultAppConfirmation_Expressive);
+        }
+        return new AlertDialog.Builder(context, getTheme())
+                .setTitle(mInfo.getTitle())
+                .setMessage(mInfo.getMessage())
+                .setPositiveButton(mInfo.getPositiveButtonText(),
+                        (dialog, which) -> onPositiveButtonClicked())
+                .setNegativeButton(mInfo.getNegativeButtonText(),
+                        (dialog, which) -> onNegativeButtonClicked())
                 .create();
     }
 
-    private void onOk() {
+    private void onPositiveButtonClicked() {
+        PermissionControllerStatsLog.write(ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED, mUid,
+                mPackageName, mRoleName,
+                ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED__RESULT__RESULT_OK);
         Listener listener = (Listener) getParentFragment();
         listener.setDefaultApp(mPackageName, mUid);
+    }
+
+    private void onNegativeButtonClicked() {
+        PermissionControllerStatsLog.write(ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED, mUid,
+                mPackageName, mRoleName,
+                ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED__RESULT__RESULT_CANCELLED);
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        PermissionControllerStatsLog.write(ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED, mUid,
+                mPackageName, mRoleName,
+                ROLE_SETTINGS_CONFIRMATION_DIALOG_ACTION_REPORTED__RESULT__RESULT_UNSPECIFIED);
     }
 
     /**

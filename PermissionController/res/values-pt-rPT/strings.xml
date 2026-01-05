@@ -126,6 +126,8 @@
     <string name="message_staging" msgid="9110563899955511866">"A preparar a app…"</string>
     <string name="app_name_unknown" msgid="1319665005754048952">"Desconhecido"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"Painel de privacidade"</string>
+    <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Autorizações de apps"</string>
+    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Atividade do agente"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Veja que apps utilizaram autorizações recentemente"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Utilização de <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Veja outras autorizações"</string>
@@ -165,6 +167,7 @@
     <string name="permission_usage_preference_summary_not_used_in_past_n_days" msgid="4771868094611359651">"{count,plural, =1{Não usada há # dia}many{Não usada há # dias}other{Não usada há # dias}}"</string>
     <string name="permission_usage_preference_summary_not_used_in_past_n_hours" msgid="3828973177433435742">"{count,plural, =1{Não usado há # hora}many{Não usado há # horas}other{Não usado há # horas}}"</string>
     <string name="permission_usage_preference_label" msgid="8343167938128676378">"{count,plural, =1{Utilização: 1 app}many{Utilização: # apps}other{Utilização: # apps}}"</string>
+    <string name="agent_usage_preference_label" msgid="3123976176446237103">"{count,plural, =1{Acedeu a 1 app}many{Acedeu a # apps}other{Acedeu a # apps}}"</string>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Ver tudo no painel de controlo"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Filtrado por: <xliff:g id="PERM">%1$s</xliff:g>"</string>
     <string name="app_permission_usage_remove_filter" msgid="2926157607436428207">"Remover filtro"</string>
@@ -330,7 +333,7 @@
     <string name="app_perms_content_provider_7d" msgid="3215454898257814868">"Acesso nos últimos 7 dias"</string>
     <string name="app_perms_24h_access_background" msgid="3413674718969576843">"Último acesso à(s) <xliff:g id="TIME_DATE">%1$s</xliff:g> • Permitido sempre"</string>
     <string name="app_perms_24h_access_yest_background" msgid="9174750810998076725">"Último acesso ontem à(s) <xliff:g id="TIME_DATE">%1$s</xliff:g> • Permitido sempre"</string>
-    <string name="app_perms_7d_access_background" msgid="408099213372185627">"Último acesso a <xliff:g id="TIME_DATE_0">%1$s</xliff:g> à(s) <xliff:g id="TIME_DATE_1">%2$s</xliff:g>• Permitido sempre"</string>
+    <string name="app_perms_7d_access_background" msgid="408099213372185627">"Último acesso a <xliff:g id="TIME_DATE_0">%1$s</xliff:g> à(s) <xliff:g id="TIME_DATE_1">%2$s</xliff:g> • Permitido sempre"</string>
     <string name="app_perms_content_provider_24h_background" msgid="3825902995186961496">"Acesso nas últimas 24 horas • Permitido sempre"</string>
     <string name="app_perms_content_provider_7d_background" msgid="4818839672116463542">"Acesso nos últimos 7 dias • Permitido sempre"</string>
     <string name="app_perms_24h_access_media_only" msgid="6651699644199132054">"Último acesso: <xliff:g id="TIME_DATE">%1$s</xliff:g> • Multimédia"</string>
@@ -443,6 +446,8 @@
     <string name="default_app_none" msgid="9084592086808194457">"Nenhuma"</string>
     <string name="default_app_system_default" msgid="6218386768175513760">"(Predefinição do sistema)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"Sem apps"</string>
+    <string name="default_app_confirmation_positive_button" msgid="7870227561758833590">"Alterar"</string>
+    <string name="default_app_confirmation_negative_button" msgid="2564849389728106051">"Manter atual"</string>
     <string name="default_payment_app_other_nfc_services" msgid="5957633798695758917">"Outros serviços NFC"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"Selecionada"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"Selecionada – <xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g>"</string>
@@ -451,8 +456,12 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Sem acesso especial a app"</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Sem apps"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Não suporta o perfil de trabalho."</string>
+    <string name="home_confirmation_title" msgid="5244574290223747640">"Alterar a app de página inicial predefinida?"</string>
+    <string name="home_confirmation_message" msgid="248811491851505593">"Esta ação substitui o ecrã principal e pode afetar o acesso às funcionalidades no seu dispositivo.&lt;br&gt;&lt;br&gt;Pode alterar esta seleção em qualquer altura nas definições de &lt;b&gt;App de página inicial predefinida&lt;/b&gt;."</string>
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Nota: se reiniciar o dispositivo e tiver um bloqueio de ecrã definido, só é possível iniciar esta app quando o dispositivo for desbloqueado."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"O assistente pode ler informações sobre as apps em utilização no seu sistema, incluindo informações visíveis no ecrã ou acessíveis nas apps."</string>
+    <string name="assistant_confirmation_title_v37" msgid="1700973760643407047">"Alterar a app de assistente digital predefinida?"</string>
+    <string name="assistant_confirmation_message_v37" msgid="7518084182823372974">"Este assistente pode ler informações sobre as apps em utilização no seu sistema."</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Partilhar dados de depuração"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Quer partilhar dados de depuração detalhados?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"A app <xliff:g id="APP_NAME">%1$s</xliff:g> quer carregar informações de depuração."</string>
@@ -734,4 +743,7 @@
     <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Permita que a app de assist. predef. aceda ao cont. do ecrã/dados partilhados pela app visível"</string>
     <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Permitir"</string>
     <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Não permitir"</string>
+    <string name="assist_structure_setting_title" msgid="3448963992289353882">"Use o contexto do ecrã e da app"</string>
+    <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"Permita que a app do assistente predefinido aceda ao ecrã e aos dados partilhados pela app visível"</string>
+    <string name="assist_structure_setting_description" msgid="2865330212261060313">"Permita que <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> aceda ao ecrã e aos dados partilhados pela app visível"</string>
 </resources>
