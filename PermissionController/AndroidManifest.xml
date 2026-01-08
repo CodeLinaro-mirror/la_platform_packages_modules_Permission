@@ -72,6 +72,7 @@
     <uses-permission android:name="android.permission.MANAGE_APP_FUNCTION_ACCESS" />
     <uses-permission android:name="android.permission.READ_APP_INTERACTION" />
     <uses-permission android:name="android.permission.READ_LOCATION_BYPASS_ALLOWLIST" />
+    <uses-permission android:name="android.permission.MANAGE_READ_SCREEN_CONTEXT_REQUEST" />
 
     <application android:name="com.android.permissioncontroller.PermissionControllerApplication"
             android:label="@string/app_name"
@@ -283,6 +284,20 @@
             </intent-filter>
             <intent-filter android:priority="1">
                 <action android:name="android.content.pm.action.REQUEST_PERMISSIONS_FOR_OTHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.android.permissioncontroller.permission.ui.v37.RequestLocationButtonPermissionsActivity"
+                  android:launchMode="singleTop"
+                  android:excludeFromRecents="true"
+                  android:exported="true"
+                  android:theme="@style/GrantPermissions.FilterTouches"
+                  android:inheritShowWhenLocked="true"
+                  android:enabled="@bool/is_at_least_v37"
+                  android:permission="android.permission.REQUEST_LOCATION_BUTTON_PERMISSIONS">
+            <intent-filter android:priority="1">
+                <action android:name="android.app.permissionui.action.REQUEST_LOCATION_BUTTON_PERMISSIONS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -510,7 +525,7 @@
             android:launchMode="singleTop"
             android:enabled="@bool/is_at_least_v37">
             <intent-filter android:priority="1">
-                <action android:name="android.app.voiceinteraction.action.REQUEST_ASSIST_STRUCTURE" />
+                <action android:name="android.app.voiceinteraction.action.REQUEST_READ_SCREEN_CONTEXT" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

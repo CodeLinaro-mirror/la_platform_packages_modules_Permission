@@ -138,11 +138,13 @@ class DefaultAssistantActivityTest {
         // Click to allow
         findAssistStructureToggle().click()
         uiDevice.waitForIdle()
+        assertAssistToggleState(isEnabled = true, isChecked = true)
         assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_ALLOWED)
 
         // Click to deny
         findAssistStructureToggle().click()
         uiDevice.waitForIdle()
+        assertAssistToggleState(isEnabled = true, isChecked = false)
         assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_IGNORED)
     }
 
@@ -210,9 +212,11 @@ class DefaultAssistantActivityTest {
             .click()
 
         // Dismiss the confirmation dialog if it appears
-        val okButton = UiAutomatorUtils2.waitFindObjectOrNull(By.text("OK"))
-        if (okButton != null) {
-            okButton.click()
+        val positiveButton =
+            UiAutomatorUtils2.waitFindObjectOrNull(By.text("Change").clazz("android.widget.Button"))
+                ?: UiAutomatorUtils2.waitFindObjectOrNull(By.text("OK"))
+        if (positiveButton != null) {
+            positiveButton.click()
             uiDevice.waitForIdle()
         }
 
@@ -245,7 +249,7 @@ class DefaultAssistantActivityTest {
     private fun getAppOpMode(): Int =
         SystemUtil.runWithShellPermissionIdentity<Int> {
             appOpsManager.checkOpNoThrow(
-                AppOpsManager.OPSTR_VOICE_INTERACTION_ASSIST_STRUCTURE,
+                AppOpsManager.OPSTR_READ_SCREEN_CONTEXT,
                 assistantRoleHolderPackageUid,
                 APP_PACKAGE_NAME,
             )
@@ -254,7 +258,7 @@ class DefaultAssistantActivityTest {
     private fun setAppOpMode(mode: Int) {
         SystemUtil.runWithShellPermissionIdentity {
             appOpsManager.setUidMode(
-                AppOpsManager.OPSTR_VOICE_INTERACTION_ASSIST_STRUCTURE,
+                AppOpsManager.OPSTR_READ_SCREEN_CONTEXT,
                 assistantRoleHolderPackageUid,
                 mode,
             )

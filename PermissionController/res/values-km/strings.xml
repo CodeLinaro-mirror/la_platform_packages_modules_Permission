@@ -746,4 +746,7 @@
     <string name="assist_structure_setting_title" msgid="3448963992289353882">"ប្រើបរិបទអេក្រង់ និងកម្មវិធី"</string>
     <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"អនុញ្ញាតឱ្យកម្មវិធីជំនួយការលំនាំដើមចូលប្រើអេក្រង់ និងទិន្នន័យដែលបានចែករំលែកដោយកម្មវិធីដែលមើលឃើញ"</string>
     <string name="assist_structure_setting_description" msgid="2865330212261060313">"អនុញ្ញាតឱ្យ <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> ចូលប្រើអេក្រង់ និងទិន្នន័យដែលបានចែករំលែកដោយកម្មវិធីដែលមើលឃើញ"</string>
+    <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"អនុញ្ញាត"</string>
+    <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"មិនអនុញ្ញាត"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"អនុញ្ញាតឱ្យ &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; ចូលប្រើទីតាំងជាក់លាក់ដោយប្រើប៊ូតុងទីតាំងឬ?"</string>
 </resources>

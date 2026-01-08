@@ -3008,6 +3008,19 @@
         android:protectionLevel="normal"
         android:featureFlag="android.permission.flags.restrict_assist_structure_screen_content_enabled" />
 
+    <!-- Allows an application to manage voice interaction read screen context requests (e.g.
+        request denial count)
+
+        <p>Protection level: signature|installer
+        @FlaggedApi(android.permission.flags.Flags.FLAG_ASSIST_SETTINGS_PRIVACY_IMPROVEMENTS_ENABLED)
+        @SystemApi
+        @hide
+    -->
+    <permission
+        android:name="android.permission.MANAGE_READ_SCREEN_CONTEXT_REQUEST"
+        android:protectionLevel="signature|installer"
+        android:featureFlag="android.permission.flags.assist_settings_privacy_improvements_enabled" />
+
     <!-- ======================================== -->
     <!-- Permissions for factory reset protection -->
     <!-- ======================================== -->
@@ -6602,6 +6615,20 @@
         android:description="@string/permdesc_requestDeletePackages"
         android:protectionLevel="normal" />
 
+    <!--
+         Allows a privileged app to initiate a bug report even when the active user is not an
+         admin user (e.g., a Guest or Secondary User). This is intended for use by designated
+         feedback applications on devices with specific multi-user configurations like HSUM.
+         <p>Protection level: signature|privileged
+         <p>Not for use by third-party applications.
+         @SystemApi
+         @hide
+         @FlaggedApi(android.os.Flags.FLAG_INITIATE_BUGREPORT_AS_NON_ADMIN)
+    -->
+    <permission android:name="android.permission.INITIATE_BUGREPORT_AS_NON_ADMIN"
+                android:protectionLevel="signature|privileged"
+                android:featureFlag="android.os.initiate_bugreport_as_non_admin" />
+
     <!-- Allows an application to install packages.
     <p>Not for use by third-party applications. -->
     <permission android:name="android.permission.INSTALL_PACKAGES"
@@ -9375,6 +9402,18 @@
         android:protectionLevel="normal"
         android:featureFlag="android.permission.flags.location_button_enabled" />
 
+    <!-- @hide @SystemApi
+        Allows an application to start the location button consent activity in
+        PermissionController. This permission should only be held by the system component rendering
+        the location button.
+        <p>Protection level: signature
+        @FlaggedApi(android.permission.flags.Flags.FLAG_LOCATION_BUTTON_ENABLED)
+    -->
+    <permission
+        android:name="android.permission.REQUEST_LOCATION_BUTTON_PERMISSIONS"
+        android:protectionLevel="signature"
+        android:featureFlag="android.permission.flags.location_button_enabled" />
+
     <!-- @SystemApi Allows an app to query apps in clone profile. The permission is
          bidirectional in nature, i.e. cloned apps would be able to query apps in root user.
          The permission is not meant for 3P apps as of now.
@@ -9736,19 +9775,6 @@
         android:protectionLevel="signature|privileged"
         android:featureFlag="android.os.profiling.anomaly.flags.anomaly_detector_core" />
 
-    <!-- @FlaggedApi(android.media.audio.Flags.FLAG_GUARD_STREAM_VOLUME_APIS)
-    Purpose guarded permission to query volume-related APIs.
-    {@see android.media.AudioManager}
-    <p>Protection level: normal
-    -->
-    <permission android:name="android.permission.QUERY_AUDIO_VOLUME"
-            android:protectionLevel="normal"
-            android:featureFlag="android.media.audio.guard_stream_volume_apis"
-            android:requiresPurpose="true"
-            android:requiresPurposeTargetSdkVersion="37">
-            <valid-purpose android:name="notForIdentification" />
-    </permission>
-
     <!-- Permission required to bind content restriction service
         <p>Protection level: signature
         @FlaggedApi(android.permission.flags.Flags.FLAG_CONTENT_RESTRICTION_ROLE_ENABLED)
@@ -9825,6 +9851,24 @@
             android:protectionLevel="signature"
             android:featureFlag="android.service.notification.enable_dnd_sync">
     </permission>
+
+    <!-- @SystemApi Allows an application to draw motion cues.
+         <p>Protection level: signature|privileged
+         @FlaggedApi(android.app.Flags.FLAG_ENABLE_MOTION_CUES)
+         @hide -->
+    <permission
+        android:name="android.permission.DRAW_MOTION_CUES"
+        android:protectionLevel="signature|privileged"
+        android:featureFlag="android.app.enable_motion_cues" />
+
+    <!-- @SystemApi Allows the holder to bind to the motion cues service
+         <p>Protection level: signature|privileged
+         @FlaggedApi(android.app.Flags.FLAG_ENABLE_MOTION_CUES)
+         @hide -->
+    <permission
+        android:name="android.permission.BIND_MOTION_CUES_SERVICE"
+        android:protectionLevel="signature|privileged"
+        android:featureFlag="android.app.enable_motion_cues" />
 
     <!-- Attribution for Geofencing service. -->
     <attribution android:tag="GeofencingService" android:label="@string/geofencing_service"/>
