@@ -86,6 +86,10 @@
         <permission name="android.permission.BLUETOOTH_CONNECT" minSdkVersion="31" />
         <permission name="android.permission.BLUETOOTH_SCAN" minSdkVersion="31" />
         <permission name="android.permission.NEARBY_WIFI_DEVICES" minSdkVersion="33" />
+        <permission
+            name="android.permission.ACCESS_LOCAL_NETWORK"
+            minSdkVersion="36"
+            featureFlag="android.permission.flags.Flags.accessLocalNetworkPermissionEnabled" />
     </permission-set>
 
     <permission-set name="notifications">
@@ -157,6 +161,8 @@
                 minSdkVersion="35" />
             <permission name="android.permission.SHOW_POWER_MENU"
                 featureFlag="android.app.Flags.statusbarApiShowPowerMenu" />
+            <permission name="android.permission.MANAGE_ASSISTANT_AUDIO"
+                featureFlag="android.media.audio.Flags.manageAssistantAudioPermission" />
         </permissions>
         <app-op-permissions>
             <app-op-permission name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -368,6 +374,10 @@
             <app-op name="android:run_any_in_background" mode="allowed" />
             <app-op name="android:read_device_identifiers" mode="allowed" />
             <app-op name="android:receive_sensitive_notifications" mode="allowed" minSdkVersion="35"/>
+            <app-op name="android:write_restricted_messages" mode="allowed"
+                    featureFlag="com.android.internal.telephony.flags.Flags.secureAccessToRestrictedRcsMessages"/>
+            <app-op name="android:read_restricted_messages" mode="allowed"
+                    featureFlag="com.android.internal.telephony.flags.Flags.secureAccessToRestrictedRcsMessages"/>
         </app-ops>
         <preferred-activities>
             <preferred-activity>
@@ -1261,14 +1271,29 @@
         <permissions>
             <permission-set name="notifications" />
             <permission-set name="virtual_device" />
+            <permission-set
+                name="storage"
+                featureFlag="android.companion.Flags.expandAppStreamingRolePermissions"
+                minSdkVersion="36" />
             <!-- For capturing audio from the app on the device. -->
             <permission name="android.permission.RECORD_AUDIO" />
             <permission
                 name="android.permission.ADD_MIRROR_DISPLAY"
                 featureFlag="android.companion.virtualdevice.flags.Flags.vdmMirrorDisplayPermission" />
+            <permission
+                name="android.permission.RECEIVE_SENSITIVE_NOTIFICATIONS"
+                featureFlag="android.companion.Flags.expandAppStreamingRolePermissions"
+                minSdkVersion="36" />
             <!--TODO(b/201605314) For calling Telecom framework API for audio streaming-->
             <!--<permission name="android.permission.PROVIDE_CALL_ENDPOINTS" />-->
        </permissions>
+       <app-ops>
+            <app-op
+                name="android:receive_sensitive_notifications"
+                featureFlag="android.companion.Flags.expandAppStreamingRolePermissions"
+                minSdkVersion="36"
+                mode="allowed" />
+        </app-ops>
     </role>
 
     <!---
@@ -1790,8 +1815,16 @@
             <permission name="android.permission.ACTIVITY_RECOGNITION" />
             <permission name="android.permission.health.READ_HEART_RATE" minSdkVersion="36"/>
             <permission name="android.permission.health.READ_OXYGEN_SATURATION"
-                featureFlag="android.permission.flags.Flags.granularHealthPermissionsPhaseTwoEnabled" />
+                featureFlag="android.permission.flags.Flags.skinTempOxygenSaturationHealthServicesPregrantEnabled" />
             <permission name="android.permission.health.READ_SKIN_TEMPERATURE"
+                featureFlag="android.permission.flags.Flags.skinTempOxygenSaturationHealthServicesPregrantEnabled" />
+            <permission name="android.permission.health.READ_BLOOD_PRESSURE"
+                featureFlag="android.permission.flags.Flags.granularHealthPermissionsPhaseTwoEnabled" />
+            <permission name="android.permission.health.READ_HEART_RATE_VARIABILITY"
+                featureFlag="android.permission.flags.Flags.granularHealthPermissionsPhaseTwoEnabled" />
+            <permission name="android.permission.health.READ_RESPIRATORY_RATE"
+                featureFlag="android.permission.flags.Flags.granularHealthPermissionsPhaseTwoEnabled" />
+            <permission name="android.permission.health.READ_VO2_MAX"
                 featureFlag="android.permission.flags.Flags.granularHealthPermissionsPhaseTwoEnabled" />
             <permission name="android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND" minSdkVersion="36"/>
         </permissions>

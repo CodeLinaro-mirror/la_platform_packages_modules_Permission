@@ -2395,9 +2395,10 @@
                 android:featureFlag="android.bluetooth.platform.flags.grant_permission_via_module_protection_level"
                 android:protectionLevel="signature|role|module" />
 
-    <!-- @hide Allows applications to register a NetworkAgent for its own use.
+    <!-- @SystemApi @hide Allows applications to register a NetworkAgent for its own use.
          <p>Such networks are not available to other applications on the device unless they have
          the CONNECTIVITY_USE_RESTRICTED_NETWORKS permission.
+         @FlaggedApi(android.net.platform.flags.Flags.FLAG_MAKE_APP_SPECIFIC_NETWORK_PERMISSION_API)
     -->
     <permission android:name="android.permission.CREATE_APP_SPECIFIC_NETWORK"
                 android:protectionLevel="signature|privileged"
@@ -2712,6 +2713,14 @@
     <permission android:name="android.permission.NFC_SET_CONTROLLER_ALWAYS_ON"
         android:protectionLevel="signature|privileged" />
 
+    <!-- @SystemApi Allows system application to provide a service for Tap-to-Share.
+         <p>Protection level: signature
+         @FlaggedApi(android.service.chooser.Flags.FLAG_TAP_TO_SHARE)
+         @hide -->
+    <permission android:name="android.permission.BIND_TO_TAP_TO_SHARE_SERVICE"
+         android:protectionLevel="signature"
+         android:featureFlag="android.service.chooser.tap_to_share"/>
+
     <!-- @SystemApi Allows an internal user to use privileged SecureElement APIs.
          Applications holding this permission can access OMAPI reset system API
          and bypass OMAPI AccessControlEnforcer.
@@ -2998,6 +3007,19 @@
         android:name="android.permission.READ_ASSIST_STRUCTURE_SCREEN_CONTENT"
         android:protectionLevel="normal"
         android:featureFlag="android.permission.flags.restrict_assist_structure_screen_content_enabled" />
+
+    <!-- Allows an application to manage voice interaction read screen context requests (e.g.
+        request denial count)
+
+        <p>Protection level: signature|installer
+        @FlaggedApi(android.permission.flags.Flags.FLAG_ASSIST_SETTINGS_PRIVACY_IMPROVEMENTS_ENABLED)
+        @SystemApi
+        @hide
+    -->
+    <permission
+        android:name="android.permission.MANAGE_READ_SCREEN_CONTEXT_REQUEST"
+        android:protectionLevel="signature|installer"
+        android:featureFlag="android.permission.flags.assist_settings_privacy_improvements_enabled" />
 
     <!-- ======================================== -->
     <!-- Permissions for factory reset protection -->
@@ -5523,7 +5545,15 @@
     <!-- Permissions for XR perception data   -->
     <!-- ==================================== -->
     <eat-comment />
+    <!-- Used for permissions that are associated with accessing
+         sensitive XR eye tracking data. -->
 
+         @FlaggedApi(android.xr.Flags.FLAG_XR_MANIFEST_ENTRIES) -->
+    <permission-group android:name="android.permission-group.XR_EYE_SENSITIVE"
+                      android:label="@string/permgrouplab_xr_eye_sensitive"
+                      android:description="@string/permgroupdesc_xr_eye_sensitive"
+                      android:priority="100"
+                      android:featureFlag="android.xr.xr_manifest_entries" />
     <!-- Used for permissions that are associated with accessing XR
          tracked information about the person using the device and the
          environment around them.
@@ -5884,18 +5914,6 @@
     <permission android:name="android.permission.FILTER_EVENTS"
         android:protectionLevel="signature" />
 
-    <!-- @SystemApi Allows privileged applications to inject key events into the event stream by
-         creating a virtual keyboard. Key events may be delivered to ANY window. Allows for
-         arbitrary keycode injections (e.g. AKEYCODE_BRIGHTNESS_UP) and modifier events
-         (e.g. META_META_ON + AKEYCODE_L).
-         <p>Not for use by third-party applications.
-         @hide
-         @FlaggedApi(com.android.hardware.input.Flags.FLAG_CREATE_VIRTUAL_KEYBOARD_API)
-    -->
-    <permission android:name="android.permission.INJECT_KEY_EVENTS"
-        android:protectionLevel="signature|privileged"
-        android:featureFlag="com.android.hardware.input.create_virtual_keyboard_api" />
-
     <!-- @hide Allows an application to retrieve the window token from the accessibility manager. -->
     <permission android:name="android.permission.RETRIEVE_WINDOW_TOKEN"
         android:protectionLevel="signature" />
@@ -6068,6 +6086,17 @@
          to ensure that only the system can bind to it. -->
     <permission android:name="android.permission.BIND_COMPANION_DEVICE_SERVICE"
                 android:protectionLevel="signature" />
+
+    <!-- Must be required by {@link android.security.trusttoken.TrustTokenService}
+         to ensure that only the system can bind to it.
+         <p>Protection level: signature
+         @FlaggedApi(android.security.Flags.FLAG_TALISMAN_SERVICE_API)
+         @SystemApi
+         @hide -->
+    <permission
+        android:name="android.permission.BIND_TRUST_TOKEN_SERVICE"
+        android:protectionLevel="signature"
+        android:featureFlag="android.security.talisman_service_api" />
 
     <!-- @SystemApi Must be required by the RuntimePermissionPresenterService to ensure
          that only the system can bind to it.
@@ -6585,6 +6614,20 @@
         android:label="@string/permlab_requestDeletePackages"
         android:description="@string/permdesc_requestDeletePackages"
         android:protectionLevel="normal" />
+
+    <!--
+         Allows a privileged app to initiate a bug report even when the active user is not an
+         admin user (e.g., a Guest or Secondary User). This is intended for use by designated
+         feedback applications on devices with specific multi-user configurations like HSUM.
+         <p>Protection level: signature|privileged
+         <p>Not for use by third-party applications.
+         @SystemApi
+         @hide
+         @FlaggedApi(android.os.Flags.FLAG_INITIATE_BUGREPORT_AS_NON_ADMIN)
+    -->
+    <permission android:name="android.permission.INITIATE_BUGREPORT_AS_NON_ADMIN"
+                android:protectionLevel="signature|privileged"
+                android:featureFlag="android.os.initiate_bugreport_as_non_admin" />
 
     <!-- Allows an application to install packages.
     <p>Not for use by third-party applications. -->
@@ -7170,12 +7213,12 @@
 
     <!--@SystemApi Allows control of audio behavior related to Assistant experiences, including
         routing, mode change and volume control of the Assistant audio stream.
-        <p>Protection level: signature|privileged|role
+        <p>Protection level: signature|role
         @FlaggedApi(android.media.audio.Flags.FLAG_MANAGE_ASSISTANT_AUDIO_PERMISSION)
         @hide -->
     <permission android:name="android.permission.MANAGE_ASSISTANT_AUDIO"
                 android:featureFlag="android.media.audio.manage_assistant_audio_permission"
-                android:protectionLevel="signature|privileged|role" />
+                android:protectionLevel="signature|role" />
 
     <!-- @SystemApi Allows an application to access the uplink and downlink audio of an ongoing
         call.
@@ -7746,12 +7789,12 @@
 
     <!-- @SystemApi @hide Allows an application to query domain verification.
          <p>Not for use by third-party applications.
-         @FlaggedApi(android.content.pm.Flags.FLAG_ENABLE_QUERY_DOMAIN_VERIFICATION)
+         @FlaggedApi(android.view.flags.Flags.FLAG_REDACT_WEB_OTP_SMS_API)
     -->
     <permission
         android:name="android.permission.QUERY_DOMAIN_VERIFICATION"
         android:protectionLevel="signature|module"
-        android:featureFlag="android.content.pm.enable_query_domain_verification" />
+        android:featureFlag="android.view.flags.redact_web_otp_sms_api" />
 
     <!-- @SystemApi Allows applications to access serial ports via the SerialManager.
          @hide -->
@@ -9352,12 +9395,24 @@
     <!-- Allows an app use location button, which grants temporary location permission when a user
          clicks the button.
          <p>Protection level: normal
-         @FlaggedApi(android.widget.flags.Flags.FLAG_LOCATION_BUTTON_ENABLED)
+         @FlaggedApi(android.permission.flags.Flags.FLAG_LOCATION_BUTTON_ENABLED)
     -->
     <permission
         android:name="android.permission.USE_LOCATION_BUTTON"
         android:protectionLevel="normal"
-        android:featureFlag="android.widget.flags.location_button_enabled" />
+        android:featureFlag="android.permission.flags.location_button_enabled" />
+
+    <!-- @hide @SystemApi
+        Allows an application to start the location button consent activity in
+        PermissionController. This permission should only be held by the system component rendering
+        the location button.
+        <p>Protection level: signature
+        @FlaggedApi(android.permission.flags.Flags.FLAG_LOCATION_BUTTON_ENABLED)
+    -->
+    <permission
+        android:name="android.permission.REQUEST_LOCATION_BUTTON_PERMISSIONS"
+        android:protectionLevel="signature"
+        android:featureFlag="android.permission.flags.location_button_enabled" />
 
     <!-- @SystemApi Allows an app to query apps in clone profile. The permission is
          bidirectional in nature, i.e. cloned apps would be able to query apps in root user.
@@ -9720,19 +9775,6 @@
         android:protectionLevel="signature|privileged"
         android:featureFlag="android.os.profiling.anomaly.flags.anomaly_detector_core" />
 
-    <!-- @FlaggedApi(android.media.audio.Flags.FLAG_GUARD_STREAM_VOLUME_APIS)
-    Purpose guarded permission to query volume-related APIs.
-    {@see android.media.AudioManager}
-    <p>Protection level: normal
-    -->
-    <permission android:name="android.permission.QUERY_AUDIO_VOLUME"
-            android:protectionLevel="normal"
-            android:featureFlag="android.media.audio.guard_stream_volume_apis"
-            android:requiresPurpose="true"
-            android:requiresPurposeTargetSdkVersion="37">
-            <valid-purpose android:name="notForIdentification" />
-    </permission>
-
     <!-- Permission required to bind content restriction service
         <p>Protection level: signature
         @FlaggedApi(android.permission.flags.Flags.FLAG_CONTENT_RESTRICTION_ROLE_ENABLED)
@@ -9740,19 +9782,6 @@
     <permission android:name="android.permission.BIND_CONTENT_RESTRICTION_SERVICE"
         android:protectionLevel="signature"
         android:featureFlag="android.permission.flags.content_restriction_role_enabled" />
-
-    <!-- @FlaggedApi(android.view.inputmethod.Flags.FLAG_GUARD_INPUT_METHOD_LIST_APIS)
-        Purpose guarded permission to query input method list APIs.
-        {@link android.view.inputmethod.InputMethodManager}
-        <p>Protection level: normal
-    -->
-    <permission android:name="android.permission.QUERY_INPUT_METHOD"
-            android:protectionLevel="normal"
-            android:featureFlag="android.view.inputmethod.guard_input_method_list_apis"
-            android:requiresPurpose="true"
-            android:requiresPurposeTargetSdkVersion="37">
-            <valid-purpose android:name="notForIdentification" />
-    </permission>
 
     <!-- @SystemApi
         @FlaggedApi("android.content.pm.verification_service")
@@ -9822,6 +9851,24 @@
             android:protectionLevel="signature"
             android:featureFlag="android.service.notification.enable_dnd_sync">
     </permission>
+
+    <!-- @SystemApi Allows an application to draw motion cues.
+         <p>Protection level: signature|privileged
+         @FlaggedApi(android.app.Flags.FLAG_ENABLE_MOTION_CUES)
+         @hide -->
+    <permission
+        android:name="android.permission.DRAW_MOTION_CUES"
+        android:protectionLevel="signature|privileged"
+        android:featureFlag="android.app.enable_motion_cues" />
+
+    <!-- @SystemApi Allows the holder to bind to the motion cues service
+         <p>Protection level: signature|privileged
+         @FlaggedApi(android.app.Flags.FLAG_ENABLE_MOTION_CUES)
+         @hide -->
+    <permission
+        android:name="android.permission.BIND_MOTION_CUES_SERVICE"
+        android:protectionLevel="signature|privileged"
+        android:featureFlag="android.app.enable_motion_cues" />
 
     <!-- Attribution for Geofencing service. -->
     <attribution android:tag="GeofencingService" android:label="@string/geofencing_service"/>

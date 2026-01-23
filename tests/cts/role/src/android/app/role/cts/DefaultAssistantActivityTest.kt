@@ -18,12 +18,14 @@ package android.app.role.cts
 import android.app.AppOpsManager
 import android.app.role.RoleManager
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Process
 import android.os.UserHandle
 import android.permission.flags.Flags.FLAG_ASSIST_SETTINGS_PRIVACY_IMPROVEMENTS_ENABLED
 import android.platform.test.annotations.RequiresFlagsEnabled
 import android.platform.test.flag.junit.DeviceFlagsValueProvider
+import android.provider.Settings
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
@@ -60,6 +62,10 @@ class DefaultAssistantActivityTest {
 
     @Before
     fun setup() {
+        val packageManager = context.packageManager
+        Assume.assumeFalse(packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE))
+        Assume.assumeFalse(packageManager.hasSystemFeature(PackageManager.FEATURE_LEANBACK))
+        Assume.assumeFalse(packageManager.hasSystemFeature(PackageManager.FEATURE_WATCH))
         Assume.assumeTrue(RoleManagerUtil.isCddCompliantScreenSize())
         saveRoleHolder()
         installPackage(APP_APK_PATH)
@@ -77,8 +83,15 @@ class DefaultAssistantActivityTest {
     }
 
     @Test
+    fun defaultAssistantActivity_canBeOpened_viaVoiceInputSettings() {
+        launchDefaultAssistantActivity(useVoiceInputSettingsAction = true)
+
+        // If we've reached here, it means we've found the default assistant activity and the test
+        // can pass.
+    }
+
+    @Test
     fun assistStructureToggle_whenNoneSelected_isDisabled() {
-        // addRoleHolder(RoleManager.ROLE_ASSISTANT, APP_PACKAGE_NAME)
         setAppOpMode(AppOpsManager.MODE_ALLOWED)
 
         launchDefaultAssistantActivity()
@@ -125,11 +138,13 @@ class DefaultAssistantActivityTest {
         // Click to allow
         findAssistStructureToggle().click()
         uiDevice.waitForIdle()
+        assertAssistToggleState(isEnabled = true, isChecked = true)
         assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_ALLOWED)
 
         // Click to deny
         findAssistStructureToggle().click()
         uiDevice.waitForIdle()
+        assertAssistToggleState(isEnabled = true, isChecked = false)
         assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_IGNORED)
     }
 
@@ -156,15 +171,21 @@ class DefaultAssistantActivityTest {
         assertAssistToggleState(isEnabled = true, isChecked = true)
     }
 
-    private fun launchDefaultAssistantActivity() {
+    private fun launchDefaultAssistantActivity(useVoiceInputSettingsAction: Boolean = false) {
         SystemUtil.runWithShellPermissionIdentity {
             val intent =
-                Intent(Intent.ACTION_MANAGE_DEFAULT_APP)
-                    .putExtra(Intent.EXTRA_ROLE_NAME, RoleManager.ROLE_ASSISTANT)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                if (useVoiceInputSettingsAction) {
+                    Intent(Settings.ACTION_VOICE_INPUT_SETTINGS)
+                } else {
+                    Intent(Intent.ACTION_MANAGE_DEFAULT_APP)
+                        .putExtra(Intent.EXTRA_ROLE_NAME, RoleManager.ROLE_ASSISTANT)
+                }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             context.startActivity(intent)
         }
-        UiAutomatorUtils2.waitFindObject(By.descContains("Default digital assistant app"))
+        UiAutomatorUtils2.waitFindObject(
+            By.descContains(DEFAULT_ASSISTANT_APP_LABEL).pkg(PERMISSION_CONTROLLER_PACKAGE_NAME)
+        )
     }
 
     private fun selectNoneAsRoleHolder() {
@@ -191,9 +212,11 @@ class DefaultAssistantActivityTest {
             .click()
 
         // Dismiss the confirmation dialog if it appears
-        val okButton = UiAutomatorUtils2.waitFindObjectOrNull(By.text("OK"))
-        if (okButton != null) {
-            okButton.click()
+        val positiveButton =
+            UiAutomatorUtils2.waitFindObjectOrNull(By.text("Change").clazz("android.widget.Button"))
+                ?: UiAutomatorUtils2.waitFindObjectOrNull(By.text("OK"))
+        if (positiveButton != null) {
+            positiveButton.click()
             uiDevice.waitForIdle()
         }
 
@@ -226,7 +249,7 @@ class DefaultAssistantActivityTest {
     private fun getAppOpMode(): Int =
         SystemUtil.runWithShellPermissionIdentity<Int> {
             appOpsManager.checkOpNoThrow(
-                AppOpsManager.OPSTR_VOICE_INTERACTION_ASSIST_STRUCTURE,
+                AppOpsManager.OPSTR_READ_SCREEN_CONTEXT,
                 assistantRoleHolderPackageUid,
                 APP_PACKAGE_NAME,
             )
@@ -235,7 +258,7 @@ class DefaultAssistantActivityTest {
     private fun setAppOpMode(mode: Int) {
         SystemUtil.runWithShellPermissionIdentity {
             appOpsManager.setUidMode(
-                AppOpsManager.OPSTR_VOICE_INTERACTION_ASSIST_STRUCTURE,
+                AppOpsManager.OPSTR_READ_SCREEN_CONTEXT,
                 assistantRoleHolderPackageUid,
                 mode,
             )
@@ -304,5 +327,11 @@ class DefaultAssistantActivityTest {
         private const val APP_LABEL = "CtsRoleTestApp"
         private const val NONE_LABEL = "None"
         private const val ASSIST_STRUCTURE_SWITCH_LABEL = "Use screen and app context"
+        private const val DEFAULT_ASSISTANT_APP_LABEL = "Default digital assistant app"
+        private val PERMISSION_CONTROLLER_PACKAGE_NAME =
+            InstrumentationRegistry.getInstrumentation()
+                .targetContext
+                .packageManager
+                .permissionControllerPackageName
     }
 }

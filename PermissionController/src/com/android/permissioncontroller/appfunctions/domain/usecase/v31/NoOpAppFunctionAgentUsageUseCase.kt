@@ -16,7 +16,7 @@
 package com.android.permissioncontroller.appfunctions.domain.usecase.v31
 
 import android.content.Context
-import com.android.permissioncontroller.appfunctions.domain.model.v31.AccessCount
+import com.android.permissioncontroller.appinteraction.domain.model.v31.AccessCount
 
 /**
  * A no-op implementation of [GetAppFunctionAgentUsageUseCase].

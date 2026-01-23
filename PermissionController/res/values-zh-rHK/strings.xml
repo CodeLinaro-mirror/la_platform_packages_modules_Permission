@@ -208,7 +208,7 @@
     <string name="app_permission_info_button" msgid="8973692370208562556">"資料"</string>
     <string name="app_permission_settings_button" msgid="4582916817451973752">"設定"</string>
     <string name="assistant_mic_label" msgid="1011432357152323896">"顯示「Google 助理」麥克風使用情況"</string>
-    <string name="unused_apps_category_title" msgid="2988455616845243901">"不使用的應用程式設定"</string>
+    <string name="unused_apps_category_title" msgid="2988455616845243901">"未使用的應用程式設定"</string>
     <string name="auto_revoke_label" msgid="5068393642936571656">"如不使用應用程式，即移除權限"</string>
     <string name="unused_apps_label" msgid="2595428768404901064">"移除權限並騰出空間"</string>
     <string name="unused_apps_label_v2" msgid="7058776770056517980">"暫停未使用應用程式的活動"</string>
@@ -746,4 +746,7 @@
     <string name="assist_structure_setting_title" msgid="3448963992289353882">"使用畫面和應用程式內容"</string>
     <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"允許預設數碼助理應用程式存取可見應用程式分享的畫面內容和資料"</string>
     <string name="assist_structure_setting_description" msgid="2865330212261060313">"允許「<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>」存取可見應用程式分享的畫面內容和資料"</string>
+    <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"允許"</string>
+    <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"不允許"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"要允許「<xliff:g id="APP_NAME">%1$s</xliff:g>」&lt;b&gt;&lt;/b&gt;使用位置按鈕存取精確位置嗎？"</string>
 </resources>
