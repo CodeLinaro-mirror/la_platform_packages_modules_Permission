@@ -1,4 +1,5 @@
-// Copyright (C) 2019 The Android Open Source Project
+//
+// Copyright (C) 2026 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,14 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 package {
+    default_team: "trendy_team_android_permissions",
     default_applicable_licenses: ["Android-Apache-2.0"],
+    default_visibility: ["//packages/modules/Permission:__subpackages__"],
 }
 
-android_test_helper_app {
-    name: "CtsRuntimePermissionDefinerApp",
-    defaults: ["cts_defaults"],
-    sdk_version: "current",
-    certificate: ":cts-testkey1",
+filegroup {
+    name: "preinstalled-packages-com.android.permissioncontroller.xml",
+    srcs: ["preinstalled-packages-com.android.permissioncontroller.xml"],
 }
