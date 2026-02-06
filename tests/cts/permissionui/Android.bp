@@ -75,10 +75,12 @@ android_test {
         ":CtsDifferentPkgNameApp",
         ":CtsUsePermissionAppImplicitUserSelectStorage",
         ":CtsAppThatAccessesMicAndCameraPermission",
+        ":CtsAppThatAccessesLocationPermission",
         ":CtsUsePermissionAppStorage33",
         ":CtsAppThatMakesTwoPermRequests",
         ":CtsAppWithSharedUidNoPerms",
         ":CtsAppWithSharedUidWithPerms",
+        ":CtsLocationButtonApp",
     ],
     test_suites: [
         "cts",
