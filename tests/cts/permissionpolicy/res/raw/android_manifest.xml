@@ -2660,6 +2660,17 @@
         android:protectionLevel="internal|role|recents"
         android:featureFlag="android.security.app_lock_apis" />
 
+    <!-- @TestApi
+         Allows a test application to set App Lock enablement state for other applications.
+         Intended for test only.
+         <p>Protection level: signature
+         @hide
+         @FlaggedApi(android.security.Flags.FLAG_APP_LOCK_APIS)
+    -->
+    <permission android:name="android.permission.TEST_LOCK_APPS"
+        android:protectionLevel="signature"
+        android:featureFlag="android.security.app_lock_apis" />
+
     <!-- @SystemApi
          @hide
          @FlaggedApi("android.content.pm.quarantined_enabled")
@@ -3068,6 +3079,20 @@
         android:name="android.permission.MANAGE_READ_SCREEN_CONTEXT_REQUEST"
         android:protectionLevel="signature|installer"
         android:featureFlag="android.permission.flags.assist_settings_privacy_improvements_enabled" />
+
+    <!-- Allows an application to change an application's personal context mode setting.
+
+        <p>This permission is needed to enable or disable personal context data for an application
+        through the {@link android.service.personalcontext.PersonalContextManager
+        #setPersonalContextModeEnabled(String, boolean)} API.
+
+         <p>Protection level: signature
+         @FlaggedApi(android.service.personalcontext.Flags.FLAG_ENABLE_PERSONAL_CONTEXT_SERVICE)
+     -->
+    <permission
+        android:name="android.permission.CHANGE_PERSONAL_CONTEXT_MODE"
+        android:protectionLevel="signature"
+        android:featureFlag="android.service.personalcontext.enable_personal_context_service" />
 
     <!-- ======================================== -->
     <!-- Permissions for factory reset protection -->
@@ -5423,6 +5448,14 @@
     <permission android:name="android.permission.BIND_JOB_SERVICE"
         android:protectionLevel="signature" />
     <uses-permission android:name="android.permission.BIND_JOB_SERVICE"/>
+
+    <!-- Allows the system to bind to an application's data migration service for Private Compute.
+         <p>Protection level: signature
+         @FlaggedApi(android.app.privatecompute.flags.Flags.FLAG_ENABLE_PCC_FRAMEWORK_SUPPORT)
+    -->
+    <permission android:name="android.permission.BIND_DATA_MIGRATION_FOR_PRIVATECOMPUTE"
+      android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.BIND_DATA_MIGRATION_FOR_PRIVATECOMPUTE"/>
 
     <!-- Allows an application to initiate configuration updates
          <p>An application requesting this permission is responsible for
@@ -7903,12 +7936,9 @@
     <permission android:name="android.permission.MANAGE_SUBSCRIPTION_PLANS"
         android:protectionLevel="signature|privileged" />
 
-    <!-- @SystemApi @hide Allows for reading subscription plan fields for status and end date.
-         @FlaggedApi(com.android.internal.telephony.flags.Flags.FLAG_SUBSCRIPTION_PLAN_ALLOW_STATUS_AND_END_DATE)
-    -->
+    <!-- @SystemApi @hide Allows for reading subscription plan fields for status and end date. -->
     <permission android:name="android.permission.READ_SUBSCRIPTION_PLANS"
         android:protectionLevel="signature|privileged"
-        android:featureFlag="com.android.internal.telephony.flags.subscription_plan_allow_status_and_end_date"
         android:permissionFlags="allowedInPrivateComputeCore" />
 
     <!-- C2DM permission.
@@ -8254,6 +8284,18 @@
     -->
     <permission android:name="android.permission.BIND_DREAM_SERVICE"
         android:protectionLevel="signature" />
+
+    <!-- Must be required by any
+         {@link android.service.personalcontext.refiner.HintRefinerService},
+         {@link android.service.personalcontext.undedrstander.ContextUnderstanderService}, or
+         {@link android.service.personalcontext.renderer.InsightRendererService} to ensure that
+         only the system can bind to it.
+         <p>Protection level: signature
+         @FlaggedApi(android.service.personalcontext.Flags.FLAG_ENABLE_PERSONAL_CONTEXT_SERVICE)
+    -->
+    <permission android:name="android.permission.BIND_CONTEXT_COMPONENT_SERVICE"
+        android:protectionLevel="signature"
+        android:featureFlag="android.service.personalcontext.enable_personal_context_service" />
 
     <!-- Must be required by a
          {@link android.service.personalcontext.renderer.InsightRendererService}, to ensure that
