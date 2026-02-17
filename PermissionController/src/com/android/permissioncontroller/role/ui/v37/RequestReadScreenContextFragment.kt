@@ -20,9 +20,9 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Process
+import android.text.Html
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
@@ -32,10 +32,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.permissioncontroller.R
 import com.android.permissioncontroller.pm.data.repository.v31.PackageRepository
 
-class RequestAssistStructureFragment : DialogFragment() {
+class RequestReadScreenContextFragment : DialogFragment() {
     private lateinit var packageName: String
 
-    private lateinit var viewModel: RequestAssistStructureViewModel
+    private lateinit var viewModel: RequestReadScreenContextViewModel
 
     private lateinit var iconImage: ImageView
     private lateinit var titleText: TextView
@@ -53,16 +53,19 @@ class RequestAssistStructureFragment : DialogFragment() {
         super.onStart()
 
         val factory =
-            RequestAssistStructureViewModelFactory(requireActivity().getApplication(), packageName)
+            RequestReadScreenContextViewModelFactory(
+                requireActivity().getApplication(),
+                packageName,
+            )
 
         viewModel =
-            ViewModelProvider(this, factory).get(RequestAssistStructureViewModel::class.java)
+            ViewModelProvider(this, factory).get(RequestReadScreenContextViewModel::class.java)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = requireActivity()
         val view =
-            LayoutInflater.from(activity).inflate(R.layout.request_assist_structure_dialog, null)
+            LayoutInflater.from(activity).inflate(R.layout.request_read_screen_context_dialog, null)
         iconImage = view.requireViewById(R.id.icon)
         titleText = view.requireViewById(R.id.title)
         positiveButton = view.requireViewById(R.id.allow_button)
@@ -71,13 +74,23 @@ class RequestAssistStructureFragment : DialogFragment() {
         val packageRepository = PackageRepository.createInstance(requireContext())
         val icon = packageRepository.getBadgedPackageIcon(packageName, Process.myUserHandle())
         val label = packageRepository.getPackageLabel(packageName, Process.myUserHandle())
-        val title = getString(R.string.request_assist_structure_dialog_title, label)
+        val escapedAppLabel = Html.escapeHtml(label)
+        val title =
+            Html.fromHtml(
+                getString(R.string.request_read_screen_context_dialog_title, escapedAppLabel),
+                0,
+            )
 
         iconImage.setImageDrawable(icon)
         titleText.text = title
 
         positiveButton.apply { setOnClickListener { onGrant() } }
-        negativeButton.apply { setOnClickListener { dialog!!.cancel() } }
+        negativeButton.apply {
+            setOnClickListener {
+                viewModel.markRequestDenied()
+                dialog!!.cancel()
+            }
+        }
         return Dialog(activity).apply { setContentView(view) }
     }
 
@@ -88,7 +101,6 @@ class RequestAssistStructureFragment : DialogFragment() {
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
-        viewModel.markRequestDenied()
         setResultAndFinish(Activity.RESULT_CANCELED)
     }
 
@@ -98,12 +110,9 @@ class RequestAssistStructureFragment : DialogFragment() {
         activity.finish()
     }
 
-    /** The data class for UI state of RequestAssistStructure dialog. */
-    data class RequestAssistStructureRichUiState(val icon: Drawable?, val label: String)
-
     companion object {
-        fun newInstance(packageName: String): RequestAssistStructureFragment =
-            RequestAssistStructureFragment().apply {
+        fun newInstance(packageName: String): RequestReadScreenContextFragment =
+            RequestReadScreenContextFragment().apply {
                 arguments = Bundle().apply { putString(Intent.EXTRA_PACKAGE_NAME, packageName) }
             }
     }

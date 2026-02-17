@@ -33,9 +33,12 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiObject2
 import com.android.compatibility.common.util.DisableAnimationRule
 import com.android.compatibility.common.util.FreezeRotationRule
+import com.android.compatibility.common.util.SettingsStateKeeperRule
+import com.android.compatibility.common.util.SettingsStateManager
 import com.android.compatibility.common.util.SystemUtil
 import com.android.compatibility.common.util.UiAutomatorUtils2
 import com.google.common.truth.Truth.assertThat
+import kotlin.text.toIntOrNull
 import org.junit.After
 import org.junit.Assume
 import org.junit.Before
@@ -51,8 +54,13 @@ class DefaultAssistantActivityTest {
     @get:Rule val checkFlagsRule = DeviceFlagsValueProvider.createCheckFlagsRule()
     @get:Rule val disableAnimationRule = DisableAnimationRule()
     @get:Rule val freezeRotationRule = FreezeRotationRule()
+    @get:Rule
+    val readScreenContextDeniedCountManagersKeeper =
+        SettingsStateKeeperRule(context, READ_SCREEN_CONTEXT_REQUEST_DENIED_COUNT)
 
-    private val context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val readScreenContextDeniedCountManager =
+        SettingsStateManager(context, READ_SCREEN_CONTEXT_REQUEST_DENIED_COUNT)
+
     private val uiDevice = UiAutomatorUtils2.getUiDevice()
     private val appOpsManager = context.getSystemService(AppOpsManager::class.java)!!
     private val roleManager = context.getSystemService(RoleManager::class.java)!!
@@ -69,9 +77,11 @@ class DefaultAssistantActivityTest {
         Assume.assumeTrue(RoleManagerUtil.isCddCompliantScreenSize())
         saveRoleHolder()
         installPackage(APP_APK_PATH)
+        installPackage(CLONE_APP_APK_PATH)
         assistantRoleHolderPackageUid = context.packageManager.getPackageUid(APP_PACKAGE_NAME, 0)
         wakeUpScreen()
         closeNotificationShade()
+        setReadScreenContextRequestDeniedCount(0)
     }
 
     @After
@@ -79,6 +89,7 @@ class DefaultAssistantActivityTest {
         // Close activity, if a test failed it might be left open
         pressBack()
         uninstallPackage(APP_PACKAGE_NAME)
+        uninstallPackage(CLONE_APP_PACKAGE_NAME)
         restoreRoleHolder()
     }
 
@@ -91,7 +102,7 @@ class DefaultAssistantActivityTest {
     }
 
     @Test
-    fun assistStructureToggle_whenNoneSelected_isDisabled() {
+    fun readScreenContextToggle_whenNoneSelected_isDisabled() {
         setAppOpMode(AppOpsManager.MODE_ALLOWED)
 
         launchDefaultAssistantActivity()
@@ -99,11 +110,11 @@ class DefaultAssistantActivityTest {
         selectNoneAsRoleHolder()
 
         // Verify toggle is disabled and unchecked
-        assertAssistToggleState(isEnabled = false, isChecked = false)
+        assertReadScreenContextToggleState(isEnabled = false, isChecked = false)
     }
 
     @Test
-    fun assistStructureToggle_whenAppSelected_isCorrectlySet() {
+    fun readScreenContextToggle_whenAppSelected_isCorrectlySet() {
         setAppOpMode(AppOpsManager.MODE_ALLOWED)
 
         launchDefaultAssistantActivity()
@@ -111,11 +122,11 @@ class DefaultAssistantActivityTest {
         selectAppAsRoleHolder()
 
         // Verify toggle is enabled and checked
-        assertAssistToggleState(isEnabled = true, isChecked = true)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = true)
     }
 
     @Test
-    fun assistStructureToggle_whenAppSelected_isCorrectlySet_modeIgnored() {
+    fun readScreenContextToggle_whenAppSelected_isCorrectlySet_modeIgnored() {
         setAppOpMode(AppOpsManager.MODE_IGNORED)
 
         launchDefaultAssistantActivity()
@@ -123,52 +134,157 @@ class DefaultAssistantActivityTest {
         selectAppAsRoleHolder()
 
         // Verify toggle is enabled and checked
-        assertAssistToggleState(isEnabled = true, isChecked = false)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = false)
     }
 
     @Test
-    fun assistStructureToggle_whenClicked_changesAppOp() {
+    fun readScreenContextToggle_whenClicked_changesAppOp() {
         addRoleHolder(RoleManager.ROLE_ASSISTANT, APP_PACKAGE_NAME)
         setAppOpMode(AppOpsManager.MODE_IGNORED)
 
         launchDefaultAssistantActivity()
 
-        assertAssistToggleState(isEnabled = true, isChecked = false)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = false)
 
         // Click to allow
-        findAssistStructureToggle().click()
+        findReadScreenContextToggle().click()
         uiDevice.waitForIdle()
-        assertAssistToggleState(isEnabled = true, isChecked = true)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = true)
         assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_ALLOWED)
 
         // Click to deny
-        findAssistStructureToggle().click()
+        findReadScreenContextToggle().click()
         uiDevice.waitForIdle()
-        assertAssistToggleState(isEnabled = true, isChecked = false)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = false)
         assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_IGNORED)
     }
 
     @Test
-    fun assistStructureToggle_whenAppOpUpdate_toggleChanges() {
+    fun readScreenContextToggle_whenChangeRoleHolderThenClicked_changesAppOp() {
+        addRoleHolder(RoleManager.ROLE_ASSISTANT, CLONE_APP_PACKAGE_NAME)
+        setAppOpMode(AppOpsManager.MODE_IGNORED)
+
+        launchDefaultAssistantActivity()
+
+        selectAppAsRoleHolder()
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = false)
+
+        // Click to allow
+        findReadScreenContextToggle().click()
+        uiDevice.waitForIdle()
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = true)
+        assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_ALLOWED)
+
+        // Click to deny
+        findReadScreenContextToggle().click()
+        uiDevice.waitForIdle()
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = false)
+        assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_IGNORED)
+    }
+
+    @Test
+    fun readScreenContextToggle_whenAppOpUpdate_toggleChanges() {
         addRoleHolder(RoleManager.ROLE_ASSISTANT, APP_PACKAGE_NAME)
 
         launchDefaultAssistantActivity()
 
         setAppOpMode(AppOpsManager.MODE_IGNORED)
         uiDevice.waitForIdle()
-        assertAssistToggleState(isEnabled = true, isChecked = false)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = false)
 
         setAppOpMode(AppOpsManager.MODE_ALLOWED)
         uiDevice.waitForIdle()
-        assertAssistToggleState(isEnabled = true, isChecked = true)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = true)
 
         setAppOpMode(AppOpsManager.MODE_IGNORED)
         uiDevice.waitForIdle()
-        assertAssistToggleState(isEnabled = true, isChecked = false)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = false)
 
         setAppOpMode(AppOpsManager.MODE_DEFAULT)
         uiDevice.waitForIdle()
-        assertAssistToggleState(isEnabled = true, isChecked = true)
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = true)
+    }
+
+    @Test
+    fun readScreenContextToggle_whenNoneSelected_resetsAppOpToIgnored() {
+        addRoleHolder(RoleManager.ROLE_ASSISTANT, APP_PACKAGE_NAME)
+        setAppOpMode(AppOpsManager.MODE_DEFAULT)
+
+        launchDefaultAssistantActivity()
+
+        // Verify mode_default is assistToggleState enabled
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = true)
+
+        selectNoneAsRoleHolder()
+
+        assertReadScreenContextToggleState(isEnabled = false, isChecked = false)
+
+        // Ensure app op mode is now ignored
+        assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_IGNORED)
+
+        selectAppAsRoleHolder()
+
+        assertReadScreenContextToggleState(isEnabled = true, isChecked = false)
+
+        // Double check/ensure that app op is still ignored
+        assertThat(getAppOpMode()).isEqualTo(AppOpsManager.MODE_IGNORED)
+    }
+
+    @Test
+    fun readScreenContextToggle_whenClicked_resetsDeniedCount() {
+        addRoleHolder(RoleManager.ROLE_ASSISTANT, APP_PACKAGE_NAME)
+        setAppOpMode(AppOpsManager.MODE_IGNORED)
+        setReadScreenContextRequestDeniedCount(10)
+
+        launchDefaultAssistantActivity()
+
+        // Click to toggle
+        findReadScreenContextToggle().click()
+        uiDevice.waitForIdle()
+
+        assertThat(getReadScreenContextRequestDeniedCount()).isEqualTo(0)
+    }
+
+    @Test
+    fun readScreenContextToggle_whenRoleHolderChanged_resetsDeniedCount() {
+        addRoleHolder(RoleManager.ROLE_ASSISTANT, CLONE_APP_PACKAGE_NAME)
+        setAppOpMode(AppOpsManager.MODE_IGNORED)
+        setReadScreenContextRequestDeniedCount(10)
+
+        launchDefaultAssistantActivity()
+
+        selectAppAsRoleHolder()
+        uiDevice.waitForIdle()
+
+        assertThat(getReadScreenContextRequestDeniedCount()).isEqualTo(0)
+    }
+
+    @Test
+    fun testConfirmationMessage_appOpAllowed() {
+        setAppOpMode(AppOpsManager.MODE_ALLOWED)
+
+        launchDefaultAssistantActivity()
+
+        selectAppAsRoleHolder(false)
+
+        UiAutomatorUtils2.waitFindObject(
+            By.text(DEFAULT_ASSISTANT_CHANGE_AND_RESTORE_ACCESS_CONFIRMATION_MESSAGE)
+        )
+
+        pressBack()
+    }
+
+    @Test
+    fun testConfirmationMessage_appOpIgnored() {
+        setAppOpMode(AppOpsManager.MODE_IGNORED)
+
+        launchDefaultAssistantActivity()
+
+        selectAppAsRoleHolder(false)
+
+        UiAutomatorUtils2.waitFindObject(By.text(DEFAULT_ASSISTANT_CHANGE_CONFIRMATION_MESSAGE))
+
+        pressBack()
     }
 
     private fun launchDefaultAssistantActivity(useVoiceInputSettingsAction: Boolean = false) {
@@ -203,7 +319,7 @@ class DefaultAssistantActivityTest {
         )
     }
 
-    private fun selectAppAsRoleHolder() {
+    private fun selectAppAsRoleHolder(dismissConfirmationDialog: Boolean = true) {
         UiAutomatorUtils2.waitFindObject(
                 By.clickable(true)
                     .hasDescendant(By.checkable(true))
@@ -211,37 +327,40 @@ class DefaultAssistantActivityTest {
             )
             .click()
 
-        // Dismiss the confirmation dialog if it appears
-        val positiveButton =
-            UiAutomatorUtils2.waitFindObjectOrNull(By.text("Change").clazz("android.widget.Button"))
-                ?: UiAutomatorUtils2.waitFindObjectOrNull(By.text("OK"))
-        if (positiveButton != null) {
-            positiveButton.click()
-            uiDevice.waitForIdle()
-        }
+        if (dismissConfirmationDialog) {
+            // Dismiss the confirmation dialog
+            val positiveButton =
+                UiAutomatorUtils2.waitFindObjectOrNull(
+                    By.text("Change").clazz("android.widget.Button")
+                ) ?: UiAutomatorUtils2.waitFindObjectOrNull(By.text("OK"))
+            if (positiveButton != null) {
+                positiveButton.click()
+                uiDevice.waitForIdle()
+            }
 
-        UiAutomatorUtils2.waitFindObject(
-            By.clickable(true)
-                .hasDescendant(By.checkable(true).checked(true))
-                .hasDescendant(By.text(APP_LABEL))
-        )
+            UiAutomatorUtils2.waitFindObject(
+                By.clickable(true)
+                    .hasDescendant(By.checkable(true).checked(true))
+                    .hasDescendant(By.text(APP_LABEL))
+            )
+        }
     }
 
-    private fun findAssistStructureToggle(): UiObject2 =
-        UiAutomatorUtils2.waitFindObject(By.text(ASSIST_STRUCTURE_SWITCH_LABEL))
+    private fun findReadScreenContextToggle(): UiObject2 =
+        UiAutomatorUtils2.waitFindObject(By.text(READ_SCREEN_CONTEXT_SWITCH_LABEL))
 
-    private fun assertAssistToggleState(isEnabled: Boolean, isChecked: Boolean) {
+    private fun assertReadScreenContextToggleState(isEnabled: Boolean, isChecked: Boolean) {
         if (isEnabled) {
             UiAutomatorUtils2.waitFindObject(
                 By.clickable(true)
                     .hasDescendant(By.checkable(true).checked(isChecked))
-                    .hasDescendant(By.text(ASSIST_STRUCTURE_SWITCH_LABEL))
+                    .hasDescendant(By.text(READ_SCREEN_CONTEXT_SWITCH_LABEL))
             )
         } else {
             UiAutomatorUtils2.waitFindObject(
                 By.enabled(false)
                     .hasDescendant(By.checkable(true).checked(isChecked))
-                    .hasDescendant(By.text(ASSIST_STRUCTURE_SWITCH_LABEL))
+                    .hasDescendant(By.text(READ_SCREEN_CONTEXT_SWITCH_LABEL))
             )
         }
     }
@@ -265,6 +384,12 @@ class DefaultAssistantActivityTest {
         }
     }
 
+    private fun getReadScreenContextRequestDeniedCount(): Int =
+        readScreenContextDeniedCountManager.get()?.toIntOrNull() ?: 0
+
+    private fun setReadScreenContextRequestDeniedCount(count: Int) =
+        readScreenContextDeniedCountManager.set(count.toString())
+
     private fun saveRoleHolder() {
         val roleHolders = RoleManagerUtil.getRoleHolders(roleManager, RoleManager.ROLE_ASSISTANT)
         originalRoleHolder = roleHolders.firstOrNull()
@@ -287,6 +412,12 @@ class DefaultAssistantActivityTest {
             RoleManager.ROLE_ASSISTANT,
             APP_PACKAGE_NAME,
         )
+        RoleManagerUtil.removeRoleHolder(
+            roleManager,
+            context,
+            RoleManager.ROLE_ASSISTANT,
+            CLONE_APP_PACKAGE_NAME,
+        )
         originalRoleHolder?.let {
             RoleManagerUtil.addRoleHolder(roleManager, context, RoleManager.ROLE_ASSISTANT, it)
         }
@@ -294,10 +425,6 @@ class DefaultAssistantActivityTest {
 
     private fun addRoleHolder(roleName: String, packageName: String) {
         RoleManagerUtil.addRoleHolder(roleManager, context, roleName, packageName)
-    }
-
-    private fun removeRoleHolder(roleName: String, packageName: String) {
-        RoleManagerUtil.removeRoleHolder(roleManager, context, roleName, packageName)
     }
 
     private fun installPackage(apkPath: String, user: UserHandle = Process.myUserHandle()) =
@@ -325,13 +452,29 @@ class DefaultAssistantActivityTest {
         private const val APP_APK_PATH = "/data/local/tmp/cts-role/CtsRoleTestApp.apk"
         private const val APP_PACKAGE_NAME = "android.app.role.cts.app"
         private const val APP_LABEL = "CtsRoleTestApp"
+        private const val CLONE_APP_APK_PATH = "/data/local/tmp/cts-role/CtsRoleTestAppClone.apk"
+        private const val CLONE_APP_PACKAGE_NAME = "android.app.role.cts.appClone"
+        private const val CLONE_APP_LABEL = "CtsRoleTestAppClone"
         private const val NONE_LABEL = "None"
-        private const val ASSIST_STRUCTURE_SWITCH_LABEL = "Use screen and app context"
+        private const val READ_SCREEN_CONTEXT_SWITCH_LABEL = "Use screen and app data"
         private const val DEFAULT_ASSISTANT_APP_LABEL = "Default digital assistant app"
+        private const val DEFAULT_ASSISTANT_CHANGE_AND_RESTORE_ACCESS_CONFIRMATION_MESSAGE =
+            "This assistant will be able to access info, like your messages, and data that apps " +
+                "have chosen to share with your assistant.\n\nSince you\u2019ve turned " +
+                "on screen and app data for $APP_LABEL before, it will also be " +
+                "allowed to access content from the app open on your screen."
+        private const val DEFAULT_ASSISTANT_CHANGE_CONFIRMATION_MESSAGE =
+            "This assistant will be able to access info, like your messages, and data that apps " +
+                "have chosen to share with your assistant."
         private val PERMISSION_CONTROLLER_PACKAGE_NAME =
             InstrumentationRegistry.getInstrumentation()
                 .targetContext
                 .packageManager
                 .permissionControllerPackageName
+        private val READ_SCREEN_CONTEXT_REQUEST_DENIED_COUNT =
+            "read_screen_context_request_denied_count"
+
+        @JvmStatic private val instrumentation = InstrumentationRegistry.getInstrumentation()
+        @JvmStatic private val context = instrumentation.targetContext
     }
 }

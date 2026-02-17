@@ -183,7 +183,7 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
                         preferenceScreen.findPreference(PREFERENCE_KEY_OTHERS_CATEGORY);
                 clearPreferenceCategory(oldOthersPreferenceCategory, oldPreferences);
             }
-            if (android.permission.flags.Flags.assistSettingsPrivacyImprovementsEnabled()) {
+            if (isAssistSettingsPrivacyImprovementsEnabled()) {
                 oldSettingsPreferenceCategory =
                         preferenceScreen.findPreference(PREFERENCE_KEY_SETTINGS_CATEGORY);
                 clearPreferenceCategory(oldSettingsPreferenceCategory, oldPreferences);
@@ -203,14 +203,18 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
             }
         } else {
             boolean noneChecked = !hasHolderApplication(otherApplicationItems);
-            addNonePreferenceIfNeeded(preferenceScreen, noneChecked, oldPreferences, context);
+            if (!isAssistSettingsPrivacyImprovementsEnabled()) {
+                addNonePreferenceIfNeeded(preferenceScreen, noneChecked, oldPreferences, context);
+            }
             addApplicationPreferences(preferenceScreen, otherApplicationItems, oldPreferences,
                     context);
+            if (isAssistSettingsPrivacyImprovementsEnabled()) {
+                addNonePreferenceIfNeeded(preferenceScreen, noneChecked, oldPreferences, context);
+            }
         }
 
         addNonPaymentNfcServicesPreference(preferenceScreen, oldPreferences, context);
-        if (SdkLevel.isAtLeastB()
-                && android.permission.flags.Flags.assistSettingsPrivacyImprovementsEnabled()) {
+        if (isAssistSettingsPrivacyImprovementsEnabled()) {
             RoleApplicationItem holderApplicationItem =
                     getHolderApplication(recommendedApplicationItems);
             if (holderApplicationItem == null) {
@@ -262,10 +266,13 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
         preferenceScreen.addPreference(preferenceCategory);
         if (isRecommended) {
             addRecommendedDescriptionPreference(preferenceCategory, oldPreferences, context);
-        } else {
+        } else if (!isAssistSettingsPrivacyImprovementsEnabled()) {
             addNonePreferenceIfNeeded(preferenceCategory, noneChecked, oldPreferences, context);
         }
         addApplicationPreferences(preferenceCategory, applicationItems, oldPreferences, context);
+        if (!isRecommended && isAssistSettingsPrivacyImprovementsEnabled()) {
+            addNonePreferenceIfNeeded(preferenceScreen, noneChecked, oldPreferences, context);
+        }
     }
 
     private void addRecommendedDescriptionPreference(@NonNull PreferenceGroup preferenceGroup,
@@ -313,7 +320,8 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
             return;
         }
 
-        Drawable icon = AppCompatResources.getDrawable(context, R.drawable.ic_remove_circle);
+        Drawable icon = isAssistSettingsPrivacyImprovementsEnabled() ? null
+                : AppCompatResources.getDrawable(context, R.drawable.ic_remove_circle);
         String title = getString(R.string.default_app_none);
         addApplicationPreference(preferenceGroup, PREFERENCE_KEY_NONE, icon, title, checked, null,
                 oldPreferences, context);
@@ -412,7 +420,7 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
             int uid = preference.getExtras().getInt(PREFERENCE_EXTRA_UID);
             ConfirmationDialogInfo confirmationDialogInfo =
                     RoleUiBehaviorUtils.getConfirmationDialogInfo(mRole, packageName,
-                            requireContext());
+                            UserHandle.getUserHandleForUid(uid), requireContext());
             if (confirmationDialogInfo != null) {
                 DefaultAppConfirmationDialogFragment.show(mRoleName, packageName, uid,
                         confirmationDialogInfo, this);
@@ -482,8 +490,7 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
     private void addReadScreenContextSettingPreference(@NonNull PreferenceGroup preferenceGroup,
             @Nullable RoleApplicationItem holderApplicationItem,
             @NonNull ArrayMap<String, Preference> oldPreferences, @NonNull Context context) {
-        if (!(SdkLevel.isAtLeastB()
-                && android.permission.flags.Flags.assistSettingsPrivacyImprovementsEnabled()
+        if (!(isAssistSettingsPrivacyImprovementsEnabled()
                 && Objects.equals(mRoleName, RoleManager.ROLE_ASSISTANT))) {
             return;
         }
@@ -495,8 +502,22 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
             preference = new SwitchPreferenceCompat(context);
             preference.setKey(PREFERENCE_KEY_READ_SCREEN_CONTEXT_SETTING);
             preference.setTitle(context.getString(
-                    R.string.assist_structure_setting_title));
+                    R.string.read_screen_context_setting_title));
             preference.setPersistent(false);
+        }
+
+        if (holderApplicationItem == null) {
+            preference.setChecked(false);
+            preference.setEnabled(false);
+            preference.setSummary(context.getString(
+                    R.string.read_screen_context_setting_default_description));
+        } else {
+            String appLabel = Utils.getFullAppLabel(holderApplicationItem.getApplicationInfo(),
+                    context);
+            preference.setChecked(holderApplicationItem.isReadScreenContextEnabled());
+            preference.setEnabled(true);
+            preference.setSummary(context.getString(
+                    R.string.read_screen_context_setting_description, appLabel));
             preference.setOnPreferenceClickListener(preference2 -> {
                 SwitchPreferenceCompat switchPreference = (SwitchPreferenceCompat) preference2;
                 mViewModel.setReadScreenContextSettingEnabled(holderApplicationItem,
@@ -505,21 +526,11 @@ public class DefaultAppChildFragment<PF extends PreferenceFragmentCompat
             });
         }
 
-        if (holderApplicationItem == null) {
-            preference.setChecked(false);
-            preference.setEnabled(false);
-            preference.setSummary(context.getString(
-                    R.string.assist_structure_setting_default_description));
-        } else {
-            String appLabel = Utils.getFullAppLabel(holderApplicationItem.getApplicationInfo(),
-                    context);
-            preference.setChecked(holderApplicationItem.isReadScreenContextEnabled());
-            preference.setEnabled(true);
-            preference.setSummary(context.getString(
-                    R.string.assist_structure_setting_description, appLabel));
-        }
-
         preferenceGroup.addPreference(preference);
+    }
+
+    private static boolean isAssistSettingsPrivacyImprovementsEnabled() {
+        return android.permission.flags.Flags.assistSettingsPrivacyImprovementsEnabled();
     }
 
     private void addDescriptionPreference(@NonNull PreferenceScreen preferenceScreen,

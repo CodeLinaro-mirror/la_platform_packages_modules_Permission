@@ -14,6 +14,10 @@ rule android.app.appfunctions.flags.*FeatureFlags* com.android.permission.jarjar
 rule android.app.appfunctions.flags.FeatureFlags* com.android.permission.jarjar.@0
 rule android.app.appfunctions.flags.FeatureFlags com.android.permission.jarjar.@0
 rule android.app.appfunctions.flags.Flags com.android.permission.jarjar.@0
+rule android.app.supervision.flags.*FeatureFlags* com.android.permission.jarjar.@0
+rule android.app.supervision.flags.FeatureFlags* com.android.permission.jarjar.@0
+rule android.app.supervision.flags.FeatureFlags com.android.permission.jarjar.@0
+rule android.app.supervision.flags.Flags com.android.permission.jarjar.@0
 rule android.companion.*FeatureFlags* com.android.permission.jarjar.@0
 rule android.companion.FeatureFlags* com.android.permission.jarjar.@0
 rule android.companion.FeatureFlags com.android.permission.jarjar.@0
@@ -26,6 +30,10 @@ rule android.content.pm.*FeatureFlags* com.android.permission.jarjar.@0
 rule android.content.pm.FeatureFlags* com.android.permission.jarjar.@0
 rule android.content.pm.FeatureFlags com.android.permission.jarjar.@0
 rule android.content.pm.Flags com.android.permission.jarjar.@0
+rule android.hardware.biometrics.*FeatureFlags* com.android.permission.jarjar.@0
+rule android.hardware.biometrics.FeatureFlags* com.android.permission.jarjar.@0
+rule android.hardware.biometrics.FeatureFlags com.android.permission.jarjar.@0
+rule android.hardware.biometrics.Flags com.android.permission.jarjar.@0
 rule android.os.*FeatureFlags* com.android.permission.jarjar.@0
 rule android.os.FeatureFlags* com.android.permission.jarjar.@0
 rule android.os.FeatureFlags com.android.permission.jarjar.@0
@@ -48,7 +56,14 @@ rule android.view.contentprotection.flags.*FeatureFlags* com.android.permission.
 rule android.view.contentprotection.flags.FeatureFlags* com.android.permission.jarjar.@0
 rule android.view.contentprotection.flags.FeatureFlags com.android.permission.jarjar.@0
 rule android.view.contentprotection.flags.Flags com.android.permission.jarjar.@0
-rule com.android.internal.** com.android.permission.jarjar.@0
+rule com.android.input.flags.*FeatureFlags* com.android.permission.jarjar.@0
+rule com.android.input.flags.FeatureFlags* com.android.permission.jarjar.@0
+rule com.android.input.flags.FeatureFlags com.android.permission.jarjar.@0
+rule com.android.input.flags.Flags com.android.permission.jarjar.@0
+# com.android.internal.** cannot be jarjared altogether because of its
+# flagging lib.
+rule com.android.internal.infra.** com.android.permission.jarjar.@0
+rule com.android.internal.util.** com.android.permission.jarjar.@0
 rule com.android.modules.** com.android.permission.jarjar.@0
 rule com.android.permission.flags.*FeatureFlags* com.android.permission.jarjar.@0
 rule com.android.permission.flags.FeatureFlags* com.android.permission.jarjar.@0
@@ -80,6 +95,8 @@ rule android.media.audio.*FeatureFlags* com.android.permission.jarjar.@0
 rule android.media.audio.FeatureFlags* com.android.permission.jarjar.@0
 rule android.media.audio.FeatureFlags com.android.permission.jarjar.@0
 rule android.media.audio.Flags com.android.permission.jarjar.@0
+# com.android.internal.** cannot be jarjared altogether because of its
+# flagging lib.
 rule com.android.internal.telephony.flags.*FeatureFlags* com.android.permission.jarjar.@0
 rule com.android.internal.telephony.flags.FeatureFlags* com.android.permission.jarjar.@0
 rule com.android.internal.telephony.flags.FeatureFlags com.android.permission.jarjar.@0

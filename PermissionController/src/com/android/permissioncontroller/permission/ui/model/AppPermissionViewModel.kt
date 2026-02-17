@@ -32,6 +32,7 @@ import android.app.AppOpsManager.MODE_ERRORED
 import android.app.AppOpsManager.OPSTR_MANAGE_EXTERNAL_STORAGE
 import android.app.Application
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.SensorPrivacyManager
 import android.hardware.SensorPrivacyManager.OnSensorPrivacyChangedListener
 import android.hardware.SensorPrivacyManager.OnSensorPrivacyChangedListener.SensorPrivacyChangedParams
@@ -415,7 +416,7 @@ class AppPermissionViewModel(
 
             private fun onMediaPermGroupUpdate(
                 mediaPermGroupName: String,
-                permGroup: LightAppPermGroup?
+                permGroup: LightAppPermGroup?,
             ) {
                 if (permGroup == null) {
                     mediaStorageSupergroupPermGroups.remove(mediaPermGroupName)
@@ -686,6 +687,8 @@ class AppPermissionViewModel(
             }
         }
 
+    fun isOnlyForLocationButton(): Boolean = lightAppPermGroup?.isOnlyForLocationButton == true
+
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.VANILLA_ICE_CREAM, codename = "VanillaIceCream")
     fun handleDisabledAllowButton(fragment: Fragment) {
         if (
@@ -922,25 +925,25 @@ class AppPermissionViewModel(
         }
 
         if (changeRequest == ChangeRequest.GRANT_FINE_LOCATION) {
-            if (!group.isOneTime) {
-                val newGroup = KotlinUtils.grantForegroundRuntimePermissions(app, group)
+            var newGroup = group
+            // TODO check the toggle behavior, when app is using a location button.
+            if (!newGroup.isOneTime) {
+                newGroup = KotlinUtils.grantForegroundRuntimePermissions(app, group)
                 logPermissionChanges(group, newGroup, buttonClicked)
             }
-            KotlinUtils.setFlagsWhenLocationAccuracyChanged(app, group, true)
+            KotlinUtils.setFlagsWhenLocationAccuracyChanged(app, newGroup, true)
             return
         }
 
         if (changeRequest == ChangeRequest.REVOKE_FINE_LOCATION) {
-            if (!group.isOneTime) {
-                val newGroup =
-                    KotlinUtils.revokeForegroundRuntimePermissions(
-                        app,
-                        group,
-                        filterPermissions = listOf(ACCESS_FINE_LOCATION),
-                    )
-                logPermissionChanges(group, newGroup, buttonClicked)
-            }
-            KotlinUtils.setFlagsWhenLocationAccuracyChanged(app, group, false)
+            val newGroup =
+                KotlinUtils.revokeForegroundRuntimePermissions(
+                    app,
+                    group,
+                    filterPermissions = listOf(ACCESS_FINE_LOCATION),
+                )
+            logPermissionChanges(group, newGroup, buttonClicked)
+            KotlinUtils.setFlagsWhenLocationAccuracyChanged(app, newGroup, false)
             return
         }
 
@@ -1108,13 +1111,25 @@ class AppPermissionViewModel(
 
             if (shouldGrantForeground) {
                 newGroup =
-                    if (shouldShowLocationAccuracy == true && !isFineLocationChecked(newGroup)) {
+                    if (
+                        shouldShowLocationAccuracy == true && !isFineLocationChecked(newGroup) ||
+                            newGroup.isOnlyForLocationButton
+                    ) {
                         KotlinUtils.grantForegroundRuntimePermissions(
                             app,
                             newGroup,
                             filterPermissions = listOf(ACCESS_COARSE_LOCATION),
                         )
+                        //  Due to filterPermissions parameter in above grant call, one time flag
+                        //  for other permissions in location group aren't cleared,
+                        //  do it explicitly for all permissions in the group.
+                        KotlinUtils.setGroupFlags(
+                            app,
+                            newGroup,
+                            PackageManager.FLAG_PERMISSION_ONE_TIME to false,
+                        )
                     } else {
+                        // This clears one time flag for all permissions in the group.
                         KotlinUtils.grantForegroundRuntimePermissions(app, newGroup)
                     }
 

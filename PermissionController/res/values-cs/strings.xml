@@ -128,6 +128,12 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Panel ochrany soukromí"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Oprávnění k aplikacím"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Aktivita agenta"</string>
+    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Aktivita aplikace <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"V posledních 24 hodinách"</string>
+    <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Dnes"</string>
+    <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Včera"</string>
+    <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Poslední přístup: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Zobrazit"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Zobrazit aplikace, které v poslední době využily oprávnění"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> – používání"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Zobrazit další oprávnění"</string>
@@ -194,6 +200,8 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Povolit jen při používání aplikace"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Vždy povolit vše"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Pokaždé se zeptat"</string>
+    <!-- no translation found for app_permission_button_ask_or_when_i_share (6762528139112412909) -->
+    <skip />
     <string name="app_permission_button_deny" msgid="6016454069832050300">"Nepovolovat"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"Povolit omezený přístup"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Přesná poloha"</string>
@@ -456,12 +464,15 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Žádný přístup ke spec. aplik."</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Žádné aplikace"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Nepodporuje pracovní profil"</string>
-    <string name="home_confirmation_title" msgid="5244574290223747640">"Změnit výchozí vstupní aplikaci?"</string>
+    <string name="home_confirmation_title" msgid="8070603501839126093">"Změnit výchozí aplikaci pro domácnost na &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
     <string name="home_confirmation_message" msgid="248811491851505593">"Tato aplikace nahradí plochu a může ovlivnit přístup k funkcím na zařízení.&lt;br&gt;&lt;br&gt;Tento výběr můžete kdykoli změnit v nastavení &lt;b&gt;Výchozí vstupní aplikace&lt;/b&gt;."</string>
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Poznámka: Pokud restartujete zařízení a máte nastavený zámek obrazovky, tato aplikace se nespustí, dokud zařízení neodemknete."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"Asistent bude moct číst informace o aplikacích používaných v systému, včetně údajů viditelných na obrazovce a přístupných v rámci aplikací."</string>
-    <string name="assistant_confirmation_title_v37" msgid="1700973760643407047">"Změnit výchozí aplikaci digitálního asistenta?"</string>
-    <string name="assistant_confirmation_message_v37" msgid="7518084182823372974">"Tento asistent bude moct číst informace o aplikacích používaných v systému."</string>
+    <string name="assistant_confirmation_title_v37" msgid="4998437583005547092">"Změnit aplikaci digitálního asistenta na &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
+    <!-- no translation found for assistant_confirmation_message_v37 (4763150587952308197) -->
+    <skip />
+    <!-- no translation found for assistant_confirmation_message_access_restored_v37 (2731391781319881100) -->
+    <skip />
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Sdílet data ladění"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Sdílet podrobná data pro ladění?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"Aplikace <xliff:g id="APP_NAME">%1$s</xliff:g> chce nahrát informace pro ladění."</string>
@@ -642,7 +653,7 @@
     <string name="mic_toggle_description" msgid="9163104307990677157">"Týká se aplikací a služeb. Pokud je toto nastavení vypnuté a zavoláte na číslo tísňového volání, data z mikrofonu se mohou stále sdílet."</string>
     <string name="location_settings_subtitle" msgid="2328360561197430695">"Seznam aplikací a služeb, které mají přístup k poloze"</string>
     <string name="show_clip_access_notification_title" msgid="5168467637351109096">"Zobrazovat použití schránky"</string>
-    <string name="show_clip_access_notification_summary" msgid="3532020182782112687">"Zobrazovat zprávu, když aplikace použijí text, obrázky nebo jiný obsah, který jste zkopírovali"</string>
+    <string name="show_clip_access_notification_summary" msgid="3532020182782112687">"Když aplikace použijí text, obrázky nebo jiný obsah, který jste zkopírovali, zobrazí se zpráva"</string>
     <string name="show_password_title" msgid="2877269286984684659">"Zobrazovat hesla"</string>
     <string name="show_password_summary" msgid="1110166488865981610">"Při psaní se budou krátce zobrazovat zadané znaky"</string>
     <string name="permission_rationale_message_location" msgid="2153841534298068414">"Tato aplikace uvedla, že může sdílet údaje o poloze se třetími stranami"</string>
@@ -739,13 +750,20 @@
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"Tento agent bude mít přístup k aplikaci <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> k získávání informací a provádění kroků za vás."</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Povolit"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Nepovolovat"</string>
-    <string name="request_assist_structure_dialog_title" msgid="1108220895681014081">"Povolit aplikaci <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> přístup ke kontextu obrazovky a aplikací?"</string>
-    <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Povolit výchozí asistenční aplikaci přístup k obsahu obrazovky a datům sdíleným viditelnou aplikací"</string>
-    <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Povolit"</string>
-    <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Nepovolovat"</string>
-    <string name="assist_structure_setting_title" msgid="3448963992289353882">"Používat kontext obrazovky a aplikací"</string>
-    <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"Povolit výchozí asistenční aplikaci přístup k obrazovce a datům sdíleným viditelnou aplikací"</string>
-    <string name="assist_structure_setting_description" msgid="2865330212261060313">"Povolit aplikaci <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> přístup k obrazovce a datům sdíleným viditelnou aplikací"</string>
+    <!-- no translation found for request_read_screen_context_dialog_title (9048738661085777679) -->
+    <skip />
+    <!-- no translation found for request_read_screen_context_dialog_description (627006720540705018) -->
+    <skip />
+    <!-- no translation found for request_read_screen_context_dialog_button_allow (5664102873265905702) -->
+    <skip />
+    <!-- no translation found for request_read_screen_context_dialog_button_dont_allow (582852715625937711) -->
+    <skip />
+    <!-- no translation found for read_screen_context_setting_title (5557279099665174872) -->
+    <skip />
+    <!-- no translation found for read_screen_context_setting_default_description (4349794650902006368) -->
+    <skip />
+    <!-- no translation found for read_screen_context_setting_description (3610476260828196298) -->
+    <skip />
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Povolit"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"Nepovolovat"</string>
     <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"Povolit aplikaci &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; přístup k přesné poloze pomocí tlačítka polohy?"</string>
