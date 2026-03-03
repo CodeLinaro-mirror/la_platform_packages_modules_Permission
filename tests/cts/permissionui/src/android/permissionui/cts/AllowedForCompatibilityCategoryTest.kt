@@ -55,13 +55,12 @@ class AllowedForCompatibilityCategoryTest : BaseUsePermissionTest() {
     @Before
     fun setup() {
         assumeFalse(isTv)
-        assumeFalse(isWatch)
         installPackage(TEST_APP_APK)
     }
 
     @After
     fun teardown() {
-        uninstallPackage(TEST_APP_PACKAGE)
+        uninstallPackage(TEST_APP_PACKAGE, false)
     }
 
     @Test
