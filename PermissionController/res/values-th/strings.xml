@@ -128,6 +128,14 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"แดชบอร์ดความเป็นส่วนตัว"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"สิทธิ์ของแอป"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"กิจกรรมของ Agent"</string>
+    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"กิจกรรม <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"ในช่วง 24 ชั่วโมงที่ผ่านมา"</string>
+    <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"วันนี้"</string>
+    <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"เมื่อวาน"</string>
+    <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"เข้าถึงล่าสุด: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"ดู"</string>
+    <!-- no translation found for device_assistance_title (1445976710214822208) -->
+    <skip />
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"ดูแอปที่ใช้สิทธิ์ล่าสุด"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"การใช้งาน<xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"ดูสิทธิ์อื่นๆ"</string>
@@ -194,6 +202,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"อนุญาตขณะมีการใช้แอปเท่านั้น"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"อนุญาตทั้งหมดเสมอ"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"ถามทุกครั้ง"</string>
+    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"ถามทุกครั้งหรืออนุญาตเมื่อคุณแชร์"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"ไม่อนุญาต"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"อนุญาตสิทธิ์เข้าถึงแบบจำกัด"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"ตำแหน่งที่แน่นอน"</string>
@@ -258,12 +267,16 @@
     <string name="allowed_header" msgid="7769277978004790414">"อนุญาต"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"อนุญาตตลอด"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"อนุญาตขณะใช้งานอยู่เท่านั้น"</string>
+    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
+    <skip />
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"ได้รับอนุญาตให้เข้าถึงสื่อเท่านั้น"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"ได้รับอนุญาตให้จัดการไฟล์ทั้งหมด"</string>
     <string name="ask_header" msgid="2633816846459944376">"ถามทุกครั้ง"</string>
     <string name="denied_header" msgid="903209608358177654">"ไม่อนุญาต"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>ใน <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"ดูแอปอื่นๆ ที่สามารถเข้าถึงไฟล์ทั้งหมดได้"</string>
+    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
+    <skip />
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 วัน}other{# วัน}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# ชั่วโมง}other{# ชั่วโมง}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# นาที}other{# นาที}}"</string>
@@ -456,17 +469,13 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"ไม่มีสิทธิ์เข้าถึงพิเศษของแอป"</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"ไม่มีแอป"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"ไม่รองรับโปรไฟล์งาน"</string>
-    <!-- no translation found for home_confirmation_title (8070603501839126093) -->
-    <skip />
+    <string name="home_confirmation_title" msgid="8070603501839126093">"เปลี่ยนแอปหน้าแรกเริ่มต้นเป็น &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; ไหม"</string>
     <string name="home_confirmation_message" msgid="248811491851505593">"การดำเนินการนี้จะแทนที่หน้าจอหลักและอาจส่งผลต่อการเข้าถึงฟีเจอร์ในอุปกรณ์&lt;br&gt;&lt;br&gt;คุณเปลี่ยนการเลือกนี้ได้ทุกเมื่อในการตั้งค่า&lt;b&gt;แอปหน้าแรกเริ่มต้น&lt;/b&gt;"</string>
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"หมายเหตุ: หากคุณรีสตาร์ทอุปกรณ์และตั้งการล็อกหน้าจอไว้ แอปนี้จะเริ่มทำงานไม่ได้จนกว่าคุณจะปลดล็อกอุปกรณ์"</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"ตัวช่วยจะอ่านข้อมูลเกี่ยวกับแอปที่ใช้งานอยู่ในระบบของคุณได้ รวมถึงข้อมูลที่ปรากฏบนหน้าจอหรือที่เข้าถึงได้ภายในแอป"</string>
-    <!-- no translation found for assistant_confirmation_title_v37 (4998437583005547092) -->
-    <skip />
-    <!-- no translation found for assistant_confirmation_message_v37 (8382584766965128138) -->
-    <skip />
-    <!-- no translation found for assistant_confirmation_message_access_restored_v37 (4584661761693618510) -->
-    <skip />
+    <string name="assistant_confirmation_title_v37" msgid="4998437583005547092">"เปลี่ยนแอปผู้ช่วยดิจิทัลเป็น &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; ไหม"</string>
+    <string name="assistant_confirmation_message_v37" msgid="4763150587952308197">"ผู้ช่วยนี้จะเข้าถึงข้อมูลต่างๆ เช่น ข้อความของคุณ รวมถึงข้อมูลที่แอปเลือกที่จะแชร์กับผู้ช่วยได้"</string>
+    <string name="assistant_confirmation_message_access_restored_v37" msgid="2731391781319881100">"ผู้ช่วยนี้จะเข้าถึงข้อมูลต่างๆ เช่น ข้อความของคุณ รวมถึงข้อมูลที่แอปเลือกที่จะแชร์กับผู้ช่วยได้&lt;br&gt;&lt;br&gt;เนื่องจากคุณเคยเปิดข้อมูลหน้าจอและแอปสำหรับ <xliff:g id="APP_NAME">%1$s</xliff:g> มาก่อน ระบบจึงอนุญาตให้เข้าถึงเนื้อหาจากแอปที่เปิดอยู่บนหน้าจอ"</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"แชร์ข้อมูลการแก้ไขข้อบกพร่อง"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"แชร์ร์ข้อมูลการแก้ไขข้อบกพร่องโดยละเอียดไหม"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g> ต้องการอัปโหลดข้อมูลการแก้ไขข้อบกพร่อง"</string>
@@ -744,14 +753,13 @@
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"ตัวแทนนี้จะเข้าถึง <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> เพื่อดูข้อมูลและดำเนินการให้คุณได้"</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"อนุญาต"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"ไม่อนุญาต"</string>
-    <!-- no translation found for request_assist_structure_dialog_title (5131391210011661043) -->
-    <skip />
-    <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"อนุญาตให้แอปผู้ช่วยเริ่มต้นเข้าถึงเนื้อหาบนหน้าจอและข้อมูลที่แชร์โดยแอปที่มองเห็นได้"</string>
-    <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"อนุญาต"</string>
-    <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"ไม่อนุญาต"</string>
-    <string name="assist_structure_setting_title" msgid="3448963992289353882">"ใช้บริบทบนหน้าจอและแอป"</string>
-    <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"อนุญาตให้แอปผู้ช่วยเริ่มต้นเข้าถึงหน้าจอและข้อมูลที่แชร์โดยแอปที่มองเห็นได้"</string>
-    <string name="assist_structure_setting_description" msgid="2865330212261060313">"อนุญาตให้ <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> เข้าถึงหน้าจอและข้อมูลที่แชร์โดยแอปที่มองเห็นได้"</string>
+    <string name="request_read_screen_context_dialog_title" msgid="9048738661085777679">"อนุญาตให้ &lt;b&gt;<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>&lt;/b&gt; ใช้ข้อมูลหน้าจอและข้อมูลแอปไหม"</string>
+    <string name="request_read_screen_context_dialog_description" msgid="627006720540705018">"ผู้ช่วยนี้จะเข้าถึงข้อมูลและเนื้อหาจากแอปที่เปิดอยู่บนหน้าจอได้"</string>
+    <string name="request_read_screen_context_dialog_button_allow" msgid="5664102873265905702">"อนุญาต"</string>
+    <string name="request_read_screen_context_dialog_button_dont_allow" msgid="582852715625937711">"ไม่อนุญาต"</string>
+    <string name="read_screen_context_setting_title" msgid="5557279099665174872">"ใช้ข้อมูลหน้าจอและข้อมูลแอป"</string>
+    <string name="read_screen_context_setting_default_description" msgid="4349794650902006368">"อนุญาตให้ผู้ช่วยเข้าถึงข้อมูลและเนื้อหาจากแอปที่เปิดอยู่บนหน้าจอ"</string>
+    <string name="read_screen_context_setting_description" msgid="3610476260828196298">"อนุญาตให้ <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> เข้าถึงข้อมูลและเนื้อหาจากแอปที่เปิดอยู่บนหน้าจอ"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"อนุญาต"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"ไม่อนุญาต"</string>
     <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"อนุญาตให้ &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; เข้าถึงตำแหน่งที่แน่นอนโดยใช้ปุ่มตำแหน่งใช่ไหม"</string>

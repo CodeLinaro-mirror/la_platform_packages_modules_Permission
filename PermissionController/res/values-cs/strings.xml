@@ -128,6 +128,14 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Panel ochrany soukromí"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Oprávnění k aplikacím"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Aktivita agenta"</string>
+    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Aktivita aplikace <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"V posledních 24 hodinách"</string>
+    <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Dnes"</string>
+    <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Včera"</string>
+    <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Poslední přístup: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Zobrazit"</string>
+    <!-- no translation found for device_assistance_title (1445976710214822208) -->
+    <skip />
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Zobrazit aplikace, které v poslední době využily oprávnění"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> – používání"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Zobrazit další oprávnění"</string>
@@ -194,6 +202,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Povolit jen při používání aplikace"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Vždy povolit vše"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Pokaždé se zeptat"</string>
+    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"Pokaždé se zeptat nebo povolit při sdílení"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"Nepovolovat"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"Povolit omezený přístup"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Přesná poloha"</string>
@@ -258,12 +267,16 @@
     <string name="allowed_header" msgid="7769277978004790414">"Přístup povolen"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"Povoleno pořád"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Povoleno pouze při používání"</string>
+    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
+    <skip />
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Povolen pouze přístup k médiím"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"Povolena správa všech souborů"</string>
     <string name="ask_header" msgid="2633816846459944376">"Pokaždé se zeptat"</string>
     <string name="denied_header" msgid="903209608358177654">"Přístup zakázán"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> na <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Zobrazit další aplikace s přístupem ke všem souborům"</string>
+    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
+    <skip />
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 den}few{# dny}many{# dne}other{# dní}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# hodinu}few{# hodiny}many{# hodiny}other{# hodin}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# minuta}few{# minuty}many{# minuty}other{# minut}}"</string>
@@ -456,17 +469,13 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Žádný přístup ke spec. aplik."</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Žádné aplikace"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Nepodporuje pracovní profil"</string>
-    <!-- no translation found for home_confirmation_title (8070603501839126093) -->
-    <skip />
+    <string name="home_confirmation_title" msgid="8070603501839126093">"Změnit výchozí aplikaci pro domácnost na &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
     <string name="home_confirmation_message" msgid="248811491851505593">"Tato aplikace nahradí plochu a může ovlivnit přístup k funkcím na zařízení.&lt;br&gt;&lt;br&gt;Tento výběr můžete kdykoli změnit v nastavení &lt;b&gt;Výchozí vstupní aplikace&lt;/b&gt;."</string>
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Poznámka: Pokud restartujete zařízení a máte nastavený zámek obrazovky, tato aplikace se nespustí, dokud zařízení neodemknete."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"Asistent bude moct číst informace o aplikacích používaných v systému, včetně údajů viditelných na obrazovce a přístupných v rámci aplikací."</string>
-    <!-- no translation found for assistant_confirmation_title_v37 (4998437583005547092) -->
-    <skip />
-    <!-- no translation found for assistant_confirmation_message_v37 (8382584766965128138) -->
-    <skip />
-    <!-- no translation found for assistant_confirmation_message_access_restored_v37 (4584661761693618510) -->
-    <skip />
+    <string name="assistant_confirmation_title_v37" msgid="4998437583005547092">"Změnit aplikaci digitálního asistenta na &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
+    <string name="assistant_confirmation_message_v37" msgid="4763150587952308197">"Tento asistent bude mít přístup k informacím, jako jsou vaše zprávy, a k datům, která se aplikace rozhodly s asistentem sdílet."</string>
+    <string name="assistant_confirmation_message_access_restored_v37" msgid="2731391781319881100">"Tento asistent bude mít přístup k informacím, jako jsou vaše zprávy, a k datům, která se aplikace rozhodly s asistentem sdílet.&lt;br&gt;&lt;br&gt;Také bude mít přístup k obsahu aplikace otevřené na obrazovce, protože jste pro aplikaci <xliff:g id="APP_NAME">%1$s</xliff:g> dříve zapnuli data z obrazovky a aplikací."</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Sdílet data ladění"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Sdílet podrobná data pro ladění?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"Aplikace <xliff:g id="APP_NAME">%1$s</xliff:g> chce nahrát informace pro ladění."</string>
@@ -744,14 +753,13 @@
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"Tento agent bude mít přístup k aplikaci <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> k získávání informací a provádění kroků za vás."</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Povolit"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Nepovolovat"</string>
-    <!-- no translation found for request_assist_structure_dialog_title (5131391210011661043) -->
-    <skip />
-    <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Povolit výchozí asistenční aplikaci přístup k obsahu obrazovky a datům sdíleným viditelnou aplikací"</string>
-    <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Povolit"</string>
-    <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Nepovolovat"</string>
-    <string name="assist_structure_setting_title" msgid="3448963992289353882">"Používat kontext obrazovky a aplikací"</string>
-    <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"Povolit výchozí asistenční aplikaci přístup k obrazovce a datům sdíleným viditelnou aplikací"</string>
-    <string name="assist_structure_setting_description" msgid="2865330212261060313">"Povolit aplikaci <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> přístup k obrazovce a datům sdíleným viditelnou aplikací"</string>
+    <string name="request_read_screen_context_dialog_title" msgid="9048738661085777679">"Povolit aplikaci &lt;b&gt;<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>&lt;/b&gt; používat data obrazovky a aplikací?"</string>
+    <string name="request_read_screen_context_dialog_description" msgid="627006720540705018">"Tento asistent bude mít přístup k informacím a obsahu z aplikace otevřené na obrazovce"</string>
+    <string name="request_read_screen_context_dialog_button_allow" msgid="5664102873265905702">"Povolit"</string>
+    <string name="request_read_screen_context_dialog_button_dont_allow" msgid="582852715625937711">"Nepovolovat"</string>
+    <string name="read_screen_context_setting_title" msgid="5557279099665174872">"Používat data obrazovky a aplikací"</string>
+    <string name="read_screen_context_setting_default_description" msgid="4349794650902006368">"Povolit asistentovi přístup k informacím a obsahu z aplikace otevřené na obrazovce"</string>
+    <string name="read_screen_context_setting_description" msgid="3610476260828196298">"Povolit aplikaci <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> přístup k informacím a obsahu z aplikace otevřené na obrazovce"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Povolit"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"Nepovolovat"</string>
     <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"Povolit aplikaci &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; přístup k přesné poloze pomocí tlačítka polohy?"</string>

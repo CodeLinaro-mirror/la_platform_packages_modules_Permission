@@ -128,6 +128,14 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Paneli i privatësisë"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Lejet e aplikacionit"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Aktiviteti i agjentit"</string>
+    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Aktiviteti i (<xliff:g id="APP_NAME">%1$s</xliff:g>)"</string>
+    <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Në 24 orët e fundit"</string>
+    <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Sot"</string>
+    <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Dje"</string>
+    <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Qasja e fundit: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Pamja"</string>
+    <!-- no translation found for device_assistance_title (1445976710214822208) -->
+    <skip />
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Shiko se cilat aplikacione kanë përdorur së fundi leje"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Përdorimi i lejeve: <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Shiko lejet e tjera"</string>
@@ -194,6 +202,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Lejo vetëm kur përdor aplikacionin"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Lejoji gjithmonë të gjitha"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Pyet çdo herë"</string>
+    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"Pyet çdo herë ose lejo kur ndan"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"Mos lejo"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"Lejo qasjen e kufizuar"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Vendndodhja e saktë"</string>
@@ -258,12 +267,16 @@
     <string name="allowed_header" msgid="7769277978004790414">"Të lejuara"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"Lejohet gjithmonë"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Lejohet vetëm kur është në përdorim"</string>
+    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
+    <skip />
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Lejohet qasja vetëm në media"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"Lejohet të menaxhojë të gjithë skedarët"</string>
     <string name="ask_header" msgid="2633816846459944376">"Pyet çdo herë"</string>
     <string name="denied_header" msgid="903209608358177654">"Nuk lejohet"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> në <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Shiko më shumë aplikacione me qasje te të gjithë skedarët"</string>
+    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
+    <skip />
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 ditë}other{# ditë}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# orë}other{# orë}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# minutë}other{# minuta}}"</string>
@@ -456,17 +469,13 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Jo qasje e veçantë aplikacioni"</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"Nuk ka aplikacione"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"Profili i punës nuk mbështetet"</string>
-    <!-- no translation found for home_confirmation_title (8070603501839126093) -->
-    <skip />
+    <string name="home_confirmation_title" msgid="8070603501839126093">"Të ndryshohet aplikacioni i parazgjedhur i ekranit bazë në &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
     <string name="home_confirmation_message" msgid="248811491851505593">"Kjo do të zëvendësojë ekranin bazë dhe mund të ndikojë te qasja në veçoritë në pajisjen tënde.&lt;br&gt;&lt;br&gt;Mund ta ndryshosh këtë zgjedhje në çdo kohë te cilësimet e &lt;b&gt;Aplikacionit të parazgjedhur të ekranit bazë&lt;/b&gt;."</string>
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Shënim: Nëse e rinis pajisjen dhe ke caktuar një kyçje të ekranit, ky aplikacion nuk mund të niset derisa ta shkyçësh pajisjen."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"Asistenti do të jetë në gjendje të lexojë informacion rreth aplikacioneve në përdorim në sistemin tënd, duke përfshirë informacionin e dukshëm në ekran ose të qasshëm brenda aplikacioneve."</string>
-    <!-- no translation found for assistant_confirmation_title_v37 (4998437583005547092) -->
-    <skip />
-    <!-- no translation found for assistant_confirmation_message_v37 (8382584766965128138) -->
-    <skip />
-    <!-- no translation found for assistant_confirmation_message_access_restored_v37 (4584661761693618510) -->
-    <skip />
+    <string name="assistant_confirmation_title_v37" msgid="4998437583005547092">"Të ndryshohet aplikacioni i asistentit dixhital në &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
+    <string name="assistant_confirmation_message_v37" msgid="4763150587952308197">"Ky asistent do të mund të ketë qasje tek informacionet, si p.sh. mesazhet e tua, dhe te të dhënat që aplikacionet kanë zgjedhur t\'i ndajnë me asistentin tënd."</string>
+    <string name="assistant_confirmation_message_access_restored_v37" msgid="2731391781319881100">"Ky asistent mund të ketë qasje te informacionet si p.sh. mesazhet e tua dhe te të dhënat që aplikacionet kanë zgjedhur t\'i ndajnë me asistentin tënd.&lt;br&gt;&lt;br&gt;Meqenëse ke aktivizuar të dhënat e ekranit dhe të aplikacioneve për <xliff:g id="APP_NAME">%1$s</xliff:g> më parë, ai do të lejohet të ketë qasje te përmbajtjet nga aplikacioni i hapur në ekranin tënd."</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Ndaj të dhënat e korrigjimit"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Të ndahen të dhënat e detajuara të korrigjimit?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g> dëshiron të ngarkojë informacionin e korrigjimit."</string>
@@ -744,14 +753,13 @@
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"Ky agjent do të mund të ketë qasje te <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> për të marrë informacione dhe për të ndërmarrë veprime për ty"</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Lejo"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Mos lejo"</string>
-    <!-- no translation found for request_assist_structure_dialog_title (5131391210011661043) -->
-    <skip />
-    <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Lejo që aplikacioni i parazgjedhur i asistentit të ketë qasje te përmbajtjet e ekranit dhe te të dhënat e ndara nga aplikacioni i dukshëm"</string>
-    <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Lejo"</string>
-    <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"Mos lejo"</string>
-    <string name="assist_structure_setting_title" msgid="3448963992289353882">"Përdor kontekstin e ekranit dhe të aplikacionit"</string>
-    <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"Lejo që aplikacioni i parazgjedhur i asistentit të ketë qasje tek ekrani dhe te të dhënat e ndara nga aplikacioni i dukshëm"</string>
-    <string name="assist_structure_setting_description" msgid="2865330212261060313">"Lejo që <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> të ketë qasje tek ekrani dhe te të dhënat e ndara nga aplikacioni i dukshëm"</string>
+    <string name="request_read_screen_context_dialog_title" msgid="9048738661085777679">"Të lejohet që &lt;b&gt;<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>&lt;/b&gt; të përdorë të dhënat e ekranit dhe të aplikacionit?"</string>
+    <string name="request_read_screen_context_dialog_description" msgid="627006720540705018">"Ky asistent do të mund të ketë qasje tek informacionet dhe përmbajtjet nga aplikacioni i hapur në ekranin tënd"</string>
+    <string name="request_read_screen_context_dialog_button_allow" msgid="5664102873265905702">"Lejo"</string>
+    <string name="request_read_screen_context_dialog_button_dont_allow" msgid="582852715625937711">"Mos lejo"</string>
+    <string name="read_screen_context_setting_title" msgid="5557279099665174872">"Përdor të dhënat e ekranit dhe të aplikacionit"</string>
+    <string name="read_screen_context_setting_default_description" msgid="4349794650902006368">"Lejo që asistenti të ketë qasje tek informacionet dhe përmbajtjet nga aplikacioni i hapur në ekranin tënd"</string>
+    <string name="read_screen_context_setting_description" msgid="3610476260828196298">"Lejo që <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> të ketë qasje tek informacionet dhe përmbajtjet nga aplikacioni i hapur në ekranin tënd"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Lejo"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"Mos lejo"</string>
     <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"Të lejohet që &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; të ketë qasje te vendndodhja e saktë duke përdorur një buton të vendndodhjes?"</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The Android Open Source Project
+ * Copyright (C) 2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.permissioncontroller.appfunctions.domain.usecase.v31
 
-import android.content.Context
-import com.android.permissioncontroller.appinteraction.domain.model.v31.AccessCount
-
-/** A use case for getting the usage of app function agents. */
-interface GetAppFunctionAgentUsageUseCase {
-    /**
-     * Retrieves the usages for app function agents.
-     *
-     * @param context The [Context] of the application.
-     */
-    suspend operator fun invoke(context: Context): Map<String, AccessCount>
-}
+@androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.CINNAMON_BUN)
+package com.android.permissioncontroller.appfunctions.ui.handheld.v37;

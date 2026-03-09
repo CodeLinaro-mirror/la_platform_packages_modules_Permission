@@ -2589,7 +2589,8 @@
         android:permissionGroup="android.permission-group.UNDEFINED"
         android:description="@string/permdesc_bluetooth_scan"
         android:label="@string/permlab_bluetooth_scan"
-        android:protectionLevel="dangerous" />
+        android:protectionLevel="dangerous"
+        android:permissionFlags="allowedInPrivateComputeCore" />
 
     <!-- Required to be able to connect to paired Bluetooth devices.
          <p>Protection level: dangerous -->
@@ -2658,6 +2659,17 @@
          @FlaggedApi(android.security.Flags.FLAG_APP_LOCK_APIS) -->
     <permission android:name="android.permission.LOCK_APPS"
         android:protectionLevel="internal|role|recents"
+        android:featureFlag="android.security.app_lock_apis" />
+
+    <!-- @TestApi
+         Allows a test application to set App Lock enablement state for other applications.
+         Intended for test only.
+         <p>Protection level: signature
+         @hide
+         @FlaggedApi(android.security.Flags.FLAG_APP_LOCK_APIS)
+    -->
+    <permission android:name="android.permission.TEST_LOCK_APPS"
+        android:protectionLevel="signature"
         android:featureFlag="android.security.app_lock_apis" />
 
     <!-- @SystemApi
@@ -2902,7 +2914,15 @@
          @hide
     -->
     <permission android:name="android.permission.VIBRATE_ALWAYS_ON"
-        android:protectionLevel="signature" />
+      android:protectionLevel="signature" />
+
+    <!-- Allows registration of a remote player of multisensory feedback.
+      <p>Protection level: signature|privileged
+      @hide
+    -->
+    <permission android:name="android.permission.REMOTE_MULTISENSORY_PLAYBACK"
+      android:protectionLevel="signature|privileged"
+      android:featureFlag="android.os.multisensory.enable_multisensory_feedback" />
 
     <!-- Allows access to system-only haptic feedback constants.
          <p>Protection level: signature
@@ -2913,21 +2933,17 @@
 
     <!-- @SystemApi Allows access to perform vendor effects in the vibrator.
          <p>Protection level: signature
-         @FlaggedApi(android.os.vibrator.Flags.FLAG_VENDOR_VIBRATION_EFFECTS)
          @hide
     -->
     <permission android:name="android.permission.VIBRATE_VENDOR_EFFECTS"
-        android:protectionLevel="signature|privileged"
-        android:featureFlag="android.os.vibrator.vendor_vibration_effects" />
+        android:protectionLevel="signature|privileged" />
 
     <!-- @SystemApi Allows access to start a vendor vibration session.
          <p>Protection level: signature
-        @FlaggedApi(android.os.vibrator.Flags.FLAG_VENDOR_VIBRATION_EFFECTS)
         @hide
     -->
     <permission android:name="android.permission.START_VIBRATION_SESSIONS"
-        android:protectionLevel="signature|privileged"
-        android:featureFlag="android.os.vibrator.vendor_vibration_effects" />
+        android:protectionLevel="signature|privileged" />
 
     <!-- @SystemApi Allows access to start a haptic generator session.
          <p>Protection level: signature|privileged|vendor privileged
@@ -3068,6 +3084,20 @@
         android:name="android.permission.MANAGE_READ_SCREEN_CONTEXT_REQUEST"
         android:protectionLevel="signature|installer"
         android:featureFlag="android.permission.flags.assist_settings_privacy_improvements_enabled" />
+
+    <!-- Allows an application to change an application's personal context mode setting.
+
+        <p>This permission is needed to enable or disable personal context data for an application
+        through the {@link android.service.personalcontext.PersonalContextManager
+        #setPersonalContextModeEnabled(String, boolean)} API.
+
+         <p>Protection level: signature
+         @FlaggedApi(android.service.personalcontext.Flags.FLAG_ENABLE_PERSONAL_CONTEXT_SERVICE)
+     -->
+    <permission
+        android:name="android.permission.CHANGE_PERSONAL_CONTEXT_MODE"
+        android:protectionLevel="signature"
+        android:featureFlag="android.service.personalcontext.enable_personal_context_service" />
 
     <!-- ======================================== -->
     <!-- Permissions for factory reset protection -->
@@ -3285,6 +3315,15 @@
          <p>Protection level: signature|appop -->
     <permission android:name="android.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER"
         android:protectionLevel="signature|appop" />
+
+    <!-- Allows caller to perform SIM Auth.  Splitting this sensitive permission
+         off of READ_PRIVILEGED_PHONE_STATE for better control and auditing.
+         <p>Protection level: signature|privileged
+         @FlaggedApi("com.android.internal.telephony.flags.new_sim_auth_permission")
+         @hide -->
+    <permission android:name="android.permission.USE_ICC_AUTH"
+      android:protectionLevel="signature|privileged"
+      android:featureFlag="com.android.internal.telephony.flags.new_sim_auth_permission" />
 
     <!-- @SystemApi Allows read access to emergency number information for ongoing calls or SMS
          sessions.
@@ -5414,6 +5453,14 @@
     <permission android:name="android.permission.BIND_JOB_SERVICE"
         android:protectionLevel="signature" />
     <uses-permission android:name="android.permission.BIND_JOB_SERVICE"/>
+
+    <!-- Allows the system to bind to an application's data migration service for Private Compute.
+         <p>Protection level: signature
+         @FlaggedApi(android.app.privatecompute.flags.Flags.FLAG_ENABLE_PCC_FRAMEWORK_SUPPORT)
+    -->
+    <permission android:name="android.permission.BIND_DATA_MIGRATION_FOR_PRIVATECOMPUTE"
+      android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.BIND_DATA_MIGRATION_FOR_PRIVATECOMPUTE"/>
 
     <!-- Allows an application to initiate configuration updates
          <p>An application requesting this permission is responsible for
@@ -7734,6 +7781,14 @@
     <permission android:name="android.permission.CONFIRM_FULL_BACKUP"
         android:protectionLevel="signature" />
 
+    <!-- @SystemApi Allows an application to request a delayed restore of their app data
+         <p>Not for use by third-party applications.
+         @FlaggedApi(com.android.server.backup.Flags.FLAG_ENABLE_DELAYED_RESTORE_API)
+         @hide -->
+    <permission android:name="android.permission.SCHEDULE_DELAYED_RESTORE"
+        android:protectionLevel="signature|privileged"
+        android:featureFlag="com.android.server.backup.enable_delayed_restore_api" />
+
     <!-- Must be required by a {@link android.widget.RemoteViewsService},
          to ensure that only the system can bind to it.
          <p>Protection level: signature|privileged -->
@@ -7886,12 +7941,9 @@
     <permission android:name="android.permission.MANAGE_SUBSCRIPTION_PLANS"
         android:protectionLevel="signature|privileged" />
 
-    <!-- @SystemApi @hide Allows for reading subscription plan fields for status and end date.
-         @FlaggedApi(com.android.internal.telephony.flags.Flags.FLAG_SUBSCRIPTION_PLAN_ALLOW_STATUS_AND_END_DATE)
-    -->
+    <!-- @SystemApi @hide Allows for reading subscription plan fields for status and end date. -->
     <permission android:name="android.permission.READ_SUBSCRIPTION_PLANS"
         android:protectionLevel="signature|privileged"
-        android:featureFlag="com.android.internal.telephony.flags.subscription_plan_allow_status_and_end_date"
         android:permissionFlags="allowedInPrivateComputeCore" />
 
     <!-- C2DM permission.
@@ -8237,6 +8289,18 @@
     -->
     <permission android:name="android.permission.BIND_DREAM_SERVICE"
         android:protectionLevel="signature" />
+
+    <!-- Must be required by any
+         {@link android.service.personalcontext.refiner.HintRefinerService},
+         {@link android.service.personalcontext.undedrstander.ContextUnderstanderService}, or
+         {@link android.service.personalcontext.renderer.InsightRendererService} to ensure that
+         only the system can bind to it.
+         <p>Protection level: signature
+         @FlaggedApi(android.service.personalcontext.Flags.FLAG_ENABLE_PERSONAL_CONTEXT_SERVICE)
+    -->
+    <permission android:name="android.permission.BIND_CONTEXT_COMPONENT_SERVICE"
+        android:protectionLevel="signature"
+        android:featureFlag="android.service.personalcontext.enable_personal_context_service" />
 
     <!-- Must be required by a
          {@link android.service.personalcontext.renderer.InsightRendererService}, to ensure that
@@ -10196,6 +10260,24 @@
             android:protectionLevel="signature"
             android:featureFlag="android.service.notification.enable_dnd_sync">
     </permission>
+
+    <!-- @SystemApi Required to bind to the {@link AllowlistProviderService}
+         <p> Protection level: internal
+         @FlaggedApi(android.app.appfunctions.flags.Flags.FLAG_ENABLE_APP_FUNCTION_PERMISSION_V2)
+         @hide
+    -->
+    <permission android:name="android.permission.BIND_ALLOWLIST_PROVIDER_SERVICE"
+        android:protectionLevel="internal"
+        android:featureFlag="android.app.appfunctions.flags.enable_app_function_permission_v2" />
+
+    <!-- @SystemApi Required to query through {@link AllowlistManager}
+         <p> Protection level: signature|module
+         @FlaggedApi(android.app.appfunctions.flags.Flags.FLAG_ENABLE_APP_FUNCTION_PERMISSION_V2)
+         @hide
+    -->
+    <permission android:name="android.permission.QUERY_ALLOWLIST"
+        android:protectionLevel="signature|module"
+        android:featureFlag="android.app.appfunctions.flags.enable_app_function_permission_v2" />
 
     <!-- Allows an application to register listeners with user attention service.
          This permission is associated with the android.app.role.SYSTEM_VENDOR_INTELLIGENCE

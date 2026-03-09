@@ -128,6 +128,14 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Tauler de privadesa"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Permisos d\'aplicacions"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Activitat de l\'agent"</string>
+    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Activitat de <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"En les 24 darreres hores"</string>
+    <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Avui"</string>
+    <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Ahir"</string>
+    <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Darrer accés: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Mostra"</string>
+    <!-- no translation found for device_assistance_title (1445976710214822208) -->
+    <skip />
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Mostra quines aplicacions han utilitzat permisos fa poc"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Ús de: <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Mostra altres permisos"</string>
@@ -194,6 +202,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Permet només mentre s\'utilitza l\'aplicació"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Permet sempre tot"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Pregunta sempre"</string>
+    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"Pregunta cada vegada o permet quan comparteixis"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"No permetis"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"Permet l\'accés limitat"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Ubicació precisa"</string>
@@ -258,12 +267,16 @@
     <string name="allowed_header" msgid="7769277978004790414">"Amb permís"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"Permès sempre"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Permès només mentre s\'utilitza"</string>
+    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
+    <skip />
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Poden accedir només al contingut multimèdia"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"Poden gestionar tots els fitxers"</string>
     <string name="ask_header" msgid="2633816846459944376">"Pregunta sempre"</string>
     <string name="denied_header" msgid="903209608358177654">"Sense permís"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> (<xliff:g id="DEVICE_NAME">%2$s</xliff:g>)"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Mostra més aplicacions que poden accedir a tots els fitxers"</string>
+    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
+    <skip />
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 dia}many{# dies}other{# dies}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# hora}many{# hores}other{# hores}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# minut}many{# minuts}other{# minuts}}"</string>
@@ -456,17 +469,13 @@
     <string name="no_special_app_access" msgid="6950277571805106247">"Sense accés especial d\'apps"</string>
     <string name="special_app_access_no_apps" msgid="4102911722787886970">"No hi ha cap aplicació"</string>
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"No admet perfils professionals"</string>
-    <!-- no translation found for home_confirmation_title (8070603501839126093) -->
-    <skip />
+    <string name="home_confirmation_title" msgid="8070603501839126093">"Vols canviar l\'aplicació d\'inici predeterminada per &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
     <string name="home_confirmation_message" msgid="248811491851505593">"Substituirà la pantalla d\'inici i pot afectar l\'accés a les funcions del dispositiu.&lt;br&gt;&lt;br&gt;Pots canviar aquesta selecció en qualsevol moment a la configuració de l\'&lt;b&gt;aplicació d\'inici predeterminada&lt;/b&gt;."</string>
     <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"Nota: si reinicies el dispositiu i has definit un bloqueig de pantalla, l\'aplicació no s\'iniciarà fins que no desbloquegis el dispositiu."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"L\'assistent podrà llegir informació sobre les aplicacions en ús del sistema, com ara la informació visible a la pantalla o a què es pot accedir des de les aplicacions."</string>
-    <!-- no translation found for assistant_confirmation_title_v37 (4998437583005547092) -->
-    <skip />
-    <!-- no translation found for assistant_confirmation_message_v37 (8382584766965128138) -->
-    <skip />
-    <!-- no translation found for assistant_confirmation_message_access_restored_v37 (4584661761693618510) -->
-    <skip />
+    <string name="assistant_confirmation_title_v37" msgid="4998437583005547092">"Vols canviar la teva aplicació d\'assistent digital per &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
+    <string name="assistant_confirmation_message_v37" msgid="4763150587952308197">"Aquest assistent podrà accedir a informació, com ara els teus missatges, i a les dades que les aplicacions hagin triat compartir amb l\'assistent."</string>
+    <string name="assistant_confirmation_message_access_restored_v37" msgid="2731391781319881100">"Aquest assistent podrà accedir a informació, com ara els teus missatges, i a les dades que les aplicacions hagin triat compartir amb l\'assistent.&lt;br&gt;&lt;br&gt;Com que havies activat abans les dades de pantalla i d\'aplicacions per a <xliff:g id="APP_NAME">%1$s</xliff:g>, se li permetrà accedir al contingut de l\'aplicació oberta en pantalla."</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"Comparteix les dades de depuració"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"Vols compartir els detalls de la depuració?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g> vol penjar informació de depuració."</string>
@@ -744,14 +753,13 @@
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"Aquest agent podrà accedir a <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> per obtenir informació i dur a terme accions per tu"</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Permet"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"No permetis"</string>
-    <!-- no translation found for request_assist_structure_dialog_title (5131391210011661043) -->
-    <skip />
-    <string name="request_assist_structure_dialog_description" msgid="6651318204248848550">"Permet que l\'aplicació d\'assistència predeterminada accedeixi al contingut de la pantalla i a les dades compartides per l\'aplicació visible"</string>
-    <string name="request_assist_structure_dialog_button_allow" msgid="3054444233802281800">"Permet"</string>
-    <string name="request_assist_structure_dialog_button_dont_allow" msgid="6260296016278652911">"No permetis"</string>
-    <string name="assist_structure_setting_title" msgid="3448963992289353882">"Utilitza el context de la pantalla i de l\'aplicació"</string>
-    <string name="assist_structure_setting_default_description" msgid="5286942439766192730">"Permet que l\'aplicació d\'assistència predeterminada accedeixi a la pantalla i a les dades compartides per l\'aplicació visible"</string>
-    <string name="assist_structure_setting_description" msgid="2865330212261060313">"Permet que <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> accedeixi a la pantalla i a les dades compartides per l\'aplicació visible"</string>
+    <string name="request_read_screen_context_dialog_title" msgid="9048738661085777679">"Vols permetre que &lt;b&gt;<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>&lt;/b&gt; utilitzi les dades de la pantalla i de l\'aplicació?"</string>
+    <string name="request_read_screen_context_dialog_description" msgid="627006720540705018">"Aquest assistent podrà accedir a informació i a contingut de l\'aplicació oberta en pantalla"</string>
+    <string name="request_read_screen_context_dialog_button_allow" msgid="5664102873265905702">"Permet"</string>
+    <string name="request_read_screen_context_dialog_button_dont_allow" msgid="582852715625937711">"No permetis"</string>
+    <string name="read_screen_context_setting_title" msgid="5557279099665174872">"Utilitza les dades de la pantalla i de l\'aplicació"</string>
+    <string name="read_screen_context_setting_default_description" msgid="4349794650902006368">"Permet que l\'assistent accedeixi a informació i a contingut de l\'aplicació oberta en pantalla"</string>
+    <string name="read_screen_context_setting_description" msgid="3610476260828196298">"Permet que <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> accedeixi a informació i a contingut de l\'aplicació oberta en pantalla"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Permet"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"No permetis"</string>
     <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"Vols permetre que &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; accedeixi a la ubicació precisa mitjançant un botó d\'ubicació?"</string>

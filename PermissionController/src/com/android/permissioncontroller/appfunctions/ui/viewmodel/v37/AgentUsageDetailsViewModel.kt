@@ -17,15 +17,23 @@
 package com.android.permissioncontroller.appfunctions.ui.viewmodel.v37
 
 import android.app.Application
+import android.os.Process
+import android.os.UserHandle
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.android.permissioncontroller.appfunctions.domain.usecase.v37.GetAppFunctionAgentUsageDetailsUseCase
-import com.android.permissioncontroller.appfunctions.domain.usecase.v37.GetAppFunctionAgentUsageDetailsUseCase.Companion.KEY_PAST_24_HOURS
-import com.android.permissioncontroller.appfunctions.domain.usecase.v37.GetAppFunctionAgentUsageDetailsUseCase.Companion.KEY_PAST_7_DAYS
-import com.android.permissioncontroller.appinteraction.domain.model.v37.AccessHistory
+import androidx.lifecycle.viewmodel.CreationExtras
+import com.android.permissioncontroller.appfunctions.domain.model.v37.AgentAccessInfo
+import com.android.permissioncontroller.appfunctions.domain.usecase.v37.GetAgentUsageDetailsUseCase
+import com.android.permissioncontroller.appfunctions.domain.usecase.v37.GetAgentUsageDetailsUseCase.Companion.KEY_PAST_24_HOURS
+import com.android.permissioncontroller.appfunctions.domain.usecase.v37.GetAgentUsageDetailsUseCase.Companion.KEY_PAST_7_DAYS
+import com.android.permissioncontroller.appinteraction.data.repository.AppInteractionRepository
 import com.android.permissioncontroller.common.model.Stateful
+import com.android.permissioncontroller.pm.data.repository.v31.PackageRepository
 import kotlin.String
 import kotlin.collections.Map
 import kotlinx.coroutines.CoroutineDispatcher
@@ -41,8 +49,9 @@ import kotlinx.coroutines.launch
 class AgentUsageDetailsViewModel(
     app: Application,
     private val agentPackageName: String,
-    private val getAppFunctionAgentUsageDetailsUseCase: GetAppFunctionAgentUsageDetailsUseCase,
-    state: SavedStateHandle = SavedStateHandle(emptyMap()),
+    private val packageRepository: PackageRepository,
+    private val getAppFunctionAgentUsageDetailsUseCase: GetAgentUsageDetailsUseCase,
+    val state: SavedStateHandle = SavedStateHandle(emptyMap()),
     scope: CoroutineScope? = null,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : AndroidViewModel(app) {
@@ -50,8 +59,10 @@ class AgentUsageDetailsViewModel(
 
     private val show7DaysFlow = MutableStateFlow(state[KEY_SHOULD_SHOW_7_DAYS] ?: false)
 
+    fun getShow7Days(): Boolean = show7DaysFlow.value
+
     private val agentUsageDetailsStateFlow =
-        MutableStateFlow<Stateful<Map<String, List<AccessHistory>>>>(Stateful.Loading())
+        MutableStateFlow<Stateful<Map<String, List<AgentAccessInfo>>>>(Stateful.Loading())
 
     init {
         coroutineScope.launch(defaultDispatcher) {
@@ -74,7 +85,7 @@ class AgentUsageDetailsViewModel(
     }
 
     private fun buildAgentUsageDetailsUiState(
-        agentUsageDetailsState: Stateful<Map<String, List<AccessHistory>>>,
+        agentUsageDetailsState: Stateful<Map<String, List<AgentAccessInfo>>>,
         show7Days: Boolean,
     ): AgentUsageDetailsUiState {
         when (agentUsageDetailsState) {
@@ -89,34 +100,35 @@ class AgentUsageDetailsViewModel(
                         KEY_PAST_24_HOURS
                     }
                 val agentUsageDetails = agentUsageDetailsState.value[show7DaysKey]
-                val agentAccessUiInfos =
-                    agentUsageDetails?.map { agentUsageDetail ->
-                        AgentAccessUiInfo(
-                            agentUsageDetail.targetPackageName,
-                            agentUsageDetail.accessTime,
-                            agentUsageDetail.interactionUri,
-                        )
-                    } ?: emptyList()
+                val agentAccessInfos = agentUsageDetails ?: emptyList()
                 return AgentUsageDetailsUiState.Success(
                     agentPackageName,
-                    agentAccessUiInfos,
+                    getSettingsPackageName(Process.myUserHandle())!!,
+                    agentAccessInfos,
                     show7Days,
                 )
             }
         }
     }
 
+    fun updateShow7DaysToggle(show7Days: Boolean) {
+        if (show7Days != state[KEY_SHOULD_SHOW_7_DAYS]) {
+            state[KEY_SHOULD_SHOW_7_DAYS] = show7Days
+        }
+        show7DaysFlow.compareAndSet(!show7Days, show7Days)
+    }
+
+    /**
+     * Returns the package name for the Settings App. See more in
+     * [PackageRepository.getSettingsPackageName]
+     */
+    fun getSettingsPackageName(user: UserHandle): String? =
+        packageRepository.getSettingsPackageName(user)
+
     companion object {
         private const val KEY_SHOULD_SHOW_7_DAYS = "show7Days"
     }
 }
-
-/** Data class for the agent access entries on the agent timeline dashboard */
-data class AgentAccessUiInfo(
-    val targetPackageName: String,
-    val lastAccessTime: Long,
-    val interactionUri: String?,
-)
 
 sealed class AgentUsageDetailsUiState {
     data object Loading : AgentUsageDetailsUiState()
@@ -125,7 +137,29 @@ sealed class AgentUsageDetailsUiState {
 
     data class Success(
         val agentPackageName: String,
-        val agentAccessUiInfos: List<AgentAccessUiInfo>,
+        val settingsPackageName: String,
+        val agentAccessInfos: List<AgentAccessInfo>,
         val show7Days: Boolean,
     ) : AgentUsageDetailsUiState()
+}
+
+/** Factory for [AgentUsageDetailsViewModel]. */
+class AgentUsageDetailsViewModelFactory(
+    val app: Application,
+    private val agentPackageName: String,
+) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+        val packageRepository = PackageRepository.getInstance(app)
+        val appInteractionRepository = AppInteractionRepository.getInstance()
+        val useCase = GetAgentUsageDetailsUseCase(appInteractionRepository)
+        return AgentUsageDetailsViewModel(
+            app,
+            agentPackageName,
+            packageRepository,
+            useCase,
+            extras.createSavedStateHandle(),
+        )
+            as T
+    }
 }
