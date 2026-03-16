@@ -423,11 +423,7 @@ abstract class BasePermissionTest {
      * @param maxSearchSwipes See {@link UiScrollable#setMaxSearchSwipes}
      */
     protected fun clickPermissionControllerUi(text: String, maxSearchSwipes: Int = 5) {
-        if (isWatch) {
-            click(By.text(text).displayId(displayId), 120_000)
-        } else {
-            scrollToText(text, maxSearchSwipes).click()
-        }
+        scrollToText(text, maxSearchSwipes).click()
     }
 
     private fun scrollToText(text: String, maxSearchSwipes: Int = MAX_SWIPES): UiObject2 {

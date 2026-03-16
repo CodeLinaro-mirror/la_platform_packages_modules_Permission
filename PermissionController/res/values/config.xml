@@ -61,6 +61,4 @@
     <bool name="config_display_show_password_toggle">true</bool>
 
     <bool name="config_permissionFooterPreferenceIconVisible">true</bool>
-
-    <bool name="config_useFocusIndicatorInPermissionDialogBeforeUserSetupComplete">false</bool>
 </resources>
