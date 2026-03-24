@@ -49,6 +49,8 @@ import android.content.pm.PackageManager.FLAG_PERMISSION_POLICY_FIXED
 import android.content.pm.PackageManager.FLAG_PERMISSION_REVIEW_REQUIRED
 import android.content.pm.PackageManager.FLAG_PERMISSION_REVOKED_COMPAT
 import android.content.pm.PackageManager.FLAG_PERMISSION_REVOKE_WHEN_REQUESTED
+import android.content.pm.PackageManager.FLAG_PERMISSION_TRUSTED_UI_CONSENTED
+import android.content.pm.PackageManager.FLAG_PERMISSION_TRUSTED_UI_SHOWN
 import android.content.pm.PackageManager.FLAG_PERMISSION_USER_FIXED
 import android.content.pm.PackageManager.FLAG_PERMISSION_USER_SET
 import android.content.pm.PackageManager.MATCH_DIRECT_BOOT_AWARE
@@ -123,7 +125,9 @@ object KotlinUtils {
             FLAG_PERMISSION_REVOKED_COMPAT or
             FLAG_PERMISSION_REVIEW_REQUIRED or
             FLAG_PERMISSION_AUTO_REVOKED or
-            FLAG_PERMISSION_REVOKE_WHEN_REQUESTED
+            FLAG_PERMISSION_REVOKE_WHEN_REQUESTED or
+            FLAG_PERMISSION_TRUSTED_UI_SHOWN or
+            FLAG_PERMISSION_TRUSTED_UI_CONSENTED
 
     private const val KILL_REASON_APP_OP_CHANGE = "Permission related app op changed"
     private const val SAFETY_PROTECTION_RESOURCES_ENABLED = "safety_protection_enabled"
@@ -773,6 +777,7 @@ object KotlinUtils {
      * @param group The group whose permissions should be granted
      * @param filterPermissions If not specified, all permissions of the group will be granted.
      *   Otherwise only permissions in {@code filterPermissions} will be granted.
+     * @param isTrustedUi Whether the grant is triggered by trusted ui.
      * @return a new LightAppPermGroup, reflecting the new state
      */
     @JvmOverloads
@@ -783,6 +788,7 @@ object KotlinUtils {
         isOneTime: Boolean = false,
         userFixed: Boolean = false,
         withoutAppOps: Boolean = false,
+        isTrustedUi: Boolean = false,
     ): LightAppPermGroup {
         return grantRuntimePermissions(
             app,
@@ -792,6 +798,7 @@ object KotlinUtils {
             userFixed,
             withoutAppOps,
             filterPermissions,
+            isTrustedUi,
         )
     }
 
@@ -832,6 +839,7 @@ object KotlinUtils {
         userFixed: Boolean = false,
         withoutAppOps: Boolean = false,
         filterPermissions: Collection<String> = group.permissions.keys,
+        isTrustedUi: Boolean = false,
     ): LightAppPermGroup {
         val deviceId = group.deviceId
         val newPerms = group.permissions.toMutableMap()
@@ -841,7 +849,15 @@ object KotlinUtils {
             val isBackgroundPerm = permName in group.backgroundPermNames
             if (isBackgroundPerm == grantBackground) {
                 val (newPerm, shouldKill) =
-                    grantRuntimePermission(app, perm, group, isOneTime, userFixed, withoutAppOps)
+                    grantRuntimePermission(
+                        app,
+                        perm,
+                        group,
+                        isOneTime,
+                        userFixed,
+                        withoutAppOps,
+                        isTrustedUi,
+                    )
                 newPerms[newPerm.name] = newPerm
                 shouldKillForAnyPermission = shouldKillForAnyPermission || shouldKill
             }
@@ -920,6 +936,7 @@ object KotlinUtils {
      * @param withoutAppOps If these permission have app ops associated, and this value is true,
      *   then do not grant the app op when the permission is granted, and add the REVOKED_COMPAT
      *   flag.
+     * @param isTrustedUi Whether the grant is triggered by trusted ui.
      * @return a LightPermission and boolean pair <permission with updated state (or the original
      *   state, if it wasn't changed), should kill app>
      */
@@ -931,6 +948,7 @@ object KotlinUtils {
         isOneTime: Boolean,
         userFixed: Boolean = false,
         withoutAppOps: Boolean = false,
+        isTrustedUi: Boolean = false,
     ): Pair<LightPermission, Boolean> {
         val pkgInfo = group.packageInfo
         val user = UserHandle.getUserHandleForUid(pkgInfo.uid)
@@ -1020,6 +1038,13 @@ object KotlinUtils {
             } else {
                 newFlags.clearFlag(FLAG_PERMISSION_ONE_TIME)
             }
+
+        if (isTrustedUi) {
+            newFlags = newFlags.setFlag(FLAG_PERMISSION_TRUSTED_UI_SHOWN)
+            if (oldFlags and FLAG_PERMISSION_TRUSTED_UI_SHOWN != 0) {
+                newFlags = newFlags.setFlag(FLAG_PERMISSION_TRUSTED_UI_CONSENTED)
+            }
+        }
 
         // If we newly grant background access to the fine location, double-guess the user some
         // time later if this was really the right choice.
@@ -1328,6 +1353,8 @@ object KotlinUtils {
             else newFlags.clearFlag(PackageManager.FLAG_PERMISSION_ONE_TIME)
         newFlags = newFlags.clearFlag(PackageManager.FLAG_PERMISSION_AUTO_REVOKED)
         newFlags = newFlags.clearFlag(PackageManager.FLAG_PERMISSION_REVIEW_REQUIRED)
+        newFlags = newFlags.clearFlag(PackageManager.FLAG_PERMISSION_TRUSTED_UI_SHOWN)
+        newFlags = newFlags.clearFlag(PackageManager.FLAG_PERMISSION_TRUSTED_UI_CONSENTED)
 
         if (perm.flags != newFlags) {
             context.packageManager.updatePermissionFlags(

@@ -134,8 +134,7 @@
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"어제"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"마지막 액세스: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"보기"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="device_assistance_title" msgid="1445976710214822208">"기기 지원"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"최근에 권한을 사용한 앱 보기"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> 권한 사용"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"다른 권한 보기"</string>
@@ -202,7 +201,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"앱 사용 중에만 허용"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"항상 모두 허용"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"항상 확인"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"항상 확인 또는 공유 시 허용"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"항상 확인 또는 공유 시 허용"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"허용 안함"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"제한된 액세스 허용"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"정확한 위치"</string>
@@ -267,16 +266,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"허용됨"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"항상 허용됨"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"사용 중에만 허용됨"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"앱이 계속 작동하도록 허용됨"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"미디어에만 액세스하도록 허용됨"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"모든 파일을 관리하도록 허용됨"</string>
     <string name="ask_header" msgid="2633816846459944376">"항상 확인"</string>
     <string name="denied_header" msgid="903209608358177654">"허용되지 않음"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g>의 <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"모든 파일에 액세스할 수 있는 앱 더보기"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;앱이 계속 작동하도록 허용됨&lt;/b&gt;&lt;br&gt;&lt;br&gt;앱이 계속 작동하려면 앱이 로컬 네트워크에 액세스하고 이 네트워크의 기기에만 연결하도록 허용될 수 있습니다.&lt;br&gt;&lt;br&gt;앱이 모든 근처 기기를 찾고 연결하도록 허용하지 않는 한 앱은 블루투스 및 기타 기술을 사용하여 기기에 연결할 수 없습니다."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1일}other{#일}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{#시간}other{#시간}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{#분}other{#분}}"</string>
@@ -762,5 +759,8 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> 앱이 화면에 열려 있는 앱의 정보 및 콘텐츠에 액세스하도록 허용"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"허용"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"허용 안함"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"위치 버튼을 사용하여 &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; 앱이 정확한 위치에 액세스하도록 허용하시겠습니까?"</string>
+    <!-- no translation found for request_location_button_permissions_dialog_title (1305012762950180684) -->
+    <skip />
+    <!-- no translation found for request_location_button_permissions_dialog_subtitle (4401187641885414225) -->
+    <skip />
 </resources>

@@ -21,14 +21,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -205,21 +209,30 @@ private fun WearPermissionScaffoldInternal(
                 scrollInfoProvider = scrollInfoProvider,
                 scrollIndicator = positionIndicator,
             ) {
-                Box(modifier = Modifier.fillMaxSize()) {
+                Box(
+                    modifier =
+                        Modifier.fillMaxSize().semantics {
+                            // Setting this to the title forces the Screen Reader
+                            // to treat the whole container as a new context.
+                            contentDescription = title ?: subtitle.toString()
+                        }
+                ) {
                     if (isLoading) {
                         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                     } else {
-                        LazyColumnView(
-                            asScalingList = asScalingList,
-                            showTimeText = showTimeText,
-                            listState = listState,
-                            title = title,
-                            subtitle = subtitle,
-                            imageBuilder = imageBuilder,
-                            content = content,
-                            titleTestTag = titleTestTag,
-                            subtitleTestTag = subtitleTestTag,
-                        )
+                        key(title, subtitle) {
+                            LazyColumnView(
+                                asScalingList = asScalingList,
+                                showTimeText = showTimeText,
+                                listState = listState,
+                                title = title,
+                                subtitle = subtitle,
+                                imageBuilder = imageBuilder,
+                                content = content,
+                                titleTestTag = titleTestTag,
+                                subtitleTestTag = subtitleTestTag,
+                            )
+                        }
                     }
                 }
             }
@@ -346,7 +359,10 @@ private fun ListScopeWrapper.titleItem(
                     MaterialTheme.typography.titleLarge
                 }
             ListHeader(
-                modifier = modifier.requiredHeightIn(1.dp), // We do not want default min height
+                modifier =
+                    modifier
+                        .fillMaxWidth()
+                        .requiredHeightIn(1.dp), // We do not want default min height
                 contentPadding = contentPaddingValues,
             ) {
                 Text(
