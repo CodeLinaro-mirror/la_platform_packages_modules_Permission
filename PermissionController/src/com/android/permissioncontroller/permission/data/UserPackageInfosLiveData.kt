@@ -100,8 +100,23 @@ private constructor(
                 )
             }
 
+        val sharedUidMap =
+            packageInfos.filter { it.sharedUserId != null }.groupBy { it.sharedUserId }
+
         val lightPackageInfos =
             packageInfos.map { packageInfo ->
+                val mergedPackageInfo =
+                    if (packageInfo.sharedUserId != null) {
+                        val otherPackages = sharedUidMap[packageInfo.sharedUserId] ?: emptyList()
+
+                        LightPackageInfoLiveData.mergePermissionsInSharedUid(
+                            packageInfo,
+                            otherPackages,
+                        )
+                    } else {
+                        packageInfo
+                    }
+
                 // PackageInfo#requestedPermissionsFlags is not device aware. Hence for
                 // device aware permissions if the deviceId is not the primary device we
                 // need to separately check permission for that device and update
@@ -110,15 +125,19 @@ private constructor(
                     val requestedPermissionsFlagsForDevice =
                         MultiDeviceUtils.getPermissionsFlagsForDevice(
                             app,
-                            packageInfo.requestedPermissions?.toList() ?: emptyList(),
-                            packageInfo.requestedPermissionsFlags?.toList() ?: emptyList(),
-                            packageInfo.applicationInfo!!.uid,
+                            mergedPackageInfo.requestedPermissions?.toList() ?: emptyList(),
+                            mergedPackageInfo.requestedPermissionsFlags?.toList() ?: emptyList(),
+                            mergedPackageInfo.applicationInfo!!.uid,
                             deviceId,
                         )
 
-                    LightPackageInfo(packageInfo, deviceId, requestedPermissionsFlagsForDevice)
+                    LightPackageInfo(
+                        mergedPackageInfo,
+                        deviceId,
+                        requestedPermissionsFlagsForDevice,
+                    )
                 } else {
-                    LightPackageInfo(packageInfo)
+                    LightPackageInfo(mergedPackageInfo)
                 }
             }
 

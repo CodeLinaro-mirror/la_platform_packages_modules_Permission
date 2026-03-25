@@ -22,25 +22,17 @@ import com.android.permissioncontroller.appfunctions.AppFunctionsUtil
 import com.android.permissioncontroller.appinteraction.data.repository.AppInteractionRepository
 import com.android.permissioncontroller.appinteraction.domain.model.v37.AccessHistory
 import com.android.permissioncontroller.appinteraction.domain.model.v37.AgentTimelineItem
-import com.android.permissioncontroller.pm.data.repository.v31.PackageRepository
 import java.time.Instant
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
 /**
- * This use case gets the agent usage details and returns the [AgentTimelineItem] in a map of its
- * past 24 hours usages and past 7 days usages of target packages. The returned list contains the
- * latest interaction history for each target package (for each day if KEY_PAST_7_DAYS) in
- * descending order of access time.
+ * The use case gets the agent usage details and returns the last [AccessHistory] in a map of its
+ * past 24 hours usages and past 7 days usages for each target package.
  *
  * @param appInteractionRepository The repository to use to get the agent usages
  */
-class GetAgentUsageDetailsUseCase(
-    private val appInteractionRepository: AppInteractionRepository,
-    private val packageRepository: PackageRepository,
-) {
+class GetAgentUsageDetailsUseCase(private val appInteractionRepository: AppInteractionRepository) {
     suspend operator fun invoke(
         context: Context,
         agentPackageName: String,
@@ -50,14 +42,12 @@ class GetAgentUsageDetailsUseCase(
             return emptyMap()
         }
 
-        val agentUid = packageRepository.getPackageUid(agentPackageName, user)
         val accessHistories = appInteractionRepository.getAccessHistory(context, user)
         val deviceAssistancePackageNames =
             appInteractionRepository.getDeviceAssistancePackageNames(context).toSet()
         val now = System.currentTimeMillis()
         val timeStamp24Hours = max(now - TimeUnit.DAYS.toMillis(1), Instant.EPOCH.toEpochMilli())
         val timeStamp7Days = max(now - TimeUnit.DAYS.toMillis(7), Instant.EPOCH.toEpochMilli())
-        val zoneId = ZoneId.systemDefault()
         return accessHistories
             .filter { it.agentPackageName == agentPackageName }
             .sortedBy { it.accessTime }
@@ -77,34 +67,23 @@ class GetAgentUsageDetailsUseCase(
                     }
                 if (accessHistory.accessTime > timeStamp24Hours) {
                     map[KEY_PAST_24_HOURS]!![agentAccessKey] =
-                        createAgentAccessInfo(agentUid, accessHistory, user, isDeviceAssistance)
+                        createAgentAccessInfo(accessHistory, user, isDeviceAssistance)
                 }
                 if (accessHistory.accessTime > timeStamp7Days) {
-                    val accessDate =
-                        ZonedDateTime.ofInstant(
-                                Instant.ofEpochMilli(accessHistory.accessTime),
-                                zoneId,
-                            )
-                            .toLocalDate()
-                    val agentAccessKeyByDate = "$agentAccessKey-$accessDate"
-                    map[KEY_PAST_7_DAYS]!![agentAccessKeyByDate] =
-                        createAgentAccessInfo(agentUid, accessHistory, user, isDeviceAssistance)
+                    map[KEY_PAST_7_DAYS]!![agentAccessKey] =
+                        createAgentAccessInfo(accessHistory, user, isDeviceAssistance)
                 }
                 map
             }
-            .mapValues {
-                it.value.values.toList().sortedByDescending { item -> item.lastAccessTime }
-            }
+            .mapValues { it.value.values.toList() }
     }
 
     private fun createAgentAccessInfo(
-        agentUid: Int,
         accessHistory: AccessHistory,
         user: UserHandle,
         isDeviceAssistance: Boolean,
     ): AgentTimelineItem =
         AgentTimelineItem(
-            agentUid,
             accessHistory.agentPackageName,
             accessHistory.targetPackageName,
             user,

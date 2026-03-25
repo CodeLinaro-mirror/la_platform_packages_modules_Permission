@@ -39,8 +39,6 @@ import com.android.interactive.annotations.Interactive
 import com.android.interactive.annotations.NotFullyAutomated
 import com.android.interactive.steps.locationbutton.VerifyButtonShapeMorphs
 import com.android.interactive.steps.locationbutton.VerifyColorsStep
-import com.android.interactive.steps.locationbutton.VerifyIconOnlyStep
-import com.android.interactive.steps.locationbutton.VerifyRtlLanguageStep
 import com.android.interactive.steps.locationbutton.VerifySharpCornersStep
 import org.junit.After
 import org.junit.Assert.assertTrue
@@ -115,32 +113,8 @@ class LocationButtonInteractiveTest {
         assertTrue(Step.execute(VerifyButtonShapeMorphs::class.java))
     }
 
-    @Interactive
-    @Test
-    @CddTest(requirement = "3.8.18/C-0-1")
-    @NotFullyAutomated(
-        reason =
-            "Visual properties of the Location Button are rendered remotely by SystemUI " +
-                "and cannot be reliably verified via automation."
-    )
-    fun verifyButtonIconOnly() {
-        launchLocationButtonApp(textType = LocationButtonSession.TEXT_TYPE_NONE)
-        assertTrue(Step.execute(VerifyIconOnlyStep::class.java))
-    }
-
-    @Interactive
-    @Test
-    @CddTest(requirement = "3.8.18/C-0-1")
-    @NotFullyAutomated(
-        reason =
-            "Visual properties of the Location Button are rendered remotely by SystemUI " +
-                "and cannot be reliably verified via automation."
-    )
-    fun verifyButtonSupportsRtlLayout() {
-        launchLocationButtonApp(languageTag = "ar")
-        assertTrue(Step.execute(VerifyRtlLanguageStep::class.java))
-    }
-
+    // TODO: Verify updating locale changes the location button labels.
+    // TODO: Verify different button text types.
     // TODO: Verify multiple width / height configurations.
 
     private fun launchLocationButtonApp(
@@ -154,7 +128,6 @@ class LocationButtonInteractiveTest {
         strokeWidth: Int = dpToPx(3),
         cornerRadius: Float = dpToPx(28).toFloat(),
         pressedCornerRadius: Float = dpToPx(28).toFloat(),
-        languageTag: String? = null,
     ) {
         val intent =
             Intent().apply {
@@ -174,7 +147,6 @@ class LocationButtonInteractiveTest {
                 putExtra(EXTRA_STROKE_WIDTH, strokeWidth)
                 putExtra(EXTRA_CORNER_RADIUS, cornerRadius)
                 putExtra(EXTRA_PRESSED_CORNER_RADIUS, pressedCornerRadius)
-                languageTag?.let { putExtra(EXTRA_LANGUAGE_TAG, it) }
             }
         context.startActivity(intent)
         assertTrue(
@@ -210,7 +182,6 @@ class LocationButtonInteractiveTest {
         private const val EXTRA_CORNER_RADIUS = "corner_radius"
         private const val EXTRA_PRESSED_CORNER_RADIUS = "pressed_corner_radius"
         private const val EXTRA_TEXT_TYPE = "text_type"
-        private const val EXTRA_LANGUAGE_TAG = "language_tag"
         private const val LOCATION_BUTTON_CONTENT_DESCRIPTION = "location_button"
     }
 }

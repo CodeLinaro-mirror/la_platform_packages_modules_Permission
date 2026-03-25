@@ -34,14 +34,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import androidx.preference.PreferenceViewHolder
-import com.android.permissioncontroller.Constants
-import com.android.permissioncontroller.PermissionControllerStatsLog
-import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_INTERACTION_REPORTED
-import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_INTERACTION_REPORTED__ACTION__VIEW
-import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED
-import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED__ACTION__SHOW_SEVEN_DAYS_CLICKED
-import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED__ACTION__SHOW_TWENTY_FOUR_HOURS_CLICKED
-import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_VIEWED
 import com.android.permissioncontroller.R
 import com.android.permissioncontroller.appfunctions.ui.viewmodel.v37.AgentUsageDetailsUiState
 import com.android.permissioncontroller.appfunctions.ui.viewmodel.v37.AgentUsageDetailsViewModel
@@ -56,7 +48,6 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
-import kotlin.properties.Delegates
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -64,7 +55,6 @@ import kotlinx.coroutines.launch
 class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
     private lateinit var agentPackageName: String
     private lateinit var user: UserHandle
-    private var sessionId: Long by Delegates.notNull()
 
     private lateinit var viewModel: AgentUsageDetailsViewModel
 
@@ -96,7 +86,6 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
 
         agentPackageName = argumentPackageName
         user = argumentUser
-        sessionId = arguments?.getLong(Constants.EXTRA_SESSION_ID)!!
         val factory =
             AgentUsageDetailsViewModelFactory(requireActivity().application, agentPackageName, user)
         viewModel = ViewModelProvider(this, factory)[AgentUsageDetailsViewModel::class.java]
@@ -160,20 +149,10 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                             }
                             MENU_SHOW_7_DAYS -> {
                                 viewModel.updateShow7DaysToggle(true)
-                                PermissionControllerStatsLog.write(
-                                    PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED,
-                                    sessionId,
-                                    PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED__ACTION__SHOW_SEVEN_DAYS_CLICKED,
-                                )
                                 true
                             }
                             MENU_SHOW_24_HOURS -> {
                                 viewModel.updateShow7DaysToggle(false)
-                                PermissionControllerStatsLog.write(
-                                    PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED,
-                                    sessionId,
-                                    PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED__ACTION__SHOW_TWENTY_FOUR_HOURS_CLICKED,
-                                )
                                 true
                             }
                             else -> false
@@ -215,14 +194,6 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                 }
                 addFooter(preferenceScreen)
                 setLoading(false, true)
-
-                PermissionControllerStatsLog.write(
-                    PRIVACY_DASHBOARD_AGENT_TIMELINE_VIEWED,
-                    sessionId,
-                    uiState.agentUid,
-                    uiState.agentPackageName,
-                    uiState.show7Days,
-                )
             }
         }
     }
@@ -336,14 +307,6 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                             val intent = Intent(Intent.ACTION_VIEW, uiInfo.interactionUri.toUri())
                             intent.setPackage(uiInfo.agentPackageName)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            PermissionControllerStatsLog.write(
-                                PRIVACY_DASHBOARD_AGENT_TIMELINE_INTERACTION_REPORTED,
-                                sessionId,
-                                uiInfo.agentUid,
-                                uiInfo.agentPackageName,
-                                uiInfo.targetPackageName,
-                                PRIVACY_DASHBOARD_AGENT_TIMELINE_INTERACTION_REPORTED__ACTION__VIEW,
-                            )
                             startActivity(intent)
                         }
                     }
@@ -388,15 +351,7 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
     fun addTopIntro(preferenceScreen: PreferenceScreen) {
         val topIntroPreference =
             TopIntroPreference(requireContext()).apply {
-                title =
-                    resources.getString(
-                        R.string.agent_activity_timeline_top_intro_title,
-                        KotlinUtils.getPackageLabel(
-                            requireActivity().application,
-                            agentPackageName,
-                            user,
-                        ),
-                    )
+                title = resources.getString(R.string.agent_activity_timeline_top_intro_title)
             }
         preferenceScreen.addPreference(topIntroPreference)
     }

@@ -38,13 +38,7 @@ class LocationButtonActivity : Activity() {
             }
         locationButton.layoutParams = buttonParams
 
-        val config =
-            android.content.res.Configuration(resources.configuration).apply {
-                intent.getStringExtra(EXTRA_LANGUAGE_TAG)?.let { languageTag ->
-                    setLocales(android.os.LocaleList.forLanguageTags(languageTag))
-                }
-            }
-        val requestBuilder = LocationButtonRequest.Builder(width, height, config)
+        val requestBuilder = LocationButtonRequest.Builder(width, height, resources.configuration)
 
         val extras = intent.extras ?: Bundle.EMPTY
         for (key in extras.keySet()) {
@@ -86,7 +80,6 @@ class LocationButtonActivity : Activity() {
         const val EXTRA_CORNER_RADIUS = "corner_radius"
         const val EXTRA_PRESSED_CORNER_RADIUS = "pressed_corner_radius"
         const val EXTRA_TEXT_TYPE = "text_type"
-        const val EXTRA_LANGUAGE_TAG = "language_tag"
         const val LOCATION_BUTTON_CONTENT_DESCRIPTION = "location_button"
     }
 }
