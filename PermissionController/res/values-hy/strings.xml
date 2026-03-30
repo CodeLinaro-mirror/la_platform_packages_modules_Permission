@@ -206,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Հասանելի դարձնել միայն մեդիաֆայլերը"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Միշտ թույլատրել"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Թույլատրել միայն հավելվածի օգտագործման ժամանակ"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Միշտ թույլատրել բոլորը"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Ամեն անգամ հարցնել"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Ամեն անգամ հարցնել կամ թույլատրել կիսվելիս"</string>
@@ -280,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Արգելված"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> <xliff:g id="DEVICE_NAME">%2$s</xliff:g> սարքում"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Տեսնել այլ հավելվածներ, որոնց հասանելի են բոլոր ֆայլերը"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Թույլատրված է հավելվածի աշխատանքի համար&lt;/b&gt;&lt;br&gt;&lt;br&gt;Որպեսզի հավելվածը շարունակի աշխատել, հնարավոր է, որ դրան թույլտվություն տրամադրվի՝ օգտագործելու ձեր տեղական ցանցը և միանալու միայն այս ցանցի սարքերին։&lt;br&gt;&lt;br&gt;Հավելվածը չի կարող միանալ սարքերին Bluetooth-ի և այլ տեխնոլոգիաների միջոցով, քանի դեռ չեք թույլատրել դրան գտնել բոլոր մոտակա սարքերը և միանալ դրանց։"</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 օր}one{# օր}other{# օր}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# ժամ}one{# ժամ}other{# ժամ}}"</string>
