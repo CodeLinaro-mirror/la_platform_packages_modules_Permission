@@ -16,9 +16,8 @@
 package com.android.permissioncontroller.appfunctions.ui.handheld.v37
 
 import android.content.Intent
-import android.content.Intent.EXTRA_PACKAGE_NAME
 import android.os.Bundle
-import android.os.Process
+import android.os.UserHandle
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.Menu
@@ -34,11 +33,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
+import androidx.preference.PreferenceViewHolder
 import com.android.permissioncontroller.R
-import com.android.permissioncontroller.appfunctions.domain.model.v37.AgentAccessInfo
 import com.android.permissioncontroller.appfunctions.ui.viewmodel.v37.AgentUsageDetailsUiState
 import com.android.permissioncontroller.appfunctions.ui.viewmodel.v37.AgentUsageDetailsViewModel
 import com.android.permissioncontroller.appfunctions.ui.viewmodel.v37.AgentUsageDetailsViewModelFactory
+import com.android.permissioncontroller.appinteraction.domain.model.v37.AgentTimelineItem
 import com.android.permissioncontroller.permission.ui.ManagePermissionsActivity.EXTRA_SHOW_7_DAYS
 import com.android.permissioncontroller.permission.ui.handheld.SettingsWithLargeHeader
 import com.android.permissioncontroller.permission.utils.KotlinUtils
@@ -52,6 +52,7 @@ import kotlinx.coroutines.launch
 
 class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
     private lateinit var agentPackageName: String
+    private lateinit var user: UserHandle
 
     private lateinit var viewModel: AgentUsageDetailsViewModel
 
@@ -61,7 +62,7 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val argumentPackageName = arguments?.getString(EXTRA_PACKAGE_NAME)
+        val argumentPackageName = arguments?.getString(Intent.EXTRA_PACKAGE_NAME)
         if (argumentPackageName == null) {
             Log.e(
                 LOG_TAG,
@@ -71,19 +72,25 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
             requireActivity().finish()
             return
         }
+        val argumentUser = arguments?.getParcelable(Intent.EXTRA_USER, UserHandle::class.java)
+        if (argumentUser == null) {
+            Log.e(
+                LOG_TAG,
+                "No user id was provided. This is mandatory for creating AgentUsageDetailsFragment",
+            )
+            requireActivity().finish()
+            return
+        }
 
         agentPackageName = argumentPackageName
+        user = argumentUser
         val factory =
-            AgentUsageDetailsViewModelFactory(requireActivity().application, agentPackageName)
+            AgentUsageDetailsViewModelFactory(requireActivity().application, agentPackageName, user)
         viewModel = ViewModelProvider(this, factory)[AgentUsageDetailsViewModel::class.java]
         viewModel.updateShow7DaysToggle(arguments?.getBoolean(EXTRA_SHOW_7_DAYS) ?: false)
 
         val agentLabel =
-            KotlinUtils.getPackageLabel(
-                requireActivity().application,
-                agentPackageName,
-                Process.myUserHandle(),
-            )
+            KotlinUtils.getPackageLabel(requireActivity().application, agentPackageName, user)
         val title = resources.getString(R.string.agent_activity_timeline_title, agentLabel)
         requireActivity().setTitle(title)
 
@@ -173,13 +180,13 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                 if (show7Days) {
                     addAgentActivityPreferencesForPast7Days(
                         uiState.settingsPackageName,
-                        uiState.agentAccessInfos,
+                        uiState.agentTimelineItems,
                         preferenceScreen,
                     )
                 } else {
                     addAgentActivityPreferencesForPast24Hours(
                         uiState.settingsPackageName,
-                        uiState.agentAccessInfos,
+                        uiState.agentTimelineItems,
                         preferenceScreen,
                     )
                 }
@@ -190,7 +197,7 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
 
     fun addAgentActivityPreferencesForPast24Hours(
         settingsAppPackageName: String,
-        agentAccessInfos: List<AgentAccessInfo>,
+        agentTimelineItems: List<AgentTimelineItem>,
         preferenceScreen: PreferenceScreen,
     ) {
         val last24Hours =
@@ -198,7 +205,7 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
         val category = PreferenceCategory(requireContext())
         category.title = resources.getString(R.string.agent_activity_timeline_category_title_24h)
         preferenceScreen.addPreference(category)
-        for (uiInfo: AgentAccessInfo in agentAccessInfos) {
+        for (uiInfo: AgentTimelineItem in agentTimelineItems) {
             val accessTime = uiInfo.lastAccessTime
             if (accessTime < last24Hours) {
                 continue
@@ -209,7 +216,7 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
 
     fun addAgentActivityPreferencesForPast7Days(
         settingsAppPackageName: String,
-        agentAccessInfos: List<AgentAccessInfo>,
+        agentTimelineItems: List<AgentTimelineItem>,
         preferenceScreen: PreferenceScreen,
     ) {
         val midnightToday =
@@ -224,7 +231,7 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
         var previousAccessDate: Long? = null
         var category = PreferenceCategory(requireContext())
 
-        for (uiInfo: AgentAccessInfo in agentAccessInfos) {
+        for (uiInfo: AgentTimelineItem in agentTimelineItems) {
             val accessTime = uiInfo.lastAccessTime
             val accessDate =
                 ZonedDateTime.ofInstant(Instant.ofEpochMilli(accessTime), ZoneId.systemDefault())
@@ -253,51 +260,58 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
     }
 
     fun createAgentActivityPreference(
-        uiInfo: AgentAccessInfo,
+        uiInfo: AgentTimelineItem,
         settingsAppPackageName: String,
     ): Preference =
-        Preference(requireContext()).apply {
-            title =
-                if (uiInfo.isDeviceAssistanceAccess) {
-                    resources.getString(R.string.device_assistance_title)
-                } else {
-                    KotlinUtils.getPackageLabel(
-                        requireActivity().application,
-                        uiInfo.targetPackageName,
-                        Process.myUserHandle(),
-                    )
-                }
-            val iconPackageName =
-                if (uiInfo.isDeviceAssistanceAccess) {
-                    settingsAppPackageName
-                } else {
-                    uiInfo.targetPackageName
-                }
-            icon =
-                KotlinUtils.getBadgedPackageIcon(
-                    requireActivity().application,
-                    iconPackageName,
-                    // TODO: We should use the work profile userHandle in order to get the
-                    // badged icon. The work profile for agents dashboard is not yet
-                    // implemented. Hence using Process.myUserHandle() for now.
-                    Process.myUserHandle(),
-                )
-            summary =
-                resources.getString(
-                    R.string.agent_activity_timeline_activity_summary,
-                    DateFormat.getTimeFormat(requireContext()).format(uiInfo.lastAccessTime),
-                )
-            widgetLayoutResource = R.layout.agent_activity_preference_widget
-            if (uiInfo.interactionUri != null) {
-                onPreferenceClickListener =
-                    Preference.OnPreferenceClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, uiInfo.interactionUri.toUri())
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                        true
+        object : Preference(requireContext()) {
+                override fun onBindViewHolder(holder: PreferenceViewHolder) {
+                    super.onBindViewHolder(holder)
+
+                    if (uiInfo.interactionUri != null) {
+                        holder.findViewById(R.id.agent_activity_widget)!!.setOnClickListener { _ ->
+                            val intent = Intent(Intent.ACTION_VIEW, uiInfo.interactionUri.toUri())
+                            intent.setPackage(uiInfo.agentPackageName)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                        }
                     }
+                }
             }
-        }
+            .apply {
+                title =
+                    if (uiInfo.isDeviceAssistanceAccess) {
+                        resources.getString(R.string.device_assistance_title)
+                    } else {
+                        KotlinUtils.getPackageLabel(
+                            requireActivity().application,
+                            uiInfo.targetPackageName,
+                            uiInfo.user,
+                        )
+                    }
+                val iconPackageName =
+                    if (uiInfo.isDeviceAssistanceAccess) {
+                        settingsAppPackageName
+                    } else {
+                        uiInfo.targetPackageName
+                    }
+                icon =
+                    KotlinUtils.getBadgedPackageIcon(
+                        requireActivity().application,
+                        iconPackageName,
+                        uiInfo.user,
+                    )
+                summary =
+                    resources.getString(
+                        R.string.agent_activity_timeline_activity_summary,
+                        DateFormat.getTimeFormat(requireContext()).format(uiInfo.lastAccessTime),
+                    )
+                if (uiInfo.interactionUri != null) {
+                    widgetLayoutResource = R.layout.agent_activity_preference_widget
+                }
+                // The preference is not clickable. Hence setting this to prevent ripple effect when
+                // clicking on the preference
+                isSelectable = false
+            }
 
     companion object {
         private val LOG_TAG = AgentUsageDetailsFragment::class.java.simpleName

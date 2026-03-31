@@ -134,8 +134,7 @@
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"I går"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Siste tilgang: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Se"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="device_assistance_title" msgid="1445976710214822208">"Enhetshjelp"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Se hvilke apper som nylig har brukt tillatelser"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Bruk av <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Se andre tillatelser"</string>
@@ -202,7 +201,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Bare tillat når appen brukes"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Tillat alltid alle"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Spør hver gang"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"Spør hver gang, eller tillat når du deler"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Spør hver gang, eller tillat når du deler"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"Ikke tillat"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"Gi begrenset tilgang"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Nøyaktig posisjon"</string>
@@ -267,16 +266,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"Tillatt"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"Tillatt hele tiden"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Tillatt bare når appen brukes"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"Tillatt for å holde appen i gang"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Har bare tilgang til medier"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"Kan administrere alle filer"</string>
     <string name="ask_header" msgid="2633816846459944376">"Spør hver gang"</string>
     <string name="denied_header" msgid="903209608358177654">"Ikke tillatt"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> på <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Se flere apper som kan bruke alle filer"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Tillatt for å holde appen i gang&lt;/b&gt;&lt;br&gt;&lt;br&gt;For at en app skal kunne fortsette å fungere, kan den få tillatelse til å bruke det lokale nettverket ditt og koble til enheter i dette nettverket.&lt;br&gt;&lt;br&gt;Appen kan ikke koble til enheter via Bluetooth og andre teknologier, med mindre du gir den tillatelse til å finne og koble til alle enheter i nærheten."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 dag}other{# dager}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# time}other{# timer}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# minutt}other{# minutter}}"</string>
@@ -376,12 +373,12 @@
     <string name="role_assistant_description" msgid="6622458130459922952">"Assistentapper kan hjelpe deg basert på informasjon fra skjermen du bruker. Noen apper støtter tjenester for både appoversikten og taleinndata for å gi deg integrert hjelp."</string>
     <string name="role_assistant_recommended_title" msgid="2093873159106905257">"Anbefalt av <xliff:g id="OEM_NAME">%s</xliff:g>"</string>
     <string name="role_browser_label" msgid="2877796144554070207">"Standard nettleserapp"</string>
-    <string name="role_browser_short_label" msgid="6745009127123292296">"Nettleserapp"</string>
+    <string name="role_browser_short_label" msgid="6745009127123292296">"Nettleser-app"</string>
     <string name="role_browser_description" msgid="3465253637499842671">"Apper som gir deg tilgang til internett og viser linker du trykker på"</string>
     <string name="role_browser_request_title" msgid="2895200507835937192">"Vil du angi <xliff:g id="APP_NAME">%1$s</xliff:g> som standard nettleserapp?"</string>
     <string name="role_browser_request_description" msgid="5888803407905985941">"Ingen tillatelser er nødvendige"</string>
     <string name="role_dialer_label" msgid="1100224146343237968">"Standard telefonapp"</string>
-    <string name="role_dialer_short_label" msgid="7186888549465352489">"Telefonapp"</string>
+    <string name="role_dialer_short_label" msgid="7186888549465352489">"Telefon-app"</string>
     <string name="role_dialer_description" msgid="8768708633696539612">"Apper som lar deg ringe fra og motta anrop på enheten"</string>
     <string name="role_dialer_request_title" msgid="5959618560705912058">"Vil du angi <xliff:g id="APP_NAME">%1$s</xliff:g> som standard telefonapp?"</string>
     <string name="role_dialer_request_description" msgid="6288839625724909320">"Denne appen får tilgang til kamera, kontakter, mikrofon, telefon og SMS"</string>
@@ -399,7 +396,7 @@
     <string name="role_emergency_request_description" msgid="131645948770262850">"Ingen tillatelser er nødvendige"</string>
     <string name="role_emergency_search_keywords" msgid="1920007722599213358">"i nødstilfeller"</string>
     <string name="role_home_label" msgid="3871847846649769412">"Standard startsideapp"</string>
-    <string name="role_home_short_label" msgid="8544733747952272337">"Startsideapp"</string>
+    <string name="role_home_short_label" msgid="8544733747952272337">"Startside-app"</string>
     <string name="role_home_description" msgid="7997371519626556675">"Apper – også kalt appoversikter – som erstatter startskjermene på Android-enheten og gir deg tilgang til innholdet og funksjonene på enheten"</string>
     <string name="role_home_request_title" msgid="738136983453341081">"Vil du angi <xliff:g id="APP_NAME">%1$s</xliff:g> som standard startsideapp?"</string>
     <string name="role_home_request_description" msgid="2658833966716057673">"Ingen tillatelser er nødvendige"</string>
@@ -425,7 +422,7 @@
     <string name="role_notes_description" msgid="8496852798616883551">"Apper du kan bruke til å ta notater på enheten"</string>
     <string name="role_notes_search_keywords" msgid="7710756695666744631">"notater"</string>
     <string name="role_wallet_label" msgid="3719419175656204207">"Standard lommebokapp"</string>
-    <string name="role_wallet_short_label" msgid="6521288403762457452">"Lommebokapp"</string>
+    <string name="role_wallet_short_label" msgid="6521288403762457452">"Lommebok-app"</string>
     <string name="role_wallet_description" msgid="3726535836165949838">"I lommebokapper kan du lagre kreditt- og stamkundekort, bilnøkler og andre ting for å få hjelp med ulike transaksjonstyper."</string>
     <string name="role_wallet_request_title" msgid="4770217108262737093">"Vil du bruke <xliff:g id="APP_NAME">%1$s</xliff:g> som standard lommebokapp?"</string>
     <string name="role_wallet_request_description" msgid="6305487425777483053">"Ingen tillatelser er nødvendige"</string>
@@ -762,5 +759,8 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"Gi <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> tilgang til informasjon og innhold fra appen som er åpen på skjermen"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Tillat"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"Ikke tillat"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"Vil du la &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; bruke en posisjonsknapp for å få tilgang til nøyaktig posisjon?"</string>
+    <!-- no translation found for request_location_button_permissions_dialog_title (1305012762950180684) -->
+    <skip />
+    <!-- no translation found for request_location_button_permissions_dialog_subtitle (4401187641885414225) -->
+    <skip />
 </resources>

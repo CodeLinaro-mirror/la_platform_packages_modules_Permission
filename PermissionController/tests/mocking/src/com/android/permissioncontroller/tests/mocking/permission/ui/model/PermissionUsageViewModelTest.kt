@@ -21,13 +21,16 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.UserHandle
 import android.os.UserManager
+import android.platform.test.annotations.RequiresFlagsDisabled
 import android.platform.test.annotations.RequiresFlagsEnabled
 import android.platform.test.flag.junit.CheckFlagsRule
 import android.platform.test.flag.junit.DeviceFlagsValueProvider
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.SdkSuppress
 import com.android.dx.mockito.inline.extended.ExtendedMockito
 import com.android.modules.utils.build.SdkLevel
 import com.android.permissioncontroller.DeviceUtils
@@ -301,9 +304,10 @@ class PermissionUsageViewModelTest {
                     accessTime = now - TimeUnit.HOURS.toMillis(3),
                 ),
             )
+        val agents = listOf(AGENT_NAME_1, AGENT_NAME_2)
         val permissionUsageUseCase = getPermissionGroupUsageUseCase()
         val appFunctionPackageInfoUseCase = getAppFunctionPackageInfoUseCase()
-        val appFunctionAgentUsageUseCase = getAppFunctionAgentUsageUseCase(accessHistory)
+        val appFunctionAgentUsageUseCase = getAppFunctionAgentUsageUseCase(accessHistory, agents)
         val permissionUsageViewModel =
             getViewModel(
                 permissionUsageUseCase = permissionUsageUseCase,
@@ -311,9 +315,12 @@ class PermissionUsageViewModelTest {
                 appFunctionPackageInfoUseCase = appFunctionPackageInfoUseCase,
                 savedStateHandle = SavedStateHandle(mapOf("show7Days" to false)),
             )
-        val agentAccessCount = getPermissionUsageUiState(permissionUsageViewModel).agentAccessCount
-        assertThat(agentAccessCount[AGENT_NAME_1]).isEqualTo(2)
-        assertThat(agentAccessCount[AGENT_NAME_2]).isEqualTo(1)
+        val agentUsages = getPermissionUsageUiState(permissionUsageViewModel).agentUsages
+        assertThat(agentUsages).hasSize(2)
+        assertThat(agentUsages[0].agentPackageName).isEqualTo(AGENT_NAME_1)
+        assertThat(agentUsages[0].accessCount24Hours).isEqualTo(2)
+        assertThat(agentUsages[1].agentPackageName).isEqualTo(AGENT_NAME_2)
+        assertThat(agentUsages[1].accessCount24Hours).isEqualTo(1)
     }
 
     @Test
@@ -346,9 +353,10 @@ class PermissionUsageViewModelTest {
                     accessTime = now - TimeUnit.DAYS.toMillis(10),
                 ),
             )
+        val agents = listOf(AGENT_NAME_1)
         val permissionUsageUseCase = getPermissionGroupUsageUseCase()
         val appFunctionPackageInfoUseCase = getAppFunctionPackageInfoUseCase()
-        val appFunctionAgentUsageUseCase = getAppFunctionAgentUsageUseCase(accessHistory)
+        val appFunctionAgentUsageUseCase = getAppFunctionAgentUsageUseCase(accessHistory, agents)
         val permissionUsageViewModel =
             getViewModel(
                 permissionUsageUseCase = permissionUsageUseCase,
@@ -356,8 +364,43 @@ class PermissionUsageViewModelTest {
                 appFunctionPackageInfoUseCase = appFunctionPackageInfoUseCase,
                 savedStateHandle = SavedStateHandle(mapOf("show7Days" to true)),
             )
-        val agentAccessCount = getPermissionUsageUiState(permissionUsageViewModel).agentAccessCount
-        assertThat(agentAccessCount[AGENT_NAME_1]).isEqualTo(2)
+        val agentUsages = getPermissionUsageUiState(permissionUsageViewModel).agentUsages
+        assertThat(agentUsages).hasSize(1)
+        assertThat(agentUsages[0].accessCount7Days).isEqualTo(2)
+    }
+
+    @Test
+    @SdkSuppress(maxSdkVersion = Build.VERSION_CODES.BAKLAVA)
+    @RequiresFlagsDisabled(Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED)
+    fun verifyNoAgentUsagesBelowC() = runTest {
+        assumeFalse(isTv() || isWatch())
+        assumeTrue(
+            "Skipping: skip test if feature is enabled and on automotive",
+            !isAutomotive() || !Flags.automotivePrivacyDashboardAgentActivityEnabled(),
+        )
+        val now = System.currentTimeMillis()
+        val accessHistory =
+            listOf(
+                createAccessHistory(
+                    agentPackageName = AGENT_NAME_1,
+                    targetPackageName = TARGET_NAME_1,
+                    accessTime = now - TimeUnit.HOURS.toMillis(1),
+                )
+            )
+        val agents = listOf(AGENT_NAME_1)
+        val permissionUsageUseCase = getPermissionGroupUsageUseCase()
+        val appFunctionPackageInfoUseCase = getAppFunctionPackageInfoUseCase()
+        val appFunctionAgentUsageUseCase = getAppFunctionAgentUsageUseCase(accessHistory, agents)
+        val permissionUsageViewModel =
+            getViewModel(
+                permissionUsageUseCase = permissionUsageUseCase,
+                appFunctionAgentUsageUseCase = appFunctionAgentUsageUseCase,
+                appFunctionPackageInfoUseCase = appFunctionPackageInfoUseCase,
+                savedStateHandle = SavedStateHandle(mapOf("show7Days" to false)),
+            )
+        val agentUsages = getPermissionUsageUiState(permissionUsageViewModel).agentUsages
+        // We should be using NoOpAgentUsageUseCase. Hence no agent usages should be returned.
+        assertThat(agentUsages).hasSize(0)
     }
 
     private fun TestScope.getViewModel(
@@ -409,10 +452,13 @@ class PermissionUsageViewModelTest {
     }
 
     private fun getAppFunctionAgentUsageUseCase(
-        accessHistory: List<AccessHistory> = emptyList()
+        accessHistory: List<AccessHistory> = emptyList(),
+        agents: List<String> = emptyList(),
     ): GetAgentUsageUseCase {
         val appInteractionRepository = FakeAppInteractionRepository(accessHistory)
-        return GetAgentUsageUseCaseImpl(appInteractionRepository)
+        val packageRepository = FakePackageRepository(agents = agents)
+        val userRepository = FakeUserRepository(listOf(currentUser.identifier))
+        return GetAgentUsageUseCaseImpl(appInteractionRepository, packageRepository, userRepository)
     }
 
     private fun getAppFunctionPackageInfoUseCase(): GetAppFunctionPackageInfoUseCase {

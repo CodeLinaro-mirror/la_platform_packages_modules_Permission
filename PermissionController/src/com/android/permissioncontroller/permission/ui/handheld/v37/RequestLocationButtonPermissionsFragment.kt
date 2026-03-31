@@ -35,6 +35,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieCompositionFactory
 import com.airbnb.lottie.LottieDrawable
+import com.android.permissioncontroller.Constants
 import com.android.permissioncontroller.R
 import com.android.permissioncontroller.permission.ui.model.v37.LocationButtonViewModel
 import com.android.permissioncontroller.permission.ui.model.v37.LocationButtonViewModelFactory
@@ -48,6 +49,7 @@ class RequestLocationButtonPermissionsFragment : DialogFragment() {
         super.onCreate(savedInstanceState)
 
         val args = requireArguments()
+        val sessionId = args.getLong(Constants.EXTRA_SESSION_ID)
         val packageName = args.getString(Intent.EXTRA_PACKAGE_NAME)!!
         val remoteCallback =
             args.getParcelable(Intent.EXTRA_REMOTE_CALLBACK, RemoteCallback::class.java)!!
@@ -55,6 +57,7 @@ class RequestLocationButtonPermissionsFragment : DialogFragment() {
         val factory =
             LocationButtonViewModelFactory(
                 requireActivity().application,
+                sessionId,
                 packageName,
                 remoteCallback,
             )
@@ -70,24 +73,20 @@ class RequestLocationButtonPermissionsFragment : DialogFragment() {
                 .apply {
                     // Location (pin) icon
                     val iconView = requireViewById<ImageView>(R.id.icon)
-                    viewModel.getLocationPinIconLiveData().observe(activity) { icon ->
-                        iconView.setImageDrawable(icon)
-                    }
+                    iconView.setImageDrawable(viewModel.locationPinIcon)
 
                     // Title message
                     val messageView = requireViewById<TextView>(R.id.title)
-                    viewModel.getAppLabelLiveData().observe(activity) { appLabel ->
-                        val escapedAppLabel = Html.escapeHtml(appLabel)
-                        val label =
-                            Html.fromHtml(
-                                resources.getString(
-                                    R.string.request_location_button_permissions_dialog_title,
-                                    escapedAppLabel,
-                                ),
-                                Html.FROM_HTML_MODE_COMPACT,
-                            )
-                        messageView.text = label
-                    }
+                    val escapedAppLabel = Html.escapeHtml(viewModel.appLabel)
+                    val label =
+                        Html.fromHtml(
+                            resources.getString(
+                                R.string.request_location_button_permissions_dialog_title,
+                                escapedAppLabel,
+                            ),
+                            Html.FROM_HTML_MODE_COMPACT,
+                        )
+                    messageView.text = label
 
                     val lottieDrawable = getLottieDrawableForFineLocation()
                     val fineRadioButton =
@@ -138,17 +137,20 @@ class RequestLocationButtonPermissionsFragment : DialogFragment() {
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
+        viewModel.onCancel()
         requireActivity().finish()
     }
 
     companion object {
         fun newInstance(
+            sessionId: Long,
             packageName: String,
             remoteCallback: RemoteCallback,
         ): RequestLocationButtonPermissionsFragment =
             RequestLocationButtonPermissionsFragment().apply {
                 arguments =
                     Bundle().apply {
+                        putLong(Constants.EXTRA_SESSION_ID, sessionId)
                         putString(Intent.EXTRA_PACKAGE_NAME, packageName)
                         putParcelable(Intent.EXTRA_REMOTE_CALLBACK, remoteCallback)
                     }
