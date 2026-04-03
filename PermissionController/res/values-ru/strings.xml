@@ -139,6 +139,8 @@
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Последний доступ: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Посмотреть"</string>
     <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Не было попыток доступа"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Агент использовал эти приложения, чтобы найти сведения или выполнить действия по вашему запросу. Параметры доступа можно изменить в настройках приложения \"<xliff:g id="APP_NAME">%1$s</xliff:g>\"."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"Панель управления разрешениями показывается, когда приложения используются с помощью функций Android для агентов."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Помощь с устройством"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Посмотреть, какие приложения недавно использовали разрешения"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Использование разрешения \"<xliff:g id="PERMGROUP">%1$s</xliff:g>\""</string>
@@ -204,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Разрешить доступ только к медиафайлам"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Разрешить в любом режиме"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Разрешить только во время использования приложения"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Постоянный полный доступ"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Спрашивать каждый раз"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Спрашивать каждый раз или разрешать при отправке"</string>
@@ -278,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Запрещено"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> на устройстве \"<xliff:g id="DEVICE_NAME">%2$s</xliff:g>\""</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Ещё приложения с доступом ко всем файлам"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Разрешено для работы приложения&lt;/b&gt;&lt;br&gt;&lt;br&gt;Это может означать, что приложению разрешен только доступ к локальной сети и подключение к устройствам в ней.&lt;br&gt;&lt;br&gt;Приложение не сможет подключаться к устройствам с помощью Bluetooth и других технологий, если только вы не разрешите ему находить все устройства поблизости и подключаться к ним."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 день}one{# день}few{# дня}many{# дней}other{# дня}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# час}one{# час}few{# часа}many{# часов}other{# часа}}"</string>

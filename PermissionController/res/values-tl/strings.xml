@@ -131,7 +131,7 @@
     <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Walang naka-install na ahente"</string>
     <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"Hindi na-access nang 24 oras"</string>
     <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"Hindi na-access nang 7 araw"</string>
-    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Aktibidad ng <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
+    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Aktibidad sa <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Sa nakalipas na 24 na oras"</string>
     <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"Sa nakalipas na 7 araw"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Ngayon"</string>
@@ -139,6 +139,8 @@
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Huling na-access: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Tingnan"</string>
     <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Walang pag-access"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Na-access ng agent na ito ang mga app na ito para kumuha ng impormasyon o umaksyon para sa iyo. Puwede mong baguhin ang access na ito anumang oras sa mga setting ng <xliff:g id="APP_NAME">%1$s</xliff:g>."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"Ipinapakita lang ang privacy dashboard kapag na-access ang mga app gamit ang mga feature ng Android para sa mga ahente."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Tulong sa Device"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Tingnan kung aling app ang gumamit kamakailan ng pahintulot"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Paggamit ng <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -204,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Payagan lang ang pag-access ng media"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Payagan sa lahat ng oras"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Payagan lang habang ginagamit ang app"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Palaging pahintulutan lahat"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Magtanong palagi"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Magtanong sa bawat pagkakataon o payagan kapag nag-share ka"</string>
@@ -278,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Hindi pinapayagan"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> noong <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Tumingin pa ng mga app na puwedeng mag-access ng lahat ng file"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Pinapayagang manatiling gumagana ang app&lt;/b&gt;&lt;br&gt;&lt;br&gt;Para patuloy na gumana ang isang app, posibleng payagan itong i-access ang iyong lokal na network at kumonekta lang sa mga device sa network na ito.&lt;br&gt;&lt;br&gt;Hindi makakonekta ang app sa mga device gamit ang Bluetooth at iba pang teknolohiya maliban na lang kung papayagan mo itong hanapin at ikonekta ang lahat ng kalapit na device."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 araw}one{# araw}other{# na araw}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# oras}one{# oras}other{# na oras}}"</string>

@@ -139,6 +139,8 @@
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Dernier accès : <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Afficher"</string>
     <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Aucun accès"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Cet agent a accédé à ces applis pour obtenir des infos ou effectuer des actions pour vous. Vous pouvez modifier cela à tout moment dans les paramètres <xliff:g id="APP_NAME">%1$s</xliff:g>."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"Le tableau de bord Confidentialité ne s\'affiche que lorsque les applis sont consultées via des fonctionnalités Android pour les agents."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Assistance Appareil"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Voir les applis qui ont récemment utilisé des autorisations"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Utilisation <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -204,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Autoriser l\'accès aux fichiers multimédias uniquement"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Toujours autoriser"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Autoriser seulement lorsque l\'appli est utilisée"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Toujours autoriser"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Toujours demander"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Demander à chaque fois ou autoriser lorsque vous partagez"</string>
@@ -278,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Non autorisé"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> sur <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Voir plus d\'applis pouvant accéder à tous les fichiers"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Autorisée pour assurer le fonctionnement&lt;/b&gt;&lt;br&gt;&lt;br&gt;Pour qu\'une appli continue de fonctionner, elle peut être autorisée à accéder à votre réseau local et à se connecter uniquement aux appareils de ce réseau.&lt;br&gt;&lt;br&gt;L\'appli ne peut pas se connecter aux appareils à l\'aide de Bluetooth ni d\'autres technologies, sauf si vous l\'autorisez à rechercher tous les appareils à proximité et à s\'y connecter."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 jour}one{# jour}many{# jours}other{# jours}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# heure}one{# heure}many{# heures}other{# heures}}"</string>
@@ -591,7 +597,7 @@
     <string name="automotive_blocked_camera_title" msgid="6142362431548829416">"L\'accès à l\'appareil photo est désactivé"</string>
     <string name="automotive_blocked_microphone_title" msgid="3956311098238620220">"L\'accès au micro est désactivé"</string>
     <string name="automotive_blocked_location_title" msgid="6047574747593264689">"L\'accès à la position est désactivé"</string>
-    <string name="automotive_blocked_infotainment_app_summary" msgid="8217099645064950860">"Pour les applis d\'infoloisirs"</string>
+    <string name="automotive_blocked_infotainment_app_summary" msgid="8217099645064950860">"Pour les applis d\'infodivertissement"</string>
     <string name="automotive_blocked_required_app_summary" msgid="8591513745681168088">"Pour les applis requises"</string>
     <string name="automotive_required_app_title" msgid="2992168288249988735">"Cette appli est requise"</string>
     <string name="automotive_required_app_summary" msgid="6514902316658090465">"Cette appli est requise par votre constructeur automobile"</string>

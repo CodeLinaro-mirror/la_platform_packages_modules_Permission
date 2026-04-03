@@ -128,22 +128,19 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Privatlivspanel"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Apptilladelser"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Agentaktivitet"</string>
-    <!-- no translation found for empty_agent_activity_preference_title (7682932823345395104) -->
-    <skip />
-    <!-- no translation found for agent_activity_preference_summary_no_accesses_24h (7194072619746100487) -->
-    <skip />
-    <!-- no translation found for agent_activity_preference_summary_no_accesses_7d (8023811607582607766) -->
-    <skip />
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Ingen installerede agenter"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"Ingen adgang i seneste 24 t."</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"Ingen adgang i seneste 7 dage"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g>-aktivitet"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Inden for de seneste 24 timer"</string>
-    <!-- no translation found for agent_activity_timeline_category_title_7d (6957587886375942104) -->
-    <skip />
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"I de seneste 7 dage"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"I dag"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"I går"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Seneste adgang: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Se"</string>
-    <!-- no translation found for empty_agent_activity_timeline_preference_title (7099292969424621771) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Ingen adgang"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Denne agent tilgik disse apps for at hente oplysninger eller foretage handlinger for dig. Du kan til enhver tid ændre denne adgang i indstillingerne for <xliff:g id="APP_NAME">%1$s</xliff:g>."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"Privatlivspanelet vises kun, når apps tilgås ved hjælp af Android-funktioner til agenter."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Enhedshjælp"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Se, hvilke apps der har brugt tilladelser for nylig"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Brug af <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -209,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Tillad kun adgang til mediefiler"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Tillad altid"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Tillad kun, mens appen er i brug"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Tillad altid alle"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Spørg hver gang"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Spørg hver gang, eller tillad, når du deler"</string>
@@ -283,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Ikke tilladt"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> på <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Se flere apps, som kan tilgå alle filer"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Tilladt for at appen fortsat fungerer&lt;/b&gt;&lt;br&gt;&lt;br&gt;For at en app kan fortsætte med at fungere, kan den få tilladelse til kun at tilgå dit lokale netværk og oprette forbindelse til enheder på dette netværk.&lt;br&gt;&lt;br&gt;Appen kan ikke oprette forbindelse til enheder via Bluetooth og andre teknologier, medmindre du giver den tilladelse til at finde og oprette forbindelse til alle enheder i nærheden."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 dag}one{# dag}other{# dage}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# time}one{# time}other{# timer}}"</string>

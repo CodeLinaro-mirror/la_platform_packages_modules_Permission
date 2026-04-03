@@ -19,11 +19,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.UserHandle
 import android.util.Log
+import com.android.permissioncontroller.DeviceUtils
 import com.android.permissioncontroller.appfunctions.AppFunctionsUtil
 import com.android.permissioncontroller.appfunctions.ui.handheld.v37.AgentUsageDetailsWrapperFragment
 import com.android.permissioncontroller.common.ui.SettingsActivity
 import com.android.permissioncontroller.permission.ui.ManagePermissionsActivity.EXTRA_SHOW_7_DAYS
 import com.android.permissioncontroller.permission.ui.ManagePermissionsActivity.EXTRA_SHOW_SYSTEM
+import com.android.permissioncontroller.permission.ui.auto.dashboard.AutoAgentUsageDetailsFragment
+import kotlin.random.Random
 
 /** Activity for reviewing the timeline history of the agent */
 class AgentUsageDetailsActivity : SettingsActivity() {
@@ -45,13 +48,19 @@ class AgentUsageDetailsActivity : SettingsActivity() {
             val user = intent.getParcelableExtra(Intent.EXTRA_USER, UserHandle::class.java)!!
             val showSystem = intent.getBooleanExtra(EXTRA_SHOW_SYSTEM, false)
             val show7Days = intent.getBooleanExtra(EXTRA_SHOW_7_DAYS, false)
+            val sessionId = Random.nextLong()
             val fragment =
-                AgentUsageDetailsWrapperFragment.newInstance(
-                    agentPackageName,
-                    user,
-                    showSystem,
-                    show7Days,
-                )
+                if (DeviceUtils.isAuto(this)) {
+                    AutoAgentUsageDetailsFragment.newInstance(agentPackageName, user)
+                } else {
+                    AgentUsageDetailsWrapperFragment.newInstance(
+                        sessionId,
+                        agentPackageName,
+                        user,
+                        showSystem,
+                        show7Days,
+                    )
+                }
             supportFragmentManager
                 .beginTransaction()
                 .replace(android.R.id.content, fragment)

@@ -139,6 +139,8 @@
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Lần truy cập gần đây nhất: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Xem"</string>
     <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Không có lượt truy cập nào"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Tác nhân này đã truy cập vào các ứng dụng này để lấy thông tin hoặc thực hiện thao tác cho bạn. Bạn có thể thay đổi chế độ này bất cứ lúc nào trong phần cài đặt <xliff:g id="APP_NAME">%1$s</xliff:g>."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"Bảng tổng quan về quyền riêng tư chỉ xuất hiện khi các ứng dụng được truy cập qua các tính năng của Android dành cho tác nhân."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Trợ giúp về thiết bị"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Xem những ứng dụng nào gần đây đã sử dụng các quyền"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Hoạt động sử dụng <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -204,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Chỉ cho phép truy cập vào nội dung nghe nhìn"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Luôn cho phép"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Chỉ cho phép khi dùng ứng dụng"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Luôn cho phép tất cả"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Luôn hỏi"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Luôn hỏi hoặc cho phép khi bạn chia sẻ"</string>
@@ -278,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Không được phép"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> trên <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Xem thêm ứng dụng có thể truy cập tất cả các tệp"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Được phép để tiếp tục chạy ứng dụng&lt;/b&gt;&lt;br&gt;&lt;br&gt;Để một ứng dụng tiếp tục chạy, ứng dụng đó có thể được phép truy cập vào mạng cục bộ của bạn và chỉ kết nối với các thiết bị trên mạng này.&lt;br&gt;&lt;br&gt;Ứng dụng này không thể kết nối với các thiết bị bằng Bluetooth và các công nghệ khác, trừ phi bạn cho phép ứng dụng này tìm và kết nối với mọi thiết bị ở gần."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 ngày}other{# ngày}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# giờ}other{# giờ}}"</string>

@@ -21,3 +21,10 @@ flag {
     description: "Flag to show the update dashboard with agent access activity in automotive"
     bug: "428696180"
 }
+
+flag {
+    name: "hsu_app_management"
+    namespace: "permissions"
+    description: "Enables managing apps installed on the headless system user in privacy dashboard"
+    bug: "369617679"
+}

@@ -102,7 +102,7 @@
     <string name="permission_summary_disabled_by_policy_background_only" msgid="221995005556362660">"Accesso in background disattivato in base alla norma"</string>
     <string name="permission_summary_enabled_by_policy_background_only" msgid="8287675974767104279">"Accesso in background attivato in base alla norma"</string>
     <string name="permission_summary_enabled_by_policy_foreground_only" msgid="3844582916889767831">"Accesso in primo piano attivato in base alla norma"</string>
-    <string name="permission_summary_enforced_by_admin" msgid="822702574117248700">"Gestita dall\'amministratore"</string>
+    <string name="permission_summary_enforced_by_admin" msgid="822702574117248700">"Impostazione gestita dall\'amministratore"</string>
     <string name="permission_summary_disabled_by_admin_background_only" msgid="3127091456731845646">"Accesso in background disattivato dall\'amministratore"</string>
     <string name="permission_summary_enabled_by_admin_background_only" msgid="9132423838440275757">"Accesso in background attivato dall\'amministratore"</string>
     <string name="permission_summary_enabled_by_admin_foreground_only" msgid="1298432715610745358">"Accesso in primo piano attivato dall\'amministratore"</string>
@@ -128,22 +128,19 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Dashboard della privacy"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Autorizzazioni app"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Attività dell\'agente"</string>
-    <!-- no translation found for empty_agent_activity_preference_title (7682932823345395104) -->
-    <skip />
-    <!-- no translation found for agent_activity_preference_summary_no_accesses_24h (7194072619746100487) -->
-    <skip />
-    <!-- no translation found for agent_activity_preference_summary_no_accesses_7d (8023811607582607766) -->
-    <skip />
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Nessun agente installato"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"Nessun accesso nelle ultime 24 ore"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"Nessun accesso negli ultimi 7 giorni"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Attività <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Nelle ultime 24 ore"</string>
-    <!-- no translation found for agent_activity_timeline_category_title_7d (6957587886375942104) -->
-    <skip />
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"Negli ultimi 7 giorni"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Oggi"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Ieri"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Ultimo accesso: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Visualizza"</string>
-    <!-- no translation found for empty_agent_activity_timeline_preference_title (7099292969424621771) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Nessun accesso"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Questo agente ha effettuato l\'accesso a queste app per ottenere informazioni o eseguire azioni per te. Puoi modificare questa opzione in qualsiasi momento nelle impostazioni di <xliff:g id="APP_NAME">%1$s</xliff:g>."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"La dashboard della privacy viene mostrata solo quando l\'accesso alle app avviene tramite le funzionalità di Android per gli agenti."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Assistenza dispositivo"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Vedi quali app hanno usato le autorizzazioni di recente"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Uso di <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -209,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Consenti l\'accesso solo ai file multimediali"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Consenti sempre"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Consenti solo mentre l\'app è in uso"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Consenti sempre tutti"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Chiedi ogni volta"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Chiedi ogni volta o consenti quando condividi"</string>
@@ -283,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Non autorizzate"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> su <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Visualizza altre app che possono accedere a tutti i file"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;L\'app può continuare a funzionare&lt;/b&gt;&lt;br&gt;&lt;br&gt;Per continuare a funzionare, un\'app potrebbe avere l\'autorizzazione ad accedere alla tua rete locale e connettersi solo ai dispositivi su questa rete.&lt;br&gt;&lt;br&gt;L\'app non può connettersi ai dispositivi tramite Bluetooth e altre tecnologie a meno che tu non le consenta di trovare e connettersi a tutti i dispositivi nelle vicinanze."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 giorno}many{# di giorni}other{# giorni}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# ora}many{# di ore}other{# ore}}"</string>
