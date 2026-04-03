@@ -88,8 +88,8 @@
     <string name="app_permissions_group_summary2" msgid="4329922444840521150">"<xliff:g id="COUNT_1">%2$d</xliff:g>/<xliff:g id="COUNT_0">%1$d</xliff:g> alkalmazás engedélyezve"</string>
     <string name="menu_show_system" msgid="4254021607027872504">"Rendszer megjelenítése"</string>
     <string name="menu_hide_system" msgid="3855390843744028465">"Rendszer elrejtése"</string>
-    <string name="menu_show_7_days_data" msgid="8979611198508523706">"Az elmúlt 7 nap mutatása"</string>
-    <string name="menu_show_24_hours_data" msgid="8228054833323380780">"Az elmúlt 24 óra mutatása"</string>
+    <string name="menu_show_7_days_data" msgid="8979611198508523706">"Az elmúlt 7 nap"</string>
+    <string name="menu_show_24_hours_data" msgid="8228054833323380780">"Az elmúlt 24 óra"</string>
     <string name="manage_permission" msgid="2895385393037061964">"Engedély kezelése"</string>
     <string name="no_apps" msgid="2412612731628386816">"Nincsenek alkalmazások"</string>
     <string name="location_settings" msgid="3624412509133422562">"Helybeállítások"</string>
@@ -131,7 +131,7 @@
     <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Nincs telepítve ügynök"</string>
     <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"0 hozzáférés az elmúlt napban"</string>
     <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"0 hozzáférés az előző 7 napban"</string>
-    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g> tevékenység"</string>
+    <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g>-tevékenység"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Az elmúlt 24 órában"</string>
     <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"Az elmúlt 7 napban"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Ma"</string>
@@ -206,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Csak a médiatartalmakhoz való hozzáférés engedélyezése"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Mindig engedélyezett"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Csak az alkalmazás használatakor engedélyezett"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Összes engedélyezése mindig"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Mindig kérdezzen rá"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Mindig kérdezzen rá, vagy engedélyezés megosztáskor"</string>
@@ -280,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Nem engedélyezett"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>, <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"További, minden fájlhoz hozzáférő alkalmazások megtekintése"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Az alkalmazás további működésének engedélyezése&lt;/b&gt;&lt;br&gt;&lt;br&gt;Ahhoz, hogy egy alkalmazás továbbra is működhessen, engedélyezhető számára a helyi hálózathoz való hozzáférés és a csak az ezen a hálózaton lévő eszközökhöz való csatlakozás.&lt;br&gt;&lt;br&gt;Az alkalmazás nem tud Bluetooth és más technológiák használatával csatlakozni az eszközökhöz, hacsak nem engedélyezi számára az összes közeli eszköz megkeresését és a hozzájuk való csatlakozást."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 nap}other{# nap}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# óra}other{# óra}}"</string>

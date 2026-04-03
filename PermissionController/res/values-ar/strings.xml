@@ -206,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"السماح بالوصول إلى الوسائط فقط"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"السماح طوال الوقت"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"السماح عند استخدام التطبيق فقط"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"السماح بالكل دومًا"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"السؤال في كل مرة"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"السؤال في كل مرّة أو السماح بالوصول عند المشاركة"</string>
@@ -280,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"الأذونات غير المسموح بها"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"‫\"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>\" على \"<xliff:g id="DEVICE_NAME">%2$s</xliff:g>\""</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"الاطّلاع على تطبيقات أخرى يمكنها الوصول إلى كل الملفات"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"‏&lt;b&gt;مسموح بإبقاء التطبيق قيد التشغيل&lt;/b&gt;&lt;br&gt;&lt;br&gt;لكي يبقى التطبيق قيد التشغيل، قد يُسمح له بالوصول إلى شبكتك المحلية والاتصال بالأجهزة على هذه الشبكة فقط.&lt;br&gt;&lt;br&gt;لا يمكن للتطبيق الاتصال بالأجهزة باستخدام البلوتوث وتكنولوجيات أخرى إلا إذا سمحت له بالعثور على جميع الأجهزة المجاورة والاتصال بها."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{يوم واحد}zero{# يوم}two{يومان}few{# أيام}many{# يومًا}other{# يوم}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{ساعة واحدة}zero{# ساعة}two{ساعتان}few{# ساعات}many{# ساعةً}other{# ساعة}}"</string>

@@ -206,6 +206,8 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Надати доступ лише до медіафайлів"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Дозволяти завжди"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Дозволяти, лише коли додаток використовується"</string>
+    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
+    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Завжди дозволяти всі"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Запитувати щоразу"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Запитувати щоразу або дозволяти під час надсилання"</string>
@@ -280,6 +282,8 @@
     <string name="denied_header" msgid="903209608358177654">"Заборонено"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> (<xliff:g id="DEVICE_NAME">%2$s</xliff:g>)"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Переглянути інші додатки, які мають доступ до всіх файлів"</string>
+    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
+    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Дозволено для належної роботи додатка&lt;/b&gt;&lt;br&gt;&lt;br&gt;Щоб додаток працював належним чином, йому може бути дозволено доступ до вашої локальної мережі й підключення лише до пристроїв у цій мережі.&lt;br&gt;&lt;br&gt;Додаток не зможе підключатися до пристроїв за допомогою Bluetooth і інших технологій, якщо ви не дозволите йому знаходити всі пристрої поблизу й підключатися до них."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 день}one{# день}few{# дні}many{# днів}other{# дня}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# година}one{# година}few{# години}many{# годин}other{# години}}"</string>

@@ -21,6 +21,7 @@ import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.app.usage.UsageStatsManager.INTERVAL_MONTHLY
 import android.os.UserHandle
+import com.android.modules.utils.build.SdkLevel
 import com.android.permissioncontroller.PermissionControllerApplication
 import com.android.permissioncontroller.permission.utils.Utils
 import kotlinx.coroutines.Job
@@ -55,6 +56,14 @@ private constructor(
             // If the user is not enabled, or if the user is a managed profile, and this is not an
             // android TV (where parental control accounts are managed profiles), do not get stats.
             if (Utils.isUserDisabledOrWorkProfile(user)) {
+                continue
+            }
+            // In HSUM, ignore system user for usage stats because it's for unused apps.
+            if (
+                SdkLevel.isAtLeastC() &&
+                    com.android.permissioncontroller.flags.Flags.hsuAppManagement() &&
+                    Utils.isHeadlessSystemUser(user)
+            ) {
                 continue
             }
             val statsManager =
