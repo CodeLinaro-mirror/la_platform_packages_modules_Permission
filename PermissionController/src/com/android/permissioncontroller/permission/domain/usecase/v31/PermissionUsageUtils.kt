@@ -25,7 +25,6 @@ import androidx.annotation.VisibleForTesting
 import com.android.modules.utils.build.SdkLevel
 import com.android.permissioncontroller.permission.data.repository.v31.PermissionRepository
 import com.android.permissioncontroller.permission.utils.PermissionMapping
-import com.android.permissioncontroller.permission.utils.Utils
 import com.android.permissioncontroller.pm.data.repository.v31.PackageRepository
 import com.android.permissioncontroller.user.data.repository.v31.UserRepository
 
@@ -57,13 +56,6 @@ suspend fun isPermissionGroupUserSensitive(
     permissionRepository: PermissionRepository,
     packageRepository: PackageRepository,
 ): Boolean {
-    if (
-        SdkLevel.isAtLeastC() &&
-            com.android.permissioncontroller.flags.Flags.hsuAppManagement() &&
-            Utils.isHeadlessSystemUser(UserHandle.of(userId))
-    ) {
-        return false
-    }
     if (isTelecomPackageAndCameraOrMicGroup(packageName, permissionGroup)) {
         return false
     }

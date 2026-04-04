@@ -206,8 +206,6 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"మీడియాకు మాత్రమే యాక్సెస్‌ను అనుమతించండి"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"ఎల్లప్పుడూ అనుమతించండి"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"యాప్‌ను ఉపయోగిస్తున్నప్పుడు మాత్రమే అనుమతించండి"</string>
-    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
-    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"అన్నింటినీ ఎల్లవేళలా అనుమతించండి"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"ప్రతిసారి అడగాలి"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"ప్రతిసారీ అడగండి లేదా షేర్ చేసేటప్పుడు అనుమతించండి"</string>
@@ -282,8 +280,6 @@
     <string name="denied_header" msgid="903209608358177654">"అనుమతించబడలేదు"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g>‌లో <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"అన్ని ఫైళ్లను యాక్సెస్ చేయగల మరిన్ని యాప్‌లను చూడండి"</string>
-    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
-    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;యాప్ పని చేస్తూనే ఉండటానికి అనుమతించబడింది&lt;/b&gt;&lt;br&gt;&lt;br&gt;యాప్ పని చేస్తూ ఉండటానికి, మీ లోకల్ నెట్‌వర్క్‌ను యాక్సెస్ చేయడానికి, ఈ నెట్‌వర్క్‌లోని డివైజ్‌లతో మాత్రమే కనెక్ట్ అవ్వడానికి దాన్ని అనుమతించవచ్చు.&lt;br&gt;&lt;br&gt;మీరు సమీపంలోని అన్ని డివైజ్‌లను కనుగొనడానికి, కనెక్ట్ అవ్వడానికి దాన్ని అనుమతించకపోతే, బ్లూటూత్, ఇతర టెక్నాలజీలను ఉపయోగించి యాప్ డివైజ్‌లకు కనెక్ట్ అవ్వలేదు."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 రోజు}other{# రోజులు}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# గంట}other{# గంటలు}}"</string>

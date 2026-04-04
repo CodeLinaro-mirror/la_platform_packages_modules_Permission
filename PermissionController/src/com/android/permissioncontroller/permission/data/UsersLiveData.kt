@@ -23,9 +23,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.UserHandle
 import android.os.UserManager
-import com.android.modules.utils.build.SdkLevel
 import com.android.permissioncontroller.PermissionControllerApplication
-import com.android.permissioncontroller.permission.utils.Utils
 
 /**
  * Live data of the users of the current profile group.
@@ -46,19 +44,7 @@ object UsersLiveData : SmartUpdateMediatorLiveData<List<UserHandle>>() {
 
     /** Update the encapsulated data with the current list of users. */
     override fun onUpdate() {
-        val userManager = app.getSystemService(UserManager::class.java)
-        val users = userManager?.userProfiles?.toMutableList() ?: mutableListOf()
-        // In HSUM, include system user so its apps are loaded and can be displayed.
-        if (
-            SdkLevel.isAtLeastC() &&
-                com.android.permissioncontroller.flags.Flags.hsuAppManagement() &&
-                Utils.isHeadlessSystemUser(UserHandle.SYSTEM)
-        ) {
-            if (!users.contains(UserHandle.SYSTEM)) {
-                users.add(UserHandle.SYSTEM)
-            }
-        }
-        value = users
+        value = app.getSystemService(UserManager::class.java)!!.userProfiles
     }
 
     override fun onActive() {

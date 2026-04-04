@@ -133,7 +133,7 @@ private constructor(
                 hasInstallToRuntimeSplit,
                 isSpecialLocationGranted(app, packageName, permGroupName, user),
                 isSpecialFixedStorageGranted(app, packageName, permGroupName, packageInfo.uid),
-                isAllowedForCompatibility(app, permGroupName, permissionMap),
+                isAllowedForCompatibility(permGroupName, permissionMap),
             )
     }
 
@@ -293,7 +293,6 @@ private constructor(
 
         // LINT.IfChange
         fun isAllowedForCompatibility(
-            app: Application,
             permGroupName: String,
             permissionMap: Map<String, LightPermission>,
         ): Boolean {
@@ -309,8 +308,9 @@ private constructor(
             }
 
             // TODO(b/479613003): Support Auto form factor
+            // TODO(b/479895707): Support Wear form factor
             // TODO(b/479896440): Support TV form factor
-            if (DeviceUtils.isAuto(app) || DeviceUtils.isTelevision(app)) {
+            if (!DeviceUtils.isHandheld()) {
                 return false
             }
 

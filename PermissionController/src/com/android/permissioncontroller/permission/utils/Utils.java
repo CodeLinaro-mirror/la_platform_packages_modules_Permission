@@ -1705,18 +1705,6 @@ public final class Utils {
     }
 
     /**
-     * Check whether a user is a headless system user.
-     *
-     * @param user the user to check
-     * @return whether the user is a headless system user
-     */
-    public static boolean isHeadlessSystemUser(@NonNull UserHandle user) {
-        return SdkLevel.isAtLeastS()
-                && UserManager.isHeadlessSystemUserMode()
-                && user.equals(UserHandle.SYSTEM);
-    }
-
-    /**
      * Get {@link PackageInfo} for this ComponentName.
      *
      * @param context The current Context

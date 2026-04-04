@@ -81,7 +81,6 @@ import android.view.inputmethod.InputMethod
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.MainThread
 import androidx.annotation.RequiresApi
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.android.modules.utils.build.SdkLevel
@@ -412,8 +411,7 @@ class HibernationBroadcastReceiver : BroadcastReceiver() {
  */
 @MainThread
 @Suppress("MissingPermission")
-@VisibleForTesting
-suspend fun getAppsToHibernate(context: Context): Map<UserHandle, List<LightPackageInfo>> {
+private suspend fun getAppsToHibernate(context: Context): Map<UserHandle, List<LightPackageInfo>> {
     val now = System.currentTimeMillis()
     val startTimeOfUnusedAppTracking = getStartTimeOfUnusedAppTracking(context.sharedPreferences)
 
@@ -504,10 +502,6 @@ suspend fun getAppsToHibernate(context: Context): Map<UserHandle, List<LightPack
             DumpableLog.w(LOG_TAG, "Skipping $user - locked direct boot state")
             continue
         }
-
-        // Note: Headless system user is already filtered out above because it is skipped
-        // in UsageStatsLiveData, and any user not in userStats is removed from unusedApps.
-
         val userAppsToHibernate = mutableListOf<LightPackageInfo>()
         userApps.forEachInParallel(Main) { pkg: LightPackageInfo ->
             if (isPackageHibernationExemptBySystem(pkg, user)) {

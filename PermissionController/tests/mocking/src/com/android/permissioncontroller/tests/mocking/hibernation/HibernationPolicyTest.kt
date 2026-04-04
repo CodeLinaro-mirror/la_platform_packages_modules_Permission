@@ -18,8 +18,6 @@ package com.android.permissioncontroller.tests.mocking.hibernation
 
 import android.Manifest
 import android.app.job.JobScheduler
-import android.app.usage.UsageStats
-import android.app.usage.UsageStatsManager
 import android.content.ComponentName
 import android.content.ContentResolver
 import android.content.Context
@@ -43,7 +41,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import com.android.dx.mockito.inline.extended.ExtendedMockito
-import com.android.modules.utils.build.SdkLevel
 import com.android.permissioncontroller.Constants
 import com.android.permissioncontroller.PermissionControllerApplication
 import com.android.permissioncontroller.hibernation.HibernationBroadcastReceiver
@@ -52,19 +49,13 @@ import com.android.permissioncontroller.hibernation.PREF_KEY_ELAPSED_REALTIME_SN
 import com.android.permissioncontroller.hibernation.PREF_KEY_START_TIME_OF_UNUSED_APP_TRACKING
 import com.android.permissioncontroller.hibernation.PREF_KEY_SYSTEM_TIME_SNAPSHOT
 import com.android.permissioncontroller.hibernation.SNAPSHOT_UNINITIALIZED
-import com.android.permissioncontroller.hibernation.getAppsToHibernate
 import com.android.permissioncontroller.hibernation.getStartTimeOfUnusedAppTracking
-import com.android.permissioncontroller.hibernation.getUnusedThresholdMs
 import com.android.permissioncontroller.hibernation.isPackageHibernationExemptBySystem
-import com.android.permissioncontroller.permission.data.AllPackageInfosLiveData
-import com.android.permissioncontroller.permission.data.UsageStatsLiveData
-import com.android.permissioncontroller.permission.data.UsersLiveData
 import com.android.permissioncontroller.permission.model.livedatatypes.LightPackageInfo
 import com.android.permissioncontroller.permission.utils.ContextCompat
 import com.google.common.truth.Truth.assertThat
 import java.io.File
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
@@ -121,10 +112,6 @@ class HibernationPolicyTest {
                 .mockStatic(DeviceConfig::class.java)
                 .mockStatic(Settings.Secure::class.java)
                 .mockStatic(Settings.Global::class.java)
-                .mockStatic(SdkLevel::class.java)
-                .mockStatic(com.android.permissioncontroller.flags.Flags::class.java)
-                .mockStatic(com.android.permissioncontroller.permission.utils.Utils::class.java)
-                .mockStatic(UserManager::class.java)
                 .strictness(Strictness.LENIENT)
                 .startMocking()
         `when`(PermissionControllerApplication.get()).thenReturn(application)
@@ -139,12 +126,9 @@ class HibernationPolicyTest {
 
         `when`(context.getSharedPreferences(anyString(), anyInt())).thenReturn(sharedPreferences)
         `when`(context.getSystemService(UserManager::class.java)).thenReturn(userManager)
-        `when`(application.getSystemService(UserManager::class.java)).thenReturn(userManager)
-        `when`(userManager.userProfiles).thenReturn(listOf(UserHandle.SYSTEM))
         `when`(application.getSystemService(TelecomManager::class.java)).thenReturn(telecomManager)
         `when`(application.packageManager).thenReturn(packageManager)
         `when`(application.applicationContext).thenReturn(context)
-        `when`(context.packageManager).thenReturn(packageManager)
 
         filesDir = realContext.cacheDir
         `when`(application.filesDir).thenReturn(filesDir)
@@ -325,139 +309,6 @@ class HibernationPolicyTest {
                 )
 
             assertThat(isPackageHibernationExemptBySystem(pkgInfo, userHandle)).isTrue()
-        }
-
-    @Test
-    fun getAppsToHibernate_includesHeadlessSystemUserWhenFlagDisabled() =
-        runBlocking<Unit> {
-            // Verify that the headless system user is included when the feature flag is disabled.
-            `when`(UserManager.isHeadlessSystemUserMode()).thenReturn(true)
-
-            `when`(SdkLevel.isAtLeastC()).thenReturn(true)
-            `when`(com.android.permissioncontroller.flags.Flags.hsuAppManagement())
-                .thenReturn(false)
-            `when`(
-                    com.android.permissioncontroller.permission.utils.Utils.isHeadlessSystemUser(
-                        UserHandle.SYSTEM
-                    )
-                )
-                .thenReturn(true)
-            `when`(userManager.isUserUnlocked(UserHandle.SYSTEM)).thenReturn(true)
-
-            val pkgInfo = makePackageInfo(TEST_PKG_NAME)
-
-            val appsToHibernate =
-                withContext(kotlinx.coroutines.Dispatchers.Main) {
-                    UsersLiveData.value = listOf(UserHandle.SYSTEM)
-                    AllPackageInfosLiveData.value = mapOf(UserHandle.SYSTEM to listOf(pkgInfo))
-
-                    val usageStatsManager = Mockito.mock(UsageStatsManager::class.java)
-                    `when`(context.getSystemService(UsageStatsManager::class.java))
-                        .thenReturn(usageStatsManager)
-                    `when`(
-                            com.android.permissioncontroller.permission.utils.Utils.getUserContext(
-                                any(Context::class.java),
-                                any(UserHandle::class.java),
-                            )
-                        )
-                        .thenReturn(context)
-                    val usageStats = Mockito.mock(UsageStats::class.java)
-                    `when`(usageStats.packageName).thenReturn(TEST_PKG_NAME)
-                    `when`(usageStats.lastTimeVisible).thenReturn(0L)
-                    `when`(usageStats.lastTimeAnyComponentUsed).thenReturn(0L)
-
-                    val unusedThresholdMs = getUnusedThresholdMs()
-                    UsageStatsLiveData[unusedThresholdMs].value =
-                        mapOf(UserHandle.SYSTEM to listOf(usageStats))
-
-                    getAppsToHibernate(context)
-                }
-
-            assertThat(appsToHibernate).containsKey(UserHandle.SYSTEM)
-        }
-
-    @Test
-    fun getAppsToHibernate_skipsHeadlessSystemUser() =
-        runBlocking<Unit> {
-            // Verify that the headless system user is skipped when the feature flag is enabled.
-            // This is achieved by UsageStatsLiveData skipping User 0, which HibernationPolicy
-            // respects by removing any user not present in usage stats.
-            `when`(UserManager.isHeadlessSystemUserMode()).thenReturn(true)
-
-            `when`(SdkLevel.isAtLeastC()).thenReturn(true)
-            `when`(com.android.permissioncontroller.flags.Flags.hsuAppManagement()).thenReturn(true)
-            `when`(
-                    com.android.permissioncontroller.permission.utils.Utils.isHeadlessSystemUser(
-                        UserHandle.SYSTEM
-                    )
-                )
-                .thenReturn(true)
-            `when`(userManager.isUserUnlocked(UserHandle.SYSTEM)).thenReturn(true)
-
-            val pkgInfo = makePackageInfo(TEST_PKG_NAME)
-
-            val appsToHibernate =
-                withContext(kotlinx.coroutines.Dispatchers.Main) {
-                    UsersLiveData.value = listOf(UserHandle.SYSTEM)
-                    AllPackageInfosLiveData.value = mapOf(UserHandle.SYSTEM to listOf(pkgInfo))
-
-                    val unusedThresholdMs = getUnusedThresholdMs()
-                    // UsageStatsLiveData does not contain UserHandle.SYSTEM
-                    UsageStatsLiveData[unusedThresholdMs].value = emptyMap()
-
-                    getAppsToHibernate(context)
-                }
-
-            assertThat(appsToHibernate).doesNotContainKey(UserHandle.SYSTEM)
-        }
-
-    @Test
-    fun getAppsToHibernate_includesHeadlessSystemUserWhenBelowSdkC() =
-        runBlocking<Unit> {
-            // Verify that the headless system user is not skipped on devices running an SDK
-            // version below Android C, even if the feature flag is conceptually enabled.
-            `when`(UserManager.isHeadlessSystemUserMode()).thenReturn(true)
-
-            `when`(SdkLevel.isAtLeastC()).thenReturn(false)
-            `when`(com.android.permissioncontroller.flags.Flags.hsuAppManagement()).thenReturn(true)
-            `when`(
-                    com.android.permissioncontroller.permission.utils.Utils.isHeadlessSystemUser(
-                        UserHandle.SYSTEM
-                    )
-                )
-                .thenReturn(true)
-            `when`(userManager.isUserUnlocked(UserHandle.SYSTEM)).thenReturn(true)
-
-            val pkgInfo = makePackageInfo(TEST_PKG_NAME)
-
-            val appsToHibernate =
-                withContext(kotlinx.coroutines.Dispatchers.Main) {
-                    UsersLiveData.value = listOf(UserHandle.SYSTEM)
-                    AllPackageInfosLiveData.value = mapOf(UserHandle.SYSTEM to listOf(pkgInfo))
-
-                    val usageStatsManager = Mockito.mock(UsageStatsManager::class.java)
-                    `when`(context.getSystemService(UsageStatsManager::class.java))
-                        .thenReturn(usageStatsManager)
-                    `when`(
-                            com.android.permissioncontroller.permission.utils.Utils.getUserContext(
-                                any(Context::class.java),
-                                any(UserHandle::class.java),
-                            )
-                        )
-                        .thenReturn(context)
-                    val usageStats = Mockito.mock(UsageStats::class.java)
-                    `when`(usageStats.packageName).thenReturn(TEST_PKG_NAME)
-                    `when`(usageStats.lastTimeVisible).thenReturn(0L)
-                    `when`(usageStats.lastTimeAnyComponentUsed).thenReturn(0L)
-
-                    val unusedThresholdMs = getUnusedThresholdMs()
-                    UsageStatsLiveData[unusedThresholdMs].value =
-                        mapOf(UserHandle.SYSTEM to listOf(usageStats))
-
-                    getAppsToHibernate(context)
-                }
-
-            assertThat(appsToHibernate).containsKey(UserHandle.SYSTEM)
         }
 
     private fun assertAdjustedTime(systemTimeSnapshot: Long, realtimeSnapshot: Long) {

@@ -206,8 +206,6 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"କେବଳ ମିଡିଆକୁ ଆକ୍ସେସ୍ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"ସବୁ ସମୟ ପାଇଁ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"ଆପ ବ୍ୟବହାର ବେଳେ କେବଳ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
-    <!-- no translation found for app_permission_button_allow_for_compatibility (3337157819467626432) -->
-    <skip />
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"ସର୍ବଦା ସବୁକୁ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"ପ୍ରତ୍ୟେକ ଥର ପଚାରନ୍ତୁ"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"ପ୍ରତ୍ୟେକ ଥର ପଚାରନ୍ତୁ ବା ଆପଣ ସେୟାର କରିବା ସମୟରେ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
@@ -282,8 +280,6 @@
     <string name="denied_header" msgid="903209608358177654">"ଅନୁମତି ନାହିଁ"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g>ର <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"ସମସ୍ତ ଫାଇଲକୁ ଆକ୍ସେସ କରିପାରୁଥିବା ଅଧିକ ଆପ୍ସ ଦେଖନ୍ତୁ"</string>
-    <!-- no translation found for allow_for_compatibility_nearby_devices_footer (4788336711372843546) -->
-    <skip />
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;ଆପ କାମ କରିବା ଜାରି ରଖିବାକୁ ଅନୁମତି ଦିଆଯାଇଛି&lt;/b&gt;&lt;br&gt;&lt;br&gt;ଏକ ଆପ କାମ କରିବା ଜାରି ରଖିବା ପାଇଁ ଏହାକୁ ଆପଣଙ୍କ ସ୍ଥାନୀୟ ନେଟୱାର୍କକୁ ଆକ୍ସେସ କରିବା ଏବଂ କେବଳ ଏହି ନେଟୱାର୍କରେ ଥିବା ଡିଭାଇସଗୁଡ଼ିକ ସହ କନେକ୍ଟ କରିବାକୁ ଅନୁମତି ଦିଆଯାଇପାରେ।&lt;br&gt;&lt;br&gt;ଆପଣ ଏହାକୁ ଆଖପାଖର ସମସ୍ତ ଡିଭାଇସ ଖୋଜିବା ଏବଂ ସେଗୁଡ଼ିକ ସହ କନେକ୍ଟ କରିବାକୁ ଅନୁମତି ନଦେବା ପର୍ଯ୍ୟନ୍ତ ଏହା ବ୍ଲୁଟୁଥ ଏବଂ ଅନ୍ୟ ଟେକ୍ନୋଲୋଜି ବ୍ୟବହାର କରି ଡିଭାଇସଗୁଡ଼ିକ ସହ କନେକ୍ଟ କରିପାରିବ ନାହିଁ।"</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 ଦିନ}other{# ଦିନ}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# ଘଣ୍ଟା}other{# ଘଣ୍ଟା}}"</string>

@@ -31,7 +31,6 @@ import com.android.permissioncontroller.appops.data.model.v31.PackageAppOpUsageM
 import com.android.permissioncontroller.permission.domain.model.v31.PermissionGroupUsageModel
 import com.android.permissioncontroller.permission.domain.model.v31.PermissionGroupUsageModelWrapper
 import com.android.permissioncontroller.permission.domain.usecase.v31.GetPermissionGroupUsageUseCase
-import com.android.permissioncontroller.permission.domain.usecase.v31.isPermissionGroupUserSensitive
 import com.android.permissioncontroller.permission.utils.Utils
 import com.android.permissioncontroller.pm.data.model.v31.PackageInfoModel
 import com.android.permissioncontroller.role.data.repository.v31.RoleRepository
@@ -80,15 +79,11 @@ class GetPermissionUsageUseCaseTest {
             ExtendedMockito.mockitoSession()
                 .mockStatic(PermissionControllerApplication::class.java)
                 .mockStatic(Utils::class.java)
-                .mockStatic(SdkLevel::class.java)
-                .mockStatic(com.android.permissioncontroller.flags.Flags::class.java)
                 .strictness(Strictness.LENIENT)
                 .startMocking()
 
         whenever(PermissionControllerApplication.get()).thenReturn(application)
         whenever(application.applicationContext).thenReturn(context)
-        whenever(SdkLevel.isAtLeastS()).thenReturn(true)
-        whenever(SdkLevel.isAtLeastV()).thenReturn(true)
 
         userRepository = FakeUserRepository(listOf(currentUser.identifier))
         roleRepository = FakeRoleRepository(setOf(exemptedPkgName))
@@ -318,53 +313,6 @@ class GetPermissionUsageUseCaseTest {
                     PermissionGroupUsageModel(MICROPHONE_PERMISSION_GROUP, 100, false),
                 )
             )
-    }
-
-    @Test
-    fun hsuAppsUsageIsHidden() = runTest {
-        // Verify that permission usages by apps running on the Headless System User
-        // are treated as non-user sensitive (hidden by default) when the feature flag is enabled.
-        val hsuUser = UserHandle.SYSTEM
-        whenever(SdkLevel.isAtLeastC()).thenReturn(true)
-        whenever(com.android.permissioncontroller.flags.Flags.hsuAppManagement()).thenReturn(true)
-        whenever(Utils.isHeadlessSystemUser(hsuUser)).thenReturn(true)
-
-        val permissionRepository = FakePermissionRepository()
-        val packageRepository = FakePackageRepository(packageInfos)
-
-        val isSensitive =
-            isPermissionGroupUserSensitive(
-                testPackageName,
-                CAMERA_PERMISSION_GROUP,
-                hsuUser.identifier,
-                permissionRepository,
-                packageRepository,
-            )
-        assertThat(isSensitive).isFalse()
-    }
-
-    @Test
-    fun hsuAppsUsageIsVisibleWhenFlagOff() = runTest {
-        // Verify that permission usages by apps running on the Headless System User
-        // are treated as user sensitive (visible) when the feature flag is disabled.
-        val hsuUser = UserHandle.SYSTEM
-        whenever(SdkLevel.isAtLeastC()).thenReturn(true)
-        whenever(com.android.permissioncontroller.flags.Flags.hsuAppManagement()).thenReturn(false)
-        whenever(Utils.isHeadlessSystemUser(hsuUser)).thenReturn(true)
-
-        val permissionRepository = FakePermissionRepository()
-        val packageRepository = FakePackageRepository(packageInfos)
-
-        val isSensitive =
-            isPermissionGroupUserSensitive(
-                testPackageName,
-                CAMERA_PERMISSION_GROUP,
-                hsuUser.identifier,
-                permissionRepository,
-                packageRepository,
-            )
-        // Should be true because the test package is treated as a user app
-        assertThat(isSensitive).isTrue()
     }
 
     private fun TestScope.getResult(
