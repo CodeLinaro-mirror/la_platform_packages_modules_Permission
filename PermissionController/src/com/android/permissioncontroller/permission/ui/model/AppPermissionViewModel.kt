@@ -71,6 +71,7 @@ import com.android.permissioncontroller.permission.service.v33.PermissionDecisio
 import com.android.permissioncontroller.permission.ui.model.AppPermissionViewModel.ButtonType.ALLOW
 import com.android.permissioncontroller.permission.ui.model.AppPermissionViewModel.ButtonType.ALLOW_ALWAYS
 import com.android.permissioncontroller.permission.ui.model.AppPermissionViewModel.ButtonType.ALLOW_FOREGROUND
+import com.android.permissioncontroller.permission.ui.model.AppPermissionViewModel.ButtonType.ALLOW_FOR_COMPATIBILITY
 import com.android.permissioncontroller.permission.ui.model.AppPermissionViewModel.ButtonType.ASK
 import com.android.permissioncontroller.permission.ui.model.AppPermissionViewModel.ButtonType.ASK_ONCE
 import com.android.permissioncontroller.permission.ui.model.AppPermissionViewModel.ButtonType.DENY
@@ -159,12 +160,13 @@ class AppPermissionViewModel(
         ALLOW(0),
         ALLOW_ALWAYS(1),
         ALLOW_FOREGROUND(2),
-        ASK_ONCE(3),
-        ASK(4),
-        DENY(5),
-        DENY_FOREGROUND(6),
-        LOCATION_ACCURACY(7),
-        SELECT_PHOTOS(8),
+        ALLOW_FOR_COMPATIBILITY(3),
+        ASK_ONCE(4),
+        ASK(5),
+        DENY(6),
+        DENY_FOREGROUND(7),
+        LOCATION_ACCURACY(8),
+        SELECT_PHOTOS(9),
     }
 
     private val isStorageAndLessThanT =
@@ -174,6 +176,7 @@ class AppPermissionViewModel(
 
     private val mediaStorageSupergroupPermGroups = mutableMapOf<String, LightAppPermGroup>()
 
+    // TODO(b/494002924): shouldShowLocationAccuracy should reflect updated packages.
     /* Whether the current ViewModel is Location permission with both Coarse and Fine */
     private var shouldShowLocationAccuracy: Boolean? = null
 
@@ -367,7 +370,6 @@ class AppPermissionViewModel(
     /** A livedata which computes the state of the radio buttons */
     val buttonStateLiveData =
         object : SmartUpdateMediatorLiveData<@JvmSuppressWildcards Map<ButtonType, ButtonState>>() {
-
             private val appPermGroupLiveData =
                 LightAppPermGroupLiveData[packageName, permGroupName, user]
             private val mediaStorageSupergroupLiveData =
@@ -414,19 +416,14 @@ class AppPermissionViewModel(
             }
 
             private fun onMediaPermGroupUpdate(
-                mediaPermGroupName: String,
+                permGroupName: String,
                 permGroup: LightAppPermGroup?,
             ) {
                 if (permGroup == null) {
-                    mediaStorageSupergroupPermGroups.remove(mediaPermGroupName)
-                    if (permGroupName == Manifest.permission_group.STORAGE) {
-                        // Only invalidate this setting if this is the legacy storage group. It is
-                        // valid, for example, for T+ apps to not request any of the legacy
-                        // STORAGE permissions.
-                        value = null
-                    }
+                    mediaStorageSupergroupPermGroups.remove(permGroupName)
+                    value = null
                 } else {
-                    mediaStorageSupergroupPermGroups[mediaPermGroupName] = permGroup
+                    mediaStorageSupergroupPermGroups[permGroupName] = permGroup
                     update()
                 }
             }
@@ -463,6 +460,7 @@ class AppPermissionViewModel(
                     ALLOW to ButtonState(),
                     ALLOW_ALWAYS to ButtonState(),
                     ALLOW_FOREGROUND to allowedForegroundState,
+                    ALLOW_FOR_COMPATIBILITY to ButtonState(),
                     ASK_ONCE to ButtonState(),
                     ASK to askState,
                     DENY to deniedState,
@@ -495,6 +493,7 @@ class AppPermissionViewModel(
                 val allowedState = ButtonState()
                 val allowedAlwaysState = ButtonState()
                 val allowedForegroundState = ButtonState()
+                val allowedForCompatibilityState = ButtonState()
                 val askOneTimeState = ButtonState()
                 val askState = ButtonState()
                 val deniedState = ButtonState()
@@ -587,8 +586,15 @@ class AppPermissionViewModel(
                     // Allow / Deny case
                     allowedState.isShown = true
 
+                    val isAllowedForCompatibility = group.specialCompatibilityGrant
                     allowedState.isChecked =
-                        group.foreground.isGranted && !group.foreground.isOneTime
+                        group.foreground.isGranted &&
+                            !group.foreground.isOneTime &&
+                            !isAllowedForCompatibility
+                    if (isAllowedForCompatibility) {
+                        allowedForCompatibilityState.isShown = true
+                        allowedForCompatibilityState.isChecked = true
+                    }
                     askState.isChecked = !group.foreground.isGranted && group.isOneTime
                     askOneTimeState.isChecked = group.foreground.isGranted && group.isOneTime
                     askOneTimeState.isShown = askOneTimeState.isChecked
@@ -676,6 +682,7 @@ class AppPermissionViewModel(
                         ALLOW to allowedState,
                         ALLOW_ALWAYS to allowedAlwaysState,
                         ALLOW_FOREGROUND to allowedForegroundState,
+                        ALLOW_FOR_COMPATIBILITY to allowedForCompatibilityState,
                         ASK_ONCE to askOneTimeState,
                         ASK to askState,
                         DENY to deniedState,
@@ -728,8 +735,9 @@ class AppPermissionViewModel(
 
     private fun isFineLocationChecked(group: LightAppPermGroup): Boolean {
         if (shouldShowLocationAccuracy == true) {
-            val coarseLocation = group.permissions[ACCESS_COARSE_LOCATION]!!
-            val fineLocation = group.permissions[ACCESS_FINE_LOCATION]!!
+            // If permission is missing during package update, return instead of crashing
+            val coarseLocation = group.permissions[ACCESS_COARSE_LOCATION] ?: return false
+            val fineLocation = group.permissions[ACCESS_FINE_LOCATION] ?: return false
             // Steps to decide location accuracy toggle state
             // 1. If FINE or COARSE are granted, then return true if FINE is granted.
             // 2. Else if FINE or COARSE have the isSelectedLocationAccuracy flag set, then return

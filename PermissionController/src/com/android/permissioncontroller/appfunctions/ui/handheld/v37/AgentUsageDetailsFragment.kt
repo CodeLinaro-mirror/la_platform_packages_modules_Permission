@@ -34,6 +34,14 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
 import androidx.preference.PreferenceViewHolder
+import com.android.permissioncontroller.Constants
+import com.android.permissioncontroller.PermissionControllerStatsLog
+import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_INTERACTION_REPORTED
+import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_INTERACTION_REPORTED__ACTION__VIEW
+import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED
+import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED__ACTION__SHOW_SEVEN_DAYS_CLICKED
+import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED__ACTION__SHOW_TWENTY_FOUR_HOURS_CLICKED
+import com.android.permissioncontroller.PermissionControllerStatsLog.PRIVACY_DASHBOARD_AGENT_TIMELINE_VIEWED
 import com.android.permissioncontroller.R
 import com.android.permissioncontroller.appfunctions.ui.viewmodel.v37.AgentUsageDetailsUiState
 import com.android.permissioncontroller.appfunctions.ui.viewmodel.v37.AgentUsageDetailsViewModel
@@ -42,10 +50,13 @@ import com.android.permissioncontroller.appinteraction.domain.model.v37.AgentTim
 import com.android.permissioncontroller.permission.ui.ManagePermissionsActivity.EXTRA_SHOW_7_DAYS
 import com.android.permissioncontroller.permission.ui.handheld.SettingsWithLargeHeader
 import com.android.permissioncontroller.permission.utils.KotlinUtils
+import com.android.settingslib.widget.FooterPreference
+import com.android.settingslib.widget.TopIntroPreference
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
+import kotlin.properties.Delegates
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -53,6 +64,7 @@ import kotlinx.coroutines.launch
 class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
     private lateinit var agentPackageName: String
     private lateinit var user: UserHandle
+    private var sessionId: Long by Delegates.notNull()
 
     private lateinit var viewModel: AgentUsageDetailsViewModel
 
@@ -84,6 +96,7 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
 
         agentPackageName = argumentPackageName
         user = argumentUser
+        sessionId = arguments?.getLong(Constants.EXTRA_SESSION_ID)!!
         val factory =
             AgentUsageDetailsViewModelFactory(requireActivity().application, agentPackageName, user)
         viewModel = ViewModelProvider(this, factory)[AgentUsageDetailsViewModel::class.java]
@@ -147,10 +160,20 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                             }
                             MENU_SHOW_7_DAYS -> {
                                 viewModel.updateShow7DaysToggle(true)
+                                PermissionControllerStatsLog.write(
+                                    PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED,
+                                    sessionId,
+                                    PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED__ACTION__SHOW_SEVEN_DAYS_CLICKED,
+                                )
                                 true
                             }
                             MENU_SHOW_24_HOURS -> {
                                 viewModel.updateShow7DaysToggle(false)
+                                PermissionControllerStatsLog.write(
+                                    PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED,
+                                    sessionId,
+                                    PRIVACY_DASHBOARD_AGENT_TIMELINE_OPTION_INTERACTION_REPORTED__ACTION__SHOW_TWENTY_FOUR_HOURS_CLICKED,
+                                )
                                 true
                             }
                             else -> false
@@ -176,8 +199,8 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                 setLoading(false, true)
             }
             is AgentUsageDetailsUiState.Success -> {
-                val show7Days = uiState.show7Days
-                if (show7Days) {
+                addTopIntro(preferenceScreen)
+                if (uiState.show7Days) {
                     addAgentActivityPreferencesForPast7Days(
                         uiState.settingsPackageName,
                         uiState.agentTimelineItems,
@@ -190,7 +213,16 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                         preferenceScreen,
                     )
                 }
+                addFooter(preferenceScreen)
                 setLoading(false, true)
+
+                PermissionControllerStatsLog.write(
+                    PRIVACY_DASHBOARD_AGENT_TIMELINE_VIEWED,
+                    sessionId,
+                    uiState.agentUid,
+                    uiState.agentPackageName,
+                    uiState.show7Days,
+                )
             }
         }
     }
@@ -304,6 +336,14 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                             val intent = Intent(Intent.ACTION_VIEW, uiInfo.interactionUri.toUri())
                             intent.setPackage(uiInfo.agentPackageName)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            PermissionControllerStatsLog.write(
+                                PRIVACY_DASHBOARD_AGENT_TIMELINE_INTERACTION_REPORTED,
+                                sessionId,
+                                uiInfo.agentUid,
+                                uiInfo.agentPackageName,
+                                uiInfo.targetPackageName,
+                                PRIVACY_DASHBOARD_AGENT_TIMELINE_INTERACTION_REPORTED__ACTION__VIEW,
+                            )
                             startActivity(intent)
                         }
                     }
@@ -344,6 +384,31 @@ class AgentUsageDetailsFragment : SettingsWithLargeHeader() {
                 // clicking on the preference
                 isSelectable = false
             }
+
+    fun addTopIntro(preferenceScreen: PreferenceScreen) {
+        val topIntroPreference =
+            TopIntroPreference(requireContext()).apply {
+                title =
+                    resources.getString(
+                        R.string.agent_activity_timeline_top_intro_title,
+                        KotlinUtils.getPackageLabel(
+                            requireActivity().application,
+                            agentPackageName,
+                            user,
+                        ),
+                    )
+            }
+        preferenceScreen.addPreference(topIntroPreference)
+    }
+
+    fun addFooter(preferenceScreen: PreferenceScreen) {
+        val footerPreference =
+            FooterPreference(requireContext()).apply {
+                icon = requireContext().getDrawable(R.drawable.ic_info_outline)
+                title = resources.getString(R.string.agent_activity_timeline_footer_title)
+            }
+        preferenceScreen.addPreference(footerPreference)
+    }
 
     companion object {
         private val LOG_TAG = AgentUsageDetailsFragment::class.java.simpleName
