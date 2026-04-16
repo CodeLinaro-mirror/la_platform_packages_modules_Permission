@@ -128,12 +128,17 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Privacy dashboard"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Mga pahintulot sa app"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Aktibidad ng ahente"</string>
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Walang naka-install na ahente"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"Hindi na-access nang 24 oras"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"Hindi na-access nang 7 araw"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Aktibidad ng <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Sa nakalipas na 24 na oras"</string>
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"Sa nakalipas na 7 araw"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Ngayon"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Kahapon"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Huling na-access: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Tingnan"</string>
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Walang pag-access"</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Tulong sa Device"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Tingnan kung aling app ang gumamit kamakailan ng pahintulot"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Paggamit ng <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -759,8 +764,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"Payagan ang <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> na i-access ang impormasyon at content mula sa app na nakabukas sa iyong screen"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Payagan"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"Huwag payagan"</string>
-    <!-- no translation found for request_location_button_permissions_dialog_title (1305012762950180684) -->
-    <skip />
-    <!-- no translation found for request_location_button_permissions_dialog_subtitle (4401187641885414225) -->
-    <skip />
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"Payagan ang &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; na i-access ang eksaktong lokasyon kapag pinili mo itong i-share?"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"Kapag nag-share ka, magkakaroon ang app na ito ng access sa eksaktong lokasyon hanggang sa isara mo ang app"</string>
 </resources>
