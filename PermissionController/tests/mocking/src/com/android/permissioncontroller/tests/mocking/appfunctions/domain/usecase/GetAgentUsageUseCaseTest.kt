@@ -19,7 +19,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.UserHandle
-import android.os.UserManager
 import android.platform.test.annotations.RequiresFlagsDisabled
 import android.platform.test.annotations.RequiresFlagsEnabled
 import android.platform.test.flag.junit.CheckFlagsRule
@@ -29,10 +28,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import com.android.permissioncontroller.appfunctions.domain.usecase.v31.GetAgentUsageUseCase
 import com.android.permissioncontroller.appfunctions.domain.usecase.v37.GetAgentUsageUseCaseImpl
-import com.android.permissioncontroller.appinteraction.domain.model.v31.AccessCount
+import com.android.permissioncontroller.appinteraction.domain.model.v31.AgentActivityItem
 import com.android.permissioncontroller.appinteraction.domain.model.v37.AccessHistory
 import com.android.permissioncontroller.flags.Flags
 import com.android.permissioncontroller.tests.mocking.appinteraction.data.repository.FakeAppInteractionRepository
+import com.android.permissioncontroller.tests.mocking.pm.data.repository.FakePackageRepository
+import com.android.permissioncontroller.tests.mocking.user.data.repository.FakeUserRepository
 import com.google.common.truth.Truth.assertThat
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.test.runTest
@@ -52,8 +53,6 @@ class GetAgentUsageUseCaseTest {
     @get:Rule val checkFlagsRule: CheckFlagsRule = DeviceFlagsValueProvider.createCheckFlagsRule()
     @Mock private lateinit var mockContext: Context
     @Mock private lateinit var packageManager: PackageManager
-    @Mock private lateinit var userManager: UserManager
-    @Mock private lateinit var userHandle: UserHandle
 
     private lateinit var useCase: GetAgentUsageUseCase
 
@@ -63,12 +62,13 @@ class GetAgentUsageUseCaseTest {
         whenever(mockContext.packageManager).thenReturn(packageManager)
         whenever(packageManager.hasSystemFeature(PackageManager.FEATURE_LEANBACK)).thenReturn(false)
         whenever(packageManager.hasSystemFeature(PackageManager.FEATURE_WATCH)).thenReturn(false)
-        whenever(mockContext.getSystemService(UserManager::class.java)).thenReturn(userManager)
-        whenever(userManager.userProfiles).thenReturn(listOf(userHandle))
     }
 
     @Test
-    @RequiresFlagsEnabled(Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED)
+    @RequiresFlagsEnabled(
+        Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED,
+        FLAG_ENABLE_APP_INTERACTION_API,
+    )
     fun getAgentUsages_success() = runTest {
         assumeTrue(
             "Skipping: Feature not supported on Auto when flag is disabled",
@@ -101,18 +101,28 @@ class GetAgentUsageUseCaseTest {
                     accessTime = now - TimeUnit.DAYS.toMillis(8),
                 ),
             )
-        val repository = FakeAppInteractionRepository(accessHistory)
-        useCase = GetAgentUsageUseCaseImpl(repository)
+
+        val agents = listOf(AGENT_NAME_1)
+        val appInteractionRepository = FakeAppInteractionRepository(accessHistory)
+        val packageRepository = FakePackageRepository(agents = agents)
+        val userRepository = FakeUserRepository(currentUserProfiles = listOf(USER_ID_1))
+        useCase =
+            GetAgentUsageUseCaseImpl(appInteractionRepository, packageRepository, userRepository)
 
         val result = useCase(mockContext)
-        assertThat(result).hasSize(3)
-        assertThat(result[AGENT_NAME_1]).isEqualTo(AccessCount(1, 2))
-        assertThat(result[AGENT_NAME_2]).isEqualTo(AccessCount(0, 1))
-        assertThat(result[AGENT_NAME_3]).isEqualTo(AccessCount(0, 0))
+        assertThat(result)
+            .containsExactly(
+                AgentActivityItem(AGENT_NAME_1, USER_1, 1, 2),
+                AgentActivityItem(AGENT_NAME_2, USER_1, 0, 1),
+                AgentActivityItem(AGENT_NAME_3, USER_1, 0, 0),
+            )
     }
 
     @Test
-    @RequiresFlagsEnabled(Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED)
+    @RequiresFlagsEnabled(
+        Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED,
+        FLAG_ENABLE_APP_INTERACTION_API,
+    )
     fun getAgentUsages_resultIsDistinct() = runTest {
         assumeTrue(
             "Skipping: Feature not supported on Auto when flag is disabled",
@@ -138,16 +148,22 @@ class GetAgentUsageUseCaseTest {
                     accessTime = now - TimeUnit.HOURS.toMillis(3),
                 ),
             )
-        val repository = FakeAppInteractionRepository(accessHistory)
-        useCase = GetAgentUsageUseCaseImpl(repository)
+        val agents = listOf(AGENT_NAME_1)
+        val appInteractionRepository = FakeAppInteractionRepository(accessHistory)
+        val packageRepository = FakePackageRepository(agents = agents)
+        val userRepository = FakeUserRepository(currentUserProfiles = listOf(USER_ID_1))
+        useCase =
+            GetAgentUsageUseCaseImpl(appInteractionRepository, packageRepository, userRepository)
 
         val result = useCase(mockContext)
-        assertThat(result).hasSize(1)
-        assertThat(result[AGENT_NAME_1]).isEqualTo(AccessCount(2, 2))
+        assertThat(result).containsExactly(AgentActivityItem(AGENT_NAME_1, USER_1, 2, 2))
     }
 
     @Test
-    @RequiresFlagsEnabled(Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED)
+    @RequiresFlagsEnabled(
+        Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED,
+        FLAG_ENABLE_APP_INTERACTION_API,
+    )
     fun getAgentUsages_deviceAssistanceAccessesAreGrouped() = runTest {
         assumeTrue(
             "Skipping: Feature not supported on Auto when flag is disabled",
@@ -174,12 +190,17 @@ class GetAgentUsageUseCaseTest {
                     accessTime = now - TimeUnit.HOURS.toMillis(3),
                 ),
             )
+        val agents = listOf(AGENT_NAME_1)
         val deviceAssistancePackageNames = listOf(TARGET_NAME_2, TARGET_NAME_3)
-        val repository = FakeAppInteractionRepository(accessHistory, deviceAssistancePackageNames)
-        useCase = GetAgentUsageUseCaseImpl(repository)
+        val appInteractionRepository =
+            FakeAppInteractionRepository(accessHistory, deviceAssistancePackageNames)
+        val packageRepository = FakePackageRepository(agents = agents)
+        val userRepository = FakeUserRepository(currentUserProfiles = listOf(USER_ID_1))
+        useCase =
+            GetAgentUsageUseCaseImpl(appInteractionRepository, packageRepository, userRepository)
 
         val result = useCase(mockContext)
-        assertThat(result[AGENT_NAME_1]).isEqualTo(AccessCount(2, 2))
+        assertThat(result).containsExactly(AgentActivityItem(AGENT_NAME_1, USER_1, 2, 2))
     }
 
     @Test
@@ -199,11 +220,95 @@ class GetAgentUsageUseCaseTest {
                     accessTime = now - TimeUnit.HOURS.toMillis(1),
                 )
             )
-        val repository = FakeAppInteractionRepository(accessHistory)
-        useCase = GetAgentUsageUseCaseImpl(repository)
+        val agents = listOf(AGENT_NAME_1)
+        val appInteractionRepository = FakeAppInteractionRepository(accessHistory)
+        val packageRepository = FakePackageRepository(agents = agents)
+        val userRepository = FakeUserRepository(currentUserProfiles = listOf(USER_ID_1))
+        useCase =
+            GetAgentUsageUseCaseImpl(appInteractionRepository, packageRepository, userRepository)
 
         val result = useCase(mockContext)
         assertThat(result).hasSize(0)
+    }
+
+    @Test
+    @RequiresFlagsEnabled(
+        Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED,
+        FLAG_ENABLE_APP_INTERACTION_API,
+    )
+    fun getAgentUsages_shellAgentWithNoActivity_isExcluded() = runTest {
+        assumeTrue(
+            "Skipping: Feature not supported on Auto when flag is disabled",
+            !isAutomotive() || Flags.automotivePrivacyDashboardAgentActivityEnabled(),
+        )
+        val now = System.currentTimeMillis()
+        val accessHistory =
+            listOf(
+                createAccessHistory(
+                    agentPackageName = AGENT_NAME_1,
+                    targetPackageName = TARGET_NAME_1,
+                    accessTime = now - TimeUnit.HOURS.toMillis(1),
+                )
+            )
+        // com.android.shell holds the permission but has no access history
+        val agents = listOf(AGENT_NAME_1, SHELL_PACKAGE_NAME)
+        val appInteractionRepository = FakeAppInteractionRepository(accessHistory)
+        val packageRepository = FakePackageRepository(agents = agents)
+        val userRepository = FakeUserRepository(currentUserProfiles = listOf(USER_ID_1))
+        useCase =
+            GetAgentUsageUseCaseImpl(appInteractionRepository, packageRepository, userRepository)
+
+        val result = useCase(mockContext)
+
+        // Verify that the normal agent is present, but the shell agent is excluded because it has
+        // no activity.
+        assertThat(result)
+            .containsExactly(
+                AgentActivityItem(AGENT_NAME_1, USER_1, 1, 1),
+            )
+    }
+
+    @Test
+    @RequiresFlagsEnabled(
+        Flags.FLAG_PRIVACY_DASHBOARD_AGENT_ACTIVITY_ENABLED,
+        FLAG_ENABLE_APP_INTERACTION_API,
+    )
+    fun getAgentUsages_shellAgentWithActivity_isIncluded() = runTest {
+        assumeTrue(
+            "Skipping: Feature not supported on Auto when flag is disabled",
+            !isAutomotive() || Flags.automotivePrivacyDashboardAgentActivityEnabled(),
+        )
+        val now = System.currentTimeMillis()
+        val accessHistory =
+            listOf(
+                createAccessHistory(
+                    agentPackageName = AGENT_NAME_1,
+                    targetPackageName = TARGET_NAME_1,
+                    accessTime = now - TimeUnit.HOURS.toMillis(1),
+                ),
+                // com.android.shell has access history
+                createAccessHistory(
+                    agentPackageName = SHELL_PACKAGE_NAME,
+                    targetPackageName = TARGET_NAME_2,
+                    accessTime = now - TimeUnit.HOURS.toMillis(2),
+                )
+            )
+        // Both agents hold the permission
+        val agents = listOf(AGENT_NAME_1, SHELL_PACKAGE_NAME)
+        val appInteractionRepository = FakeAppInteractionRepository(accessHistory)
+        val packageRepository = FakePackageRepository(agents = agents)
+        val userRepository = FakeUserRepository(currentUserProfiles = listOf(USER_ID_1))
+        useCase =
+            GetAgentUsageUseCaseImpl(appInteractionRepository, packageRepository, userRepository)
+
+        val result = useCase(mockContext)
+
+        // Verify that both agents are present in the result, including shell.
+        assertThat(result)
+            .containsExactly(
+                AgentActivityItem(AGENT_NAME_1, USER_1, 1, 1),
+                AgentActivityItem(SHELL_PACKAGE_NAME, USER_1, 1, 1)
+            )
     }
 
     private fun createAccessHistory(
@@ -221,8 +326,14 @@ class GetAgentUsageUseCaseTest {
         const val AGENT_NAME_1 = "agent1"
         const val AGENT_NAME_2 = "agent2"
         const val AGENT_NAME_3 = "agent3"
+        const val SHELL_PACKAGE_NAME = "com.android.shell"
         const val TARGET_NAME_1 = "target1"
         const val TARGET_NAME_2 = "target2"
         const val TARGET_NAME_3 = "target3"
+        const val USER_ID_1 = 1
+        val USER_1 = UserHandle.of(USER_ID_1)
+
+        const val FLAG_ENABLE_APP_INTERACTION_API =
+            "com.android.permissioncontroller.jarjar.${android.app.appfunctions.flags.Flags.FLAG_ENABLE_APP_INTERACTION_API}"
     }
 }

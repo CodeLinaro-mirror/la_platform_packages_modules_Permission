@@ -55,13 +55,12 @@ class AllowedForCompatibilityCategoryTest : BaseUsePermissionTest() {
     @Before
     fun setup() {
         assumeFalse(isTv)
-        assumeFalse(isWatch)
         installPackage(TEST_APP_APK)
     }
 
     @After
     fun teardown() {
-        uninstallPackage(TEST_APP_PACKAGE)
+        uninstallPackage(TEST_APP_PACKAGE, false)
     }
 
     @Test
@@ -75,13 +74,13 @@ class AllowedForCompatibilityCategoryTest : BaseUsePermissionTest() {
     @Test
     fun testCategorizationByState_permissionApps_nearbyDevices() {
         startManagePermissionAppsActivity(Manifest.permission_group.NEARBY_DEVICES)
-        clickPermissionControllerUi(TEST_APP_NAME)
+        clickPermissionControllerUi(TEST_APP_NAME, MAX_SEARCH_SWIPES)
         clicksDenyInSettings()
         clickDontAllowAnywayButton()
         startManagePermissionAppsActivity(Manifest.permission_group.NEARBY_DEVICES)
         verifyDisplayOrder(listOf(notAllowedCategory, TEST_APP_NAME))
 
-        clickPermissionControllerUi(TEST_APP_NAME)
+        clickPermissionControllerUi(TEST_APP_NAME, MAX_SEARCH_SWIPES)
         clickAllowButton()
         startManagePermissionAppsActivity(Manifest.permission_group.NEARBY_DEVICES)
         verifyDisplayOrder(listOf(allowedCategory, TEST_APP_NAME, allowedForCompatibilityCategory))
@@ -99,29 +98,32 @@ class AllowedForCompatibilityCategoryTest : BaseUsePermissionTest() {
             getPermissionLabel(android.Manifest.permission.ACCESS_LOCAL_NETWORK)
 
         startManageAppPermissionsActivity(TEST_APP_PACKAGE)
-        verifyDisplayOrder(
-            listOf(
-                allowedForCompatibilityCategory,
-                nearbyDevicesGroupText,
-                notAllowedCategory,
-                nearbyDevicesFooterText,
-            )
-        )
+        val initialItems = mutableListOf(allowedForCompatibilityCategory, nearbyDevicesGroupText)
+        if (!isWatch) {
+            // We don't display not allowed if it is empty.
+            initialItems.add(notAllowedCategory)
+        }
+        initialItems.add(nearbyDevicesFooterText)
+        verifyDisplayOrder(initialItems)
 
-        clickPermissionControllerUi(nearbyDevicesGroupText)
+        clickPermissionControllerUi(nearbyDevicesGroupText, MAX_SEARCH_SWIPES)
         clicksDenyInSettings()
         clickDontAllowAnywayButton()
         startManageAppPermissionsActivity(TEST_APP_PACKAGE)
         verifyDisplayOrder(listOf(notAllowedCategory, nearbyDevicesGroupText))
 
-        clickPermissionControllerUi(nearbyDevicesGroupText)
+        clickPermissionControllerUi(nearbyDevicesGroupText, MAX_SEARCH_SWIPES)
         clickAllowButton()
         startManageAppPermissionsActivity(TEST_APP_PACKAGE)
-        verifyDisplayOrder(listOf(allowedCategory, nearbyDevicesGroupText, notAllowedCategory))
+        val finalItems = mutableListOf(allowedCategory, nearbyDevicesGroupText)
+        if (!isWatch) {
+            finalItems.add(notAllowedCategory)
+        }
+        verifyDisplayOrder(finalItems)
     }
 
     private fun clickAllowButton() {
-        if (isAutomotive) {
+        if (isAutomotive || isWatch) {
             clickPermissionControllerUi(
                 By.text(getPermissionControllerString("app_permission_button_allow"))
             )
@@ -130,12 +132,34 @@ class AllowedForCompatibilityCategoryTest : BaseUsePermissionTest() {
         }
     }
 
-    private fun clickDontAllowAnywayButton() =
-        clickPermissionControllerUi(
-            By.text(getPermissionControllerResString(DENY_ANYWAY_BUTTON_TEXT)!!)
-        )
+    private fun clickDontAllowAnywayButton() {
+        if (isWatch) {
+            // Watch uses icons.
+            clickPermissionControllerUi(By.desc(getPermissionControllerString("ok")))
+        } else {
+            clickPermissionControllerUi(
+                By.text(getPermissionControllerResString(DENY_ANYWAY_BUTTON_TEXT)!!)
+            )
+        }
+    }
 
     private fun verifyDisplayOrder(items: List<String>) {
+        if (isWatch) {
+            verifyExists(items)
+        } else {
+            verifyDisplayOrderOfCollection(items)
+        }
+    }
+
+    private fun verifyExists(items: List<String>) {
+        // Wear hierarchy doesn't have collectionItemInfo.
+        items.forEach { text ->
+            val node = waitFindObject(By.text(text), SCROLL_TIMEOUT_MILLIS)
+            assertThat(node).isNotNull()
+        }
+    }
+
+    private fun verifyDisplayOrderOfCollection(items: List<String>) {
         val indexes =
             items.map { text ->
                 var node = waitFindObject(By.text(text), SCROLL_TIMEOUT_MILLIS)
@@ -153,7 +177,7 @@ class AllowedForCompatibilityCategoryTest : BaseUsePermissionTest() {
     }
 
     companion object {
-        private const val SCROLL_TIMEOUT_MILLIS = 90_000L
+        private const val SCROLL_TIMEOUT_MILLIS = 120_000L
 
         private val TAG = AllowedForCompatibilityCategoryTest::class.java.simpleName
 
@@ -161,5 +185,6 @@ class AllowedForCompatibilityCategoryTest : BaseUsePermissionTest() {
         private const val TEST_APP_APK =
             "/data/local/tmp/cts-permissionui/CtsAppThatRequestsInternet36.apk"
         private const val TEST_APP_NAME = "A-CtsAppThatRequestsInternet36"
+        private const val MAX_SEARCH_SWIPES = 15
     }
 }

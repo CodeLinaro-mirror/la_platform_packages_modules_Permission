@@ -128,14 +128,18 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Adatvédelmi irányítópult"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Alkalmazásengedélyek"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Agent-tevékenység"</string>
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Nincs telepítve ügynök"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"0 hozzáférés az elmúlt napban"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"0 hozzáférés az előző 7 napban"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g> tevékenység"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Az elmúlt 24 órában"</string>
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"Az elmúlt 7 napban"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Ma"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Tegnap"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Legutóbbi hozzáférés: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Megtekintés"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Nem volt hozzáférés"</string>
+    <string name="device_assistance_title" msgid="1445976710214822208">"Eszközsegítség"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"A közelmúltban engedélyeket használó appok megjelenítése"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> használata"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Más engedélyek megtekintése"</string>
@@ -202,7 +206,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Csak az alkalmazás használatakor engedélyezett"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Összes engedélyezése mindig"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Mindig kérdezzen rá"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"Mindig kérdezzen rá, vagy engedélyezés megosztáskor"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Mindig kérdezzen rá, vagy engedélyezés megosztáskor"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"Tiltás"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"Korlátozott hozzáférés engedélyezése"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Pontos hely"</string>
@@ -267,16 +271,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"Engedélyezett"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"Mindig engedélyezett"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Csak használat közben engedélyezett"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"Engedélyezett további működés"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Csak médiatartalmak eléréséhez engedélyezett"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"Engedélyezve az összes fájl kezeléséhez"</string>
     <string name="ask_header" msgid="2633816846459944376">"Mindig kérdezzen rá"</string>
     <string name="denied_header" msgid="903209608358177654">"Nem engedélyezett"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>, <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"További, minden fájlhoz hozzáférő alkalmazások megtekintése"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Az alkalmazás további működésének engedélyezése&lt;/b&gt;&lt;br&gt;&lt;br&gt;Ahhoz, hogy egy alkalmazás továbbra is működhessen, engedélyezhető számára a helyi hálózathoz való hozzáférés és a csak az ezen a hálózaton lévő eszközökhöz való csatlakozás.&lt;br&gt;&lt;br&gt;Az alkalmazás nem tud Bluetooth és más technológiák használatával csatlakozni az eszközökhöz, hacsak nem engedélyezi számára az összes közeli eszköz megkeresését és a hozzájuk való csatlakozást."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 nap}other{# nap}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# óra}other{# óra}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# perc}other{# perc}}"</string>
@@ -709,9 +711,9 @@
 </xliff:g>Csalók megpróbálhatják átvenni az eszköz feletti irányítást úgy, hogy arra kérik, engedélyezze a kisegítő lehetőségekhez való hozzáférést egy alkalmazás számára."</string>
     <string name="enhanced_confirmation_phone_state_dialog_generic_desc" msgid="158278816955957088"></string>
     <string name="enhanced_confirmation_dialog_title_permission" msgid="2149144789394238266">"Az app nem kapott hozzáférést a következőhöz: <xliff:g id="PERMISSION_NAME">%1$s</xliff:g>"</string>
-    <string name="enhanced_confirmation_dialog_desc_permission" msgid="3150778951946468945">"Az alkalmazás hozzáférési engedélyt kért a bizalmas adatokhoz, ami veszélybe sodorhatja az Ön személyes és pénzügyi adatait.<xliff:g id="ID_1">&lt;br&gt;&lt;br&gt;</xliff:g>Lehetséges, hogy az alkalmazás nem működik megfelelően enélkül a korlátozott engedély nélkül. &lt;a href=<xliff:g id="LEARN_MORE_LINK">%1$s</xliff:g>&gt;További információ a hozzáférés megadásának módjáról.&lt;/a&gt;"</string>
+    <string name="enhanced_confirmation_dialog_desc_permission" msgid="3150778951946468945">"Az alkalmazás hozzáférési engedélyt kért a bizalmas adatokhoz, ami veszélybe sodorhatja az Ön személyes és pénzügyi adatait.<xliff:g id="ID_1">&lt;br&gt;&lt;br&gt;</xliff:g>Lehetséges, hogy az alkalmazás nem működik megfelelően enélkül a korlátozott engedély nélkül. &lt;a href=<xliff:g id="LEARN_MORE_LINK">%1$s</xliff:g>&gt;További információ a hozzáférés megadásának módjáról&lt;/a&gt;"</string>
     <string name="enhanced_confirmation_dialog_title_role" msgid="1737023798483772780">"Az app nem kapott hozzáférést a következőhöz: alapértelmezett <xliff:g id="ROLE_NAME">%1$s</xliff:g>"</string>
-    <string name="enhanced_confirmation_dialog_desc_role" msgid="6369601947905234551">"Az alkalmazás hozzáférési engedélyt kért a bizalmas adatokhoz,  ami veszélybe sodorhatja az Ön személyes és pénzügyi adatait.<xliff:g id="ID_1">&lt;br&gt;&lt;br&gt;</xliff:g>Lehetséges, hogy az alkalmazás nem működik megfelelően ezen korlátozott engedélyek nélkül. &lt;a href=<xliff:g id="LEARN_MORE_LINK">%1$s</xliff:g>&gt;További információ a hozzáférés megadásának módjáról.&lt;/a&gt;"</string>
+    <string name="enhanced_confirmation_dialog_desc_role" msgid="6369601947905234551">"Az alkalmazás hozzáférési engedélyt kért a bizalmas adatokhoz,  ami veszélybe sodorhatja az Ön személyes és pénzügyi adatait.<xliff:g id="ID_1">&lt;br&gt;&lt;br&gt;</xliff:g>Lehetséges, hogy az alkalmazás nem működik megfelelően ezen korlátozott engedélyek nélkül. &lt;a href=<xliff:g id="LEARN_MORE_LINK">%1$s</xliff:g>&gt;További információ a hozzáférés megadásának módjáról&lt;/a&gt;"</string>
     <string name="enhanced_confirmation_dialog_title_settings_default" msgid="1858092969721041576">"Az alkalmazás nem kapott hozzáférést"</string>
     <string name="enhanced_confirmation_dialog_desc_settings_default" msgid="6911632348359332981">"Az ehhez az engedélyhez való hozzáférés veszélybe sodorhatja az Ön személyes és pénzügyi adatait.<xliff:g id="ID_1">&lt;br&gt;&lt;br&gt;</xliff:g>Lehetséges, hogy az alkalmazás nem működik megfelelően enélkül a korlátozott engedély nélkül. &lt;a href=<xliff:g id="LEARN_MORE_LINK">%1$s</xliff:g>&gt;További információ a hozzáférés megadásának módjáról.&lt;/a&gt;"</string>
     <string name="enhanced_confirmation_dialog_learn_more" msgid="5226619861379095709">"További információ"</string>
@@ -762,5 +764,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"Engedélyezi a(z) <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> számára a képernyőn megnyitott alkalmazás információihoz és tartalmához való hozzáférést"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Engedélyezés"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"Tiltás"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"Engedélyezi a(z) &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; számára, hogy hozzáférjen a pontos helyhez egy helygomb használatával?"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"Engedélyezi a(z) &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; számára, hogy hozzáférjen az ezsköz pontos helyéhez, amikor Ön ennek megosztása mellett dönt?"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"Megosztáskor ez az alkalmazás hozzáfér az eszköz pontos helyéhez, amíg Ön be nem zárja az alkalmazást."</string>
 </resources>

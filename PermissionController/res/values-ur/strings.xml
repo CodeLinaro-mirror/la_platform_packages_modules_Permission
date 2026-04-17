@@ -128,14 +128,18 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"پرائیویسی ڈیش بورڈ"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"ایپ کی اجازتیں"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"ایجنٹ کی سرگرمی"</string>
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"کوئی ایجنٹ انسٹال نہیں ہے"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"گزشتہ 24 گھنٹوں میں کوئی رسائی نہیں"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"پچھلے 7 دنوں میں کوئی رسائی نہیں"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"‫<xliff:g id="APP_NAME">%1$s</xliff:g> سرگرمی"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"گزشتہ 24 گھنٹوں میں"</string>
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"گزشتہ 7 دن میں"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"آج"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"گزشتہ کل"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"آخری رسائی <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"دیکھیں"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"کوئی رسائی نہیں"</string>
+    <string name="device_assistance_title" msgid="1445976710214822208">"آلہ سے متعلق مدد"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"دیکھیں کہ حال ہی میں کون سی ایپ نے اجازتوں کا استعمال کیا ہے"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> کا استعمال"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"دیگر اجازتیں دیکھیں"</string>
@@ -202,7 +206,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"صرف ایپ استعمال کرتے وقت اجازت دیں"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"ہمیشہ سبھی کو اجازت دیں"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"ہر بار پوچھیں"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"ہر بار پوچھیں یا اشتراک کرتے وقت اجازت دیں"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"ہر بار پوچھیں یا اشتراک کرتے وقت اجازت دیں"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"اجازت نہ دیں"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"محدود رسائی کی اجازت دیں"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"قطعی مقام"</string>
@@ -267,16 +271,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"اجازت یافتہ"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"ہر وقت اجازت یافتہ"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"صرف استعمال کے دوران اجازت ہے"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"ایپ کو کام کرتے رہنے کی اجازت ہے"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"صرف میڈیا تک رسائی کی اجازت دیں"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"سبھی فائلز کا نظم کرنے کے ليے اجازت یافتہ"</string>
     <string name="ask_header" msgid="2633816846459944376">"ہر بار پوچھیں"</string>
     <string name="denied_header" msgid="903209608358177654">"اجازت نہیں ہے"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g> پر <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"مزید ایپس دیکھیں جو تمام فائلز تک رسائی حاصل کر سکتی ہیں"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"‏‎&lt;b&gt;‎ایپ کو کام کرتے رہنے کی اجازت ہے‎&lt;/b&gt;&lt;br&gt;&lt;br&gt;‎کسی ایپ کو کام کرتے رہنے کے لیے، اسے آپ کے مقامی نیٹ ورک تک رسائی حاصل کرنے اور صرف اس نیٹ ورک پر موجود آلات سے منسلک ہونے کی اجازت دی جا سکتی ہے۔‎&lt;br&gt;&lt;br&gt;‎ایپ بلوٹوتھ اور دیگر ٹیکنالوجیز کا استعمال کرتے ہوئے آلات سے منسلک نہیں ہو سکتی جب تک کہ آپ اسے تمام قریبی آلات کو تلاش کرنے اور ان سے منسلک ہونے کی اجازت نہ دیں۔"</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 دن}other{# دن}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# گھنٹہ}other{# گھنٹے}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# منٹ}other{# منٹ}}"</string>
@@ -762,5 +764,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"‫<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> کو اپنی اسکرین پر ایپ اوپن سے معلومات اور مواد تک رسائی کی اجازت دیں"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"اجازت دیں"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"اجازت نہ دیں"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"‏&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; کو مقام کے بٹن کا استعمال کرتے ہوئے قطعی مقام تک رسائی کی اجازت دیں؟"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"‏آپ کے قطعی مقام کا اشتراک کرنے کا انتخاب کرنے پر &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; کو اس تک رسائی کی اجازت دیں؟"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"آپ کے اشتراک کرنے پر، اس ایپ کو اس وقت تک قطعی مقام تک رسائی حاصل ہوگی جب تک آپ ایپ کو بند نہیں کر دیتے"</string>
 </resources>

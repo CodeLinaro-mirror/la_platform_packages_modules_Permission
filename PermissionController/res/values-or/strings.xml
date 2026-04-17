@@ -128,14 +128,23 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"ଗୋପନୀୟତା ଡେସବୋର୍ଡ"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"ଆପ ଅନୁମତି"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"ଏଜେଣ୍ଟ କାର୍ଯ୍ୟକଳାପ"</string>
+    <!-- no translation found for empty_agent_activity_preference_title (7682932823345395104) -->
+    <skip />
+    <!-- no translation found for agent_activity_preference_summary_no_accesses_24h (7194072619746100487) -->
+    <skip />
+    <!-- no translation found for agent_activity_preference_summary_no_accesses_7d (8023811607582607766) -->
+    <skip />
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g> କାର୍ଯ୍ୟକଳାପ"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"ଗତ 24 ଘଣ୍ଟାରେ"</string>
+    <!-- no translation found for agent_activity_timeline_category_title_7d (6957587886375942104) -->
+    <skip />
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"ଆଜି"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"ଗତକାଲି"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"ଗତଥର <xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଆକ୍ସେସ କରାଯାଇଛି"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"ଭ୍ୟୁ କରନ୍ତୁ"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
+    <!-- no translation found for empty_agent_activity_timeline_preference_title (7099292969424621771) -->
     <skip />
+    <string name="device_assistance_title" msgid="1445976710214822208">"ଡିଭାଇସ ସହାୟତା"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"କେଉଁ ଆପଗୁଡ଼ିକ ଏବେ ଅନୁମତିଗୁଡ଼ିକ ବ୍ୟବହାର କରିଛି ତାହା ଦେଖନ୍ତୁ"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> ବ୍ୟବହାର"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"ଅନ୍ୟ ଅନୁମତିଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"</string>
@@ -202,7 +211,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"ଆପ ବ୍ୟବହାର ବେଳେ କେବଳ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"ସର୍ବଦା ସବୁକୁ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"ପ୍ରତ୍ୟେକ ଥର ପଚାରନ୍ତୁ"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"ପ୍ରତ୍ୟେକ ଥର ପଚାରନ୍ତୁ ବା ଆପଣ ସେୟାର କରିବା ସମୟରେ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"ପ୍ରତ୍ୟେକ ଥର ପଚାରନ୍ତୁ ବା ଆପଣ ସେୟାର କରିବା ସମୟରେ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"ଅନୁମତି ଦିଅନ୍ତୁ ନାହିଁ"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"ସୀମିତ ଆକ୍ସେସକୁ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"ସଠିକ୍ ଲୋକେସନ୍"</string>
@@ -267,16 +276,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"ଅନୁମତି ଦିଆଯାଇଛି"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"ସର୍ବଦା ଅନୁମତି ଦିଆଯାଇଥିବା ଆପ୍ସ"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"କେବଳ ବ୍ୟବହାର ବେଳେ ଅନୁମତି ଦିଆଯାଇଛି"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"ଆପ କାମ କରିବା ଜାରି ରଖିବାକୁ ଅନୁମତି ମିଳିଛି"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"କେବଳ ମିଡିଆକୁ ଆକ୍ସେସ୍ ଅନୁମତି ଦିଆଯାଇଛି"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"ସମସ୍ତ ଫାଇଲ୍ ପରିଚାଳନା କରିବାକୁ ଅନୁମତି ଦିଆଯାଇଛି"</string>
     <string name="ask_header" msgid="2633816846459944376">"ପ୍ରତ୍ୟେକ ଥର ପଚାରନ୍ତୁ"</string>
     <string name="denied_header" msgid="903209608358177654">"ଅନୁମତି ନାହିଁ"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g>ର <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"ସମସ୍ତ ଫାଇଲକୁ ଆକ୍ସେସ କରିପାରୁଥିବା ଅଧିକ ଆପ୍ସ ଦେଖନ୍ତୁ"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;ଆପ କାମ କରିବା ଜାରି ରଖିବାକୁ ଅନୁମତି ଦିଆଯାଇଛି&lt;/b&gt;&lt;br&gt;&lt;br&gt;ଏକ ଆପ କାମ କରିବା ଜାରି ରଖିବା ପାଇଁ ଏହାକୁ ଆପଣଙ୍କ ସ୍ଥାନୀୟ ନେଟୱାର୍କକୁ ଆକ୍ସେସ କରିବା ଏବଂ କେବଳ ଏହି ନେଟୱାର୍କରେ ଥିବା ଡିଭାଇସଗୁଡ଼ିକ ସହ କନେକ୍ଟ କରିବାକୁ ଅନୁମତି ଦିଆଯାଇପାରେ।&lt;br&gt;&lt;br&gt;ଆପଣ ଏହାକୁ ଆଖପାଖର ସମସ୍ତ ଡିଭାଇସ ଖୋଜିବା ଏବଂ ସେଗୁଡ଼ିକ ସହ କନେକ୍ଟ କରିବାକୁ ଅନୁମତି ନଦେବା ପର୍ଯ୍ୟନ୍ତ ଏହା ବ୍ଲୁଟୁଥ ଏବଂ ଅନ୍ୟ ଟେକ୍ନୋଲୋଜି ବ୍ୟବହାର କରି ଡିଭାଇସଗୁଡ଼ିକ ସହ କନେକ୍ଟ କରିପାରିବ ନାହିଁ।"</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 ଦିନ}other{# ଦିନ}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# ଘଣ୍ଟା}other{# ଘଣ୍ଟା}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# ମିନିଟ}other{# ମିନିଟ}}"</string>
@@ -371,9 +378,9 @@
     <string name="accessibility_service_dialog_title_multiple" msgid="5527879210683548175">"<xliff:g id="NUM_SERVICES">%s</xliff:g>ଟି ଆକ୍ସେସିବିଲିଟୀ ଆପ୍ସର ଆପଣଙ୍କ ଡିଭାଇସ୍‌କୁ ସମ୍ପୂର୍ଣ୍ଣ ଆକ୍ସେସ୍‌ ଅଛି"</string>
     <string name="accessibility_service_dialog_bottom_text_single" msgid="1128666197822205958">"<xliff:g id="SERVICE_NAME">%s</xliff:g> ଆପଣଙ୍କର ସ୍କ୍ରିନ୍‌, କାର୍ଯ୍ୟ ଏବଂ ଇନ୍‌ପୁଟ୍‍ ଦେଖିପାରିବ ଏବଂ କାର୍ଯ୍ୟ ସମ୍ପାଦନ କରିପାରିବ ଏବଂ ଡିସ୍‌ପ୍ଲେ ନିୟନ୍ତ୍ରଣ କରିପାରିବ।"</string>
     <string name="accessibility_service_dialog_bottom_text_multiple" msgid="7009848932395519852">"ଏହି ଆପ୍ସ ଆପଣଙ୍କର ସ୍କ୍ରିନ୍‌, କାର୍ଯ୍ୟକଳାପ ଏବଂ ଇନ୍‌ପୁଟ୍‍ ଦେଖିପାରିବ ଏବଂ କାର୍ଯ୍ୟ ସମ୍ପାଦନ କରିପାରିବ ଏବଂ ଡିସ୍‌ପ୍ଲେ ନିୟନ୍ତ୍ରଣ କରିପାରିବ।"</string>
-    <string name="role_assistant_label" msgid="4727586018198208128">"ଡିଫଲ୍ଟ ଡିଜିଟାଲ ସହାୟକ ଆପ"</string>
+    <string name="role_assistant_label" msgid="4727586018198208128">"ଡିଫଲ୍ଟ ଡିଜିଟାଲ ଆସିଷ୍ଟାଣ୍ଟ ଆପ"</string>
     <string name="role_assistant_short_label" msgid="3369003713187703399">"ଡିଜିଟାଲ୍ Assistant ଆପ୍"</string>
-    <string name="role_assistant_description" msgid="6622458130459922952">"ଆପଣ ଭ୍ୟୁ କରୁଥିବା ସ୍କ୍ରିନ ସୂଚନାକୁ ଆଧାର କରି ସହାୟକ ଆପ ଆପଣଙ୍କୁ ସାହାଯ୍ୟ କରିପାରିବ। କେତେକ ଆପ ଆପଣଙ୍କୁ ସମ୍ପୂର୍ଣ୍ଣ ସହାୟତା ଦେବା ପାଇଁ ଉଭୟ ଲଞ୍ଚର ଓ ଭଏସ ଇନପୁଟ ସେବାକୁ ସମର୍ଥନ କରେ।"</string>
+    <string name="role_assistant_description" msgid="6622458130459922952">"ଆପଣ ଭ୍ୟୁ କରୁଥିବା ସ୍କ୍ରିନ ସୂଚନାକୁ ଆଧାର କରି ଆସିଷ୍ଟ ଆପ ଆପଣଙ୍କୁ ସାହାଯ୍ୟ କରିପାରିବ। କେତେକ ଆପ ଆପଣଙ୍କୁ ସମନ୍ୱିତ ସହାୟତା ଦେବା ପାଇଁ ଉଭୟ ଲଞ୍ଚର ଓ ଭଏସ ଇନପୁଟ ସର୍ଭିସକୁ ସପୋର୍ଟ କରେ।"</string>
     <string name="role_assistant_recommended_title" msgid="2093873159106905257">"<xliff:g id="OEM_NAME">%s</xliff:g>ଦ୍ୱାରା ସୁପାରିଶ କରାଯାଇଛି"</string>
     <string name="role_browser_label" msgid="2877796144554070207">"ଡିଫଲ୍ଟ ବ୍ରାଉଜର୍‌ ଆପ୍‌"</string>
     <string name="role_browser_short_label" msgid="6745009127123292296">"ବ୍ରାଉଜର୍‌ ଆପ୍‌"</string>
@@ -456,11 +463,11 @@
     <string name="default_apps_for_work" msgid="4970308943596201811">"କାର୍ଯ୍ୟ ପାଇଁ ଡିଫଲ୍ଟ ଅଛି"</string>
     <string name="default_apps_for_private_profile" msgid="2022024112144880785">"ପ୍ରାଇଭେଟ ସ୍ପେସ ପାଇଁ ଡିଫଲ୍ଟ"</string>
     <string name="default_app_others" msgid="7793029848126079876">"ଅନ୍ୟ"</string>
-    <string name="default_app_none" msgid="9084592086808194457">"କିଛି ଆପ ସେଟ କରାଯାଇନାହିଁ"</string>
+    <string name="default_app_none" msgid="9084592086808194457">"କିଛି ନାହିଁ"</string>
     <string name="default_app_system_default" msgid="6218386768175513760">"(ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"କୌଣସି ଆପ୍‌ ନାହିଁ"</string>
     <string name="default_app_confirmation_positive_button" msgid="7870227561758833590">"ବଦଳାନ୍ତୁ"</string>
-    <string name="default_app_confirmation_negative_button" msgid="2564849389728106051">"ବର୍ତ୍ତମାନର ଫଟୋକୁ ରଖ"</string>
+    <string name="default_app_confirmation_negative_button" msgid="2564849389728106051">"ରହିବାକୁ ଦିଅନ୍ତୁ"</string>
     <string name="default_payment_app_other_nfc_services" msgid="5957633798695758917">"ଅନ୍ୟ NFC ସେବା"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"ଚୟନ କରାଯାଇଛି"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"ଚୟନ କରାଯାଇଛି - <xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g>"</string>
@@ -762,5 +769,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"ଆପଣଙ୍କ ସ୍କ୍ରିନରେ ଖୋଲା ଥିବା ଆପରୁ ସୂଚନା ଏବଂ ବିଷୟବସ୍ତୁକୁ ଆକ୍ସେସ କରିବା ପାଇଁ <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>କୁ ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"ଅନୁମତି ଦିଅନ୍ତୁ"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"ଅନୁମତି ଦିଅନ୍ତୁ ନାହିଁ"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"ଏକ ଲୋକେସନ ବଟନ ବ୍ୟବହାର କରି ସଠିକ ଲୋକେସନକୁ ଆକ୍ସେସ କରିବା ପାଇଁ &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;କୁ ଅନୁମତି ଦେବେ?"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"ଆପଣ ସଠିକ ଲୋକେସନକୁ ସେୟାର କରିବା ପାଇଁ ବାଛିଲେ ଏହାକୁ ଆକ୍ସେସ କରିବା ପାଇଁ &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;କୁ ଅନୁମତି ଦେବେ?"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"ଆପଣ ସେୟାର କଲେ, ଆପଣ ଆପକୁ ବନ୍ଦ ନକରିବା ପର୍ଯ୍ୟନ୍ତ ଏହି ଆପର ସଠିକ ଲୋକେସନକୁ ଆକ୍ସେସ ରହିବ"</string>
 </resources>

@@ -39,6 +39,7 @@ import android.hardware.SensorPrivacyManager.OnSensorPrivacyChangedListener.Sens
 import android.os.Build
 import android.os.Bundle
 import android.os.UserHandle
+import android.permission.flags.Flags
 import android.util.Log
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresApi
@@ -93,8 +94,6 @@ import com.android.permissioncontroller.permission.utils.v34.SafetyLabelUtils
 import com.android.permissioncontroller.permission.utils.v35.MultiDeviceUtils
 import com.android.settingslib.RestrictedLockUtils
 import java.util.Random
-import kotlin.collections.component1
-import kotlin.collections.component2
 
 /**
  * ViewModel for the AppPermissionFragment. Determines button state and detail text strings, logs
@@ -687,7 +686,8 @@ class AppPermissionViewModel(
             }
         }
 
-    fun isOnlyForLocationButton(): Boolean = lightAppPermGroup?.isOnlyForLocationButton == true
+    fun shouldShowAskOrWhenYouShareLabel() =
+        lightAppPermGroup?.permGroupName == LOCATION && Flags.locationButtonEnabled()
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.VANILLA_ICE_CREAM, codename = "VanillaIceCream")
     fun handleDisabledAllowButton(fragment: Fragment) {
@@ -926,7 +926,6 @@ class AppPermissionViewModel(
 
         if (changeRequest == ChangeRequest.GRANT_FINE_LOCATION) {
             var newGroup = group
-            // TODO check the toggle behavior, when app is using a location button.
             if (!newGroup.isOneTime) {
                 newGroup = KotlinUtils.grantForegroundRuntimePermissions(app, group)
                 logPermissionChanges(group, newGroup, buttonClicked)
@@ -941,6 +940,7 @@ class AppPermissionViewModel(
                     app,
                     group,
                     filterPermissions = listOf(ACCESS_FINE_LOCATION),
+                    oneTime = group.permissions[ACCESS_FINE_LOCATION]!!.isOneTime,
                 )
             logPermissionChanges(group, newGroup, buttonClicked)
             KotlinUtils.setFlagsWhenLocationAccuracyChanged(app, newGroup, false)
@@ -1111,15 +1111,13 @@ class AppPermissionViewModel(
 
             if (shouldGrantForeground) {
                 newGroup =
-                    if (
-                        shouldShowLocationAccuracy == true && !isFineLocationChecked(newGroup) ||
-                            newGroup.isOnlyForLocationButton
-                    ) {
-                        KotlinUtils.grantForegroundRuntimePermissions(
-                            app,
-                            newGroup,
-                            filterPermissions = listOf(ACCESS_COARSE_LOCATION),
-                        )
+                    if (shouldShowLocationAccuracy == true && !isFineLocationChecked(newGroup)) {
+                        newGroup =
+                            KotlinUtils.grantForegroundRuntimePermissions(
+                                app,
+                                newGroup,
+                                filterPermissions = listOf(ACCESS_COARSE_LOCATION),
+                            )
                         //  Due to filterPermissions parameter in above grant call, one time flag
                         //  for other permissions in location group aren't cleared,
                         //  do it explicitly for all permissions in the group.

@@ -128,14 +128,18 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Panel ochrany súkromia"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Povolenia aplikácií"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Aktivita v režime Agent"</string>
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Žiadni nainštalovaní agenti"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"Žiadne prístupy za 24 hodín"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"Žiadne prístupy za 7 dní"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Aktivita aplikácie <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Za posledných 24 hodín"</string>
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"Za posledných 7 dní"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Dnes"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Včera"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Posledný prístup: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Zobraziť"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Žiadne prístupy"</string>
+    <string name="device_assistance_title" msgid="1445976710214822208">"Asistencia so zariadením"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Pozrite si, ktoré aplikácie nedávno použili povolenia"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> – používanie"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Zobraziť ostatné povolenia"</string>
@@ -202,7 +206,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Povoliť iba pri používaní aplikácie"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Vždy povoliť všetko"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Vždy sa opýtať"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"Vždy sa opýtať alebo povoliť pri zdieľaní"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Vždy sa opýtať alebo povoliť pri zdieľaní"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"Nepovoliť"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"Povoliť obmedzený prístup"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Presná poloha"</string>
@@ -267,16 +271,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"Povolené"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"Povolené vždy"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Povolené iba počas používania"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"Povolené, aby aplikácia fungovala"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"S povoleným prístupom iba k médiám"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"S povolením spravovať všetky súbory"</string>
     <string name="ask_header" msgid="2633816846459944376">"Vždy sa opýtať"</string>
     <string name="denied_header" msgid="903209608358177654">"Nepovolené"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> v zariadení <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Zobraziť ďalšie aplikácie s prístupom k všetkým súborom"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Povolené, aby aplikácia fungovala&lt;/b&gt;&lt;br&gt;&lt;br&gt;Aby aplikácia naďalej fungovala, môže mať povolený prístup k vašej miestnej sieti a pripájanie k zariadeniam v tejto sieti.&lt;br&gt;&lt;br&gt;Aplikácia sa nemôže pripájať k zariadeniam pomocou rozhrania Bluetooth a ďalších technológií, pokiaľ jej nepovolíte vyhľadávať všetky zariadenia v okolí a pripájať sa k nim."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 deň}few{# dni}many{# dňa}other{# dní}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# hodina}few{# hodiny}many{# hodiny}other{# hodín}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# minúta}few{# minúty}many{# minúty}other{# minút}}"</string>
@@ -570,7 +572,7 @@
     <string name="not_used_permissions_description" msgid="7595514824169388718">"Povolenia používané iba systémovými aplikáciami."</string>
     <string name="additional_permissions_label" msgid="7693557637462569046">"Ďalšie povolenia"</string>
     <string name="additional_permissions_description" msgid="2186611950890732112">"Povolenia definované aplikáciami."</string>
-    <string name="privdash_label_camera" msgid="1426440033626198096">"Fotoaparát"</string>
+    <string name="privdash_label_camera" msgid="1426440033626198096">"Kamera"</string>
     <string name="privdash_label_microphone" msgid="8415035835803511693">"Mikrofón"</string>
     <string name="privdash_label_location" msgid="6882400763866489291">"Poloha"</string>
     <string name="privdash_label_other" msgid="3710394147423236033">"Iné"</string>
@@ -762,5 +764,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"Povoľte aplikácii <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> prístup k informáciám a obsahu z aplikácie otvorenej na obrazovke"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Povoliť"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"Nepovoliť"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"Chcete povoliť aplikácii &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; prístup k presnej polohe pomocou tlačidla polohy?"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"Chcete povoliť aplikácii &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; prístup k presnej polohe, keď sa ju rozhodnete zdieľať?"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"Keď budete zdieľať svoju presnú polohu, táto aplikácia bude k nej mať prístup, až kým ju nezavriete"</string>
 </resources>

@@ -128,14 +128,18 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"గోప్యతా డ్యాష్‌బోర్డ్"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"యాప్ అనుమతులు"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"ఏజెంట్ యాక్టివిటీ"</string>
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"ఏజెంట్‌లు ఇన్‌స్టాల్ కాలేదు"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"గత 24 గంటల్లో యాక్సెస్ చేయలేదు"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"గత 7 రోజుల్లో యాక్సెస్ చేయలేదు"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g> యాక్టివిటీ"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"గత 24 గంటల్లో"</string>
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"గత 7 రోజుల్లో"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"ఈరోజు"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"నిన్న"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"చివరిసారి <xliff:g id="TIME_DATE">%1$s</xliff:g>‌కు యాక్సెస్ చేశారు"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"చూడండి"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"యాక్సెస్‌లు ఏవీ లేవు"</string>
+    <string name="device_assistance_title" msgid="1445976710214822208">"డివైజ్ సహాయం"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"ఇటీవల ఏ యాప్‌లు అనుమతులను ఉపయోగించాయో చూడండి"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> వినియోగం"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"ఇతర అనుమతులను చూడండి"</string>
@@ -202,7 +206,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"యాప్‌ను ఉపయోగిస్తున్నప్పుడు మాత్రమే అనుమతించండి"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"అన్నింటినీ ఎల్లవేళలా అనుమతించండి"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"ప్రతిసారి అడగాలి"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"ప్రతిసారీ అడగండి లేదా మీరు షేర్ చేసినప్పుడు అనుమతించండి"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"ప్రతిసారీ అడగండి లేదా షేర్ చేసేటప్పుడు అనుమతించండి"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"అనుమతించవద్దు"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"పరిమిత యాక్సెస్‌ను అనుమతించండి"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"ఖచ్చితమైన లొకేషన్"</string>
@@ -267,16 +271,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"అనుమతించినవి"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"అన్ని సమయాలలో అనుమతించబడతాయి"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"ఉపయోగించేటప్పుడు మాత్రమే అనుమతి ఇవ్వాలి"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"యాప్ రన్ కావడానికి అనుమతించినవి"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"మీడియాకు మాత్రమే యాక్సెస్ అనుమతించబడినవి"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"ఫైల్స్ అన్నింటినీ మేనేజ్ చేసేందుకు అనుమతించబడినవి"</string>
     <string name="ask_header" msgid="2633816846459944376">"ప్రతిసారి అడగాలి"</string>
     <string name="denied_header" msgid="903209608358177654">"అనుమతించబడలేదు"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g>‌లో <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"అన్ని ఫైళ్లను యాక్సెస్ చేయగల మరిన్ని యాప్‌లను చూడండి"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;యాప్ పని చేస్తూనే ఉండటానికి అనుమతించబడింది&lt;/b&gt;&lt;br&gt;&lt;br&gt;యాప్ పని చేస్తూ ఉండటానికి, మీ లోకల్ నెట్‌వర్క్‌ను యాక్సెస్ చేయడానికి, ఈ నెట్‌వర్క్‌లోని డివైజ్‌లతో మాత్రమే కనెక్ట్ అవ్వడానికి దాన్ని అనుమతించవచ్చు.&lt;br&gt;&lt;br&gt;మీరు సమీపంలోని అన్ని డివైజ్‌లను కనుగొనడానికి, కనెక్ట్ అవ్వడానికి దాన్ని అనుమతించకపోతే, బ్లూటూత్, ఇతర టెక్నాలజీలను ఉపయోగించి యాప్ డివైజ్‌లకు కనెక్ట్ అవ్వలేదు."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 రోజు}other{# రోజులు}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# గంట}other{# గంటలు}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# నిమిషం}other{# నిమిషాలు}}"</string>
@@ -460,7 +462,7 @@
     <string name="default_app_system_default" msgid="6218386768175513760">"(సిస్టమ్ ఆటోమేటిక్)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"ఏ యాప్ లేదు"</string>
     <string name="default_app_confirmation_positive_button" msgid="7870227561758833590">"మార్చండి"</string>
-    <string name="default_app_confirmation_negative_button" msgid="2564849389728106051">"ఉన్నదాన్ని ఉంచండి"</string>
+    <string name="default_app_confirmation_negative_button" msgid="2564849389728106051">"మార్చవద్దు"</string>
     <string name="default_payment_app_other_nfc_services" msgid="5957633798695758917">"ఇతర NFC సర్వీస్‌లు"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"ఎంచుకోబడింది"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"<xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g> - ఎంచుకోబడింది"</string>
@@ -471,11 +473,11 @@
     <string name="home_missing_work_profile_support" msgid="1756855847669387977">"కార్యాలయ ప్రొఫైల్‌కు మద్దతు ఇవ్వదు"</string>
     <string name="home_confirmation_title" msgid="8070603501839126093">"మీ ఆటోమేటిక్ Home యాప్‌ను &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;‌కు మార్చాలా?"</string>
     <string name="home_confirmation_message" msgid="248811491851505593">"ఇది మీ మొదటి స్క్రీన్‌ను రీప్లేస్ చేస్తుంది, మీ డివైజ్‌లోని ఫీచర్‌లకు యాక్సెస్‌ను ప్రభావితం చేయవచ్చు.&lt;br&gt;&lt;br&gt;మీరు &lt;b&gt;ఆటోమేటిక్ Home యాప్&lt;/b&gt; సెట్టింగ్‌లలో ఎప్పుడైనా ఈ ఎంపికను మార్చవచ్చు."</string>
-    <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"చిన్న గమనిక: మీరు భద్రత కోసం స్క్రీన్ లాక్‌ని సెటప్‌ చేసి పెట్టుకున్నారు పైగా మీ పరికరాన్ని పునఃప్రారంభించినట్టున్నారు కనుక స్క్రీన్ లాక్ అయ్యిపోయింది. మీరు పాస్‌వర్డ్‌ని నమోదు చేసేవరకూ ఈ యాప్ ప్రారంభం కాదు."</string>
+    <string name="encryption_unaware_confirmation_message" msgid="8274491794636402484">"గమనిక: మీరు భద్రత కోసం స్క్రీన్ లాక్‌ను సెటప్‌ చేసి పెట్టుకున్నారు, పైగా మీ డివైజ్‌ను రీస్టార్ట్ చేయాలనుకుంటున్నారు కనుక స్క్రీన్ లాక్ అయింది. మీరు పాస్‌వర్డ్‌ను ఎంటర్ చేసే వరకూ ఈ యాప్ ప్రారంభం కాదు."</string>
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"మీ స్క్రీన్‌పై కనిపించే లేదా యాప్‌లలో యాక్సెస్ చేసే సమాచారంతో పాటు మీ సిస్టమ్‌లో వినియోగంలో ఉన్న యాప్‌ల గురించిన సమాచారాన్ని Assistant చదవగలుగుతుంది."</string>
     <string name="assistant_confirmation_title_v37" msgid="4998437583005547092">"మీ డిజిటల్ అసిస్టెంట్ యాప్‌ను &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;‌కు మార్చాలా?"</string>
-    <string name="assistant_confirmation_message_v37" msgid="4763150587952308197">"ఈ అసిస్టెంట్, మీ మెసేజ్‌లతో పాటు దానితో షేర్ చేయడానికి యాప్‌లు ఎంచుకున్న డేటా వంటి సమాచారాన్ని యాక్సెస్ చేయగలదు."</string>
-    <string name="assistant_confirmation_message_access_restored_v37" msgid="2731391781319881100">"ఈ అసిస్టెంట్, మీ మెసేజ్‌లు, మీ అసిస్టెంట్‌తో షేర్ చేయడానికి యాప్‌లు ఎంచుకున్న డేటా వంటి సమాచారాన్ని యాక్సెస్ చేయగలదు.&lt;br&gt;&lt;br&gt;అలాగే, మీరు ఇంతకు ముందు <xliff:g id="APP_NAME">%1$s</xliff:g> కోసం స్క్రీన్, యాప్ డేటాను ఆన్ చేసినందున, మీ స్క్రీన్‌పై తెరిచిన యాప్ నుండి కంటెంట్‌ను యాక్సెస్ చేయడానికి దీనికి అనుమతి ఉంటుంది."</string>
+    <string name="assistant_confirmation_message_v37" msgid="4763150587952308197">"ఈ అసిస్టెంట్, మీ మెసేజ్‌ల వంటి సమాచారాన్ని యాక్సెస్ చేయగలదు. అలాగే యాప్‌లు దానితో షేర్ చేయడానికి ఎంచుకున్న డేటాను కూడా యాక్సెస్ చేయగలదు."</string>
+    <string name="assistant_confirmation_message_access_restored_v37" msgid="2731391781319881100">"ఈ అసిస్టెంట్, మీ మెసేజ్‌ల వంటి సమాచారాన్ని యాక్సెస్ చేయగలదు. అలాగే యాప్‌లు దానితో షేర్ చేయడానికి ఎంచుకున్న డేటాను కూడా యాక్సెస్ చేయగలదు.&lt;br&gt;&lt;br&gt;అలాగే, మీరు ఇదివరకు <xliff:g id="APP_NAME">%1$s</xliff:g> కోసం స్క్రీన్ &amp; యాప్ డేటాను ఆన్ చేసినందున, మీ స్క్రీన్‌పై ఓపెన్‌లో ఉన్న యాప్ కంటెంట్‌ను యాక్సెస్ చేయడానికి దీనికి అనుమతి ఉంటుంది."</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"డీబగ్గింగ్ డేటాను షేర్ చేయండి"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"వివరణాత్మక డీబగ్గింగ్ డేటాను షేర్ చేయాలా?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g>డీబగ్గింగ్ సమాచారాన్ని అప్‌లో డ్ చేయదలుచుకుంటున్నారు."</string>
@@ -655,7 +657,7 @@
     <string name="perm_toggle_description" msgid="7801326363741451379">"యాప్‌లు, సర్వీస్‌ల కోసం"</string>
     <string name="mic_toggle_description" msgid="9163104307990677157">"యాప్‌లు, సర్వీస్‌ల కోసం. ఈ సెట్టింగ్ ఆఫ్ చేయబడి ఉన్నట్లయితే, మీరు ఎమర్జెన్సీ నంబర్‌కు కాల్ చేసినప్పుడు మైక్రోఫోన్ డేటా ఇప్పటికీ షేర్ చేయబడవచ్చు."</string>
     <string name="location_settings_subtitle" msgid="2328360561197430695">"లొకేషన్ యాక్సెస్ ఉన్న యాప్‌లను, సర్వీస్‌లను చూడండి"</string>
-    <string name="show_clip_access_notification_title" msgid="5168467637351109096">"క్లిప్‌బోర్డ్ యాక్సెస్‌ను చూపించండి"</string>
+    <string name="show_clip_access_notification_title" msgid="5168467637351109096">"క్లిప్‌బోర్డ్ యాక్సెస్‌ను చూపుతుంది"</string>
     <string name="show_clip_access_notification_summary" msgid="3532020182782112687">"మీరు కాపీ చేసిన టెక్స్ట్‌ను, ఇమేజ్‌లను లేదా ఇతర కంటెంట్‌ను యాప్‌లు యాక్సెస్ చేసినప్పుడు ఒక మెసేజ్‌ను చూపుతుంది"</string>
     <string name="show_password_title" msgid="2877269286984684659">"పాస్‌వర్డ్‌లను చూపిస్తుంది"</string>
     <string name="show_password_summary" msgid="1110166488865981610">"మీరు టైప్ చేస్తున్నప్పుడు అక్షరాలను క్లుప్తంగా చూపిస్తుంది"</string>
@@ -706,7 +708,7 @@
 </xliff:g>స్కామర్‌లు మిమ్మల్ని కొత్త సోర్స్ నుండి తెలియని యాప్‌లను ఇన్‌స్టాల్ చేయమని అడగడం ద్వారా హానికరమైన యాప్‌లను ఇన్‌స్టాల్ చేయడానికి ట్రై చేయవచ్చు."</string>
     <string name="enhanced_confirmation_phone_state_dialog_a11y_desc" msgid="6567523001053288057">"<xliff:g id="EMPTY_LINE">
 
-</xliff:g>స్కామర్‌లు మిమ్నల్ని యాప్ కోసం యాక్సెసిబిలిటీ యాక్సెస్‌ను అనుమతించమని అడగడం ద్వారా మీ పరికరాన్ని కంట్రోల్ చేసే అవకాశం ఉంది."</string>
+</xliff:g>స్కామర్‌లు యాప్ కోసం యాక్సెసిబిలిటీ యాక్సెస్‌ను అనుమతించమని అడగడం ద్వారా మీ డివైజ్‌ను కంట్రోల్ చేసే అవకాశం ఉంది."</string>
     <string name="enhanced_confirmation_phone_state_dialog_generic_desc" msgid="158278816955957088"></string>
     <string name="enhanced_confirmation_dialog_title_permission" msgid="2149144789394238266">"యాప్ <xliff:g id="PERMISSION_NAME">%1$s</xliff:g>‌కు యాక్సెస్ తిరస్కరించబడింది"</string>
     <string name="enhanced_confirmation_dialog_desc_permission" msgid="3150778951946468945">"మీ వ్యక్తిగత, ఆర్థిక సమాచారాన్ని ప్రమాదంలో పడేసే గోప్యమైన సమాచార యాక్సెస్ అనుమతికి యాప్ యాక్సెస్‌ను రిక్వెస్ట్ చేయడం జరిగింది.<xliff:g id="ID_1">&lt;br&gt;&lt;br&gt;</xliff:g>ఈ అదనపు అవసరాలు గల అనుమతి లేకుండా యాప్ సరిగ్గా పని చేయకపోయే అవకాశం ఉంది. &lt;a href=<xliff:g id="LEARN_MORE_LINK">%1$s</xliff:g>&gt;యాక్సెస్‌ను అనుమతించడం ఎలాగో తెలుసుకోండి&lt;/a&gt;"</string>
@@ -762,5 +764,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"మీ స్క్రీన్‌పై తెరిచి ఉన్న యాప్ నుండి సమాచారాన్ని, కంటెంట్‌ను యాక్సెస్ చేయడానికి <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>‌ను అనుమతించండి"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"అనుమతించండి"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"అనుమతించవద్దు"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"లొకేషన్ బటన్‌ను ఉపయోగించి ఖచ్చితమైన లొకేషన్‌ను యాక్సెస్ చేయడానికి &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;ను అనుమతించాలా?"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"మీరు ఖచ్చితమైన లొకేషన్‌ను షేర్ చేయాలని ఎంచుకున్నప్పుడు దాన్ని యాక్సెస్ చేయడానికి &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;ను అనుమతించాలా?"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"మీరు షేర్ చేసినప్పుడు, ఈ యాప్‌ను మూసివేసే వరకు, దీనికి మీ ఖచ్చితమైన లొకేషన్‌ను తెలుసుకునే యాక్సెస్ ఉంటుంది"</string>
 </resources>

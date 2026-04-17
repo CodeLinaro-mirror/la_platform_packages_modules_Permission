@@ -128,14 +128,18 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"પ્રાઇવસી ડૅશબોર્ડ"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"ઍપ પરવાનગીઓ"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"એજન્ટ ઍક્ટિવિટી"</string>
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"કોઈ એજન્ટ ઇન્સ્ટૉલ કરેલા નથી"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"છેલ્લા 24 કલાકમાં કોઈ ઍક્સેસ નથી"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"છેલ્લા 7 દિવસમાં કોઈ ઍક્સેસ નથી"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g>ની ઍક્ટિવિટી"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"છેલ્લા 24 કલાકમાં"</string>
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"છેલ્લા 7 દિવસમાં"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"આજે"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"ગઈકાલે"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"છેલ્લે ઍક્સેસ કર્યાનો સમય: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"જુઓ"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"કોઈ ઍક્સેસ નથી"</string>
+    <string name="device_assistance_title" msgid="1445976710214822208">"ડિવાઇસ આસિસ્ટન્સ"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"કઈ ઍપ દ્વારા તાજેતરમાં પરવાનગીઓનો ઉપયોગ થયો તે જુઓ"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g>નો ઉપયોગ"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"અન્ય પરવાનગીઓ જુઓ"</string>
@@ -202,10 +206,10 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"ઍપનો ઉપયોગ કરતી વખતે જ મંજૂરી આપો"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"હંમેશાં માટે બધાને મંજૂરી આપો"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"દર વખતે પૂછો"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"દર વખતે પૂછો અથવા જ્યારે તમે શેર કરો ત્યારે મંજૂરી આપો"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"દર વખતે પૂછો અથવા જ્યારે તમે શેર કરો ત્યારે મંજૂરી આપો"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"મંજૂરી આપશો નહીં"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"મર્યાદિત ઍક્સેસની મંજૂરી આપો"</string>
-    <string name="precise_image_description" msgid="6349638632303619872">"ચોક્કસ સ્થાન"</string>
+    <string name="precise_image_description" msgid="6349638632303619872">"સચોટ લોકેશન"</string>
     <string name="approximate_image_description" msgid="938803699637069884">"અંદાજિત સ્થાન"</string>
     <string name="app_permission_location_accuracy" msgid="7166912915040018669">"સચોટ લોકેશનનો ઉપયોગ કરો"</string>
     <string name="app_permission_location_accuracy_subtitle" msgid="2654077606404987210">"જ્યારે સચોટ લોકેશન બંધ હોય, ત્યારે ઍપ તમારા અંદાજિત લોકેશનને ઍક્સેસ કરી શકે છે"</string>
@@ -267,16 +271,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"મંજૂરી છે"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"હંમેશાં માટે મંજૂરી આપી છે"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"માત્ર ઉપયોગમાં હોય ત્યારે જ મંજૂરી છે"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"ઍપને કામ કરતી રાખવાની મંજૂરી આપી"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"માત્ર મીડિયા ઍક્સેસ કરવાની મંજૂરી છે"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"બધી ફાઇલો મેનેજ કરવાની મંજૂરી છે"</string>
     <string name="ask_header" msgid="2633816846459944376">"દર વખતે પૂછો"</string>
     <string name="denied_header" msgid="903209608358177654">"મંજૂરી નથી"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g> પર <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"બધી ફાઇલોને ઍક્સેસ કરી શકે તેવી વધુ ઍપ જુઓ"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;ઍપને કામ કરતી રાખવાની મંજૂરી આપવામાં આવી&lt;/b&gt;&lt;br&gt;&lt;br&gt;ઍપને કામ કરતી રાખવા માટે, તેને તમારા સ્થાનિક નેટવર્કને ઍક્સેસ કરવાની અને માત્ર આ નેટવર્ક પરના ડિવાઇસ સાથે કનેક્ટ કરવાની મંજૂરી આપવામાં આવી શકે છે.&lt;br&gt;&lt;br&gt;જ્યાં સુધી તમે ઍપને નજીકના બધા ડિવાઇસ શોધવાની અને તેની સાથે કનેક્ટ કરવાની મંજૂરી ન આપો, ત્યાં સુધી ઍપ બ્લૂટૂથ અને અન્ય ટેક્નોલોજીનો ઉપયોગ કરીને ડિવાઇસ સાથે કનેક્ટ કરી શકશે નહીં."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 દિવસ}one{# દિવસ}other{# દિવસ}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# કલાક}one{# કલાક}other{# કલાક}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# મિનિટ}one{# મિનિટ}other{# મિનિટ}}"</string>
@@ -372,8 +374,8 @@
     <string name="accessibility_service_dialog_bottom_text_single" msgid="1128666197822205958">"<xliff:g id="SERVICE_NAME">%s</xliff:g> તમારી સ્ક્રીન, ક્રિયાઓ તેમજ ઇનપુટ જોઈ શકે છે, ક્રિયાઓ કરી શકે છે અને ડિસ્પ્લેનું નિયંત્રણ કરી શકે છે."</string>
     <string name="accessibility_service_dialog_bottom_text_multiple" msgid="7009848932395519852">"આ ઍપ તમારી સ્ક્રીન, ક્રિયાઓ તેમજ ઇનપુટ જોઈ શકે છે, ક્રિયાઓ કરી શકે છે અને ડિસ્પ્લેનું નિયંત્રણ કરી શકે છે."</string>
     <string name="role_assistant_label" msgid="4727586018198208128">"ડિફૉલ્ટ ડિજિટલ આસિસ્ટંટ ઍપ"</string>
-    <string name="role_assistant_short_label" msgid="3369003713187703399">"ડિજિટલ આસિસ્ટંટ ઍપ"</string>
-    <string name="role_assistant_description" msgid="6622458130459922952">"તમે જોઈ રહ્યા હો તે સ્ક્રીન પરની માહિતીના આધારે સહાયક ઍપ તમને સહાય કરી શકે છે. કેટલીક ઍપ તમને એકીકૃત સહાયતા આપવા માટે લૉન્ચર અને વૉઇસ ઇનપુટ સેવાઓ બંનેને સમર્થન આપે છે."</string>
+    <string name="role_assistant_short_label" msgid="3369003713187703399">"ડિજિટલ આસિસ્ટન્ટ ઍપ"</string>
+    <string name="role_assistant_description" msgid="6622458130459922952">"તમે જોઈ રહ્યા હો તે સ્ક્રીન પરની માહિતીના આધારે આસિસ્ટ ઍપ તમને મદદ કરી શકે છે. કેટલીક ઍપ તમને એકીકૃત સહાયતા આપવા માટે લૉન્ચર અને વૉઇસ ઇનપુટ સેવાઓ બંનેને સપોર્ટ આપે છે."</string>
     <string name="role_assistant_recommended_title" msgid="2093873159106905257">"<xliff:g id="OEM_NAME">%s</xliff:g> દ્વારા સુઝાવ આપેલી"</string>
     <string name="role_browser_label" msgid="2877796144554070207">"ડિફૉલ્ટ બ્રાઉઝર ઍપ"</string>
     <string name="role_browser_short_label" msgid="6745009127123292296">"બ્રાઉઝર ઍપ"</string>
@@ -604,7 +606,7 @@
     <string name="safety_status_preference_title_and_summary_content_description" msgid="3511373256505058464">"સુરક્ષા અને પ્રાઇવસીનું સ્ટેટસ. <xliff:g id="OVERALL_SAFETY_STATUS">%1$s</xliff:g>. <xliff:g id="SUMMARY_OF_DEVICE_STATUS">%2$s</xliff:g>"</string>
     <string name="security_settings" msgid="3808106921175271317">"સુરક્ષા સેટિંગ"</string>
     <string name="sensor_permissions_qs" msgid="1022267900031317472">"પરવાનગીઓ"</string>
-    <string name="safety_privacy_qs_tile_title" msgid="727301867710374052">"સિક્યુરિટી અને પ્રાઇવસી"</string>
+    <string name="safety_privacy_qs_tile_title" msgid="727301867710374052">"સુરક્ષા અને પ્રાઇવસી"</string>
     <string name="safety_privacy_qs_tile_subtitle" msgid="3621544532041936749">"સ્ટેટસ ચેક કરો"</string>
     <string name="privacy_controls_qs" msgid="5780144882040591169">"તમારી પ્રાઇવસીને લગતા નિયંત્રણો"</string>
     <string name="security_settings_button_label_qs" msgid="8280343822465962330">"વધુ સેટિંગ"</string>
@@ -762,5 +764,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>ને તમારી સ્ક્રીન પર ખુલ્લી ઍપમાંથી માહિતી અને કન્ટેન્ટ ઍક્સેસ કરવાની મંજૂરી આપો"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"મંજૂરી આપો"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"મંજૂરી આપશો નહીં"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"લોકેશન બટનનો ઉપયોગ કરીને &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;ને સચોટ લોકેશન ઍક્સેસ કરવાની મંજૂરી આપીએ?"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"જ્યારે તમે સચોટ લોકેશન શેર કરવાનું પસંદ કરો, ત્યારે &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;ને તેને ઍક્સેસ કરવાની મંજૂરી આપીએ?"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"જ્યારે તમે શેર કરો, ત્યારે જ્યાં સુધી તમે ઍપ બંધ ન કરો ત્યાં સુધી આ ઍપને સચોટ લોકેશનનો ઍક્સેસ રહેશે"</string>
 </resources>

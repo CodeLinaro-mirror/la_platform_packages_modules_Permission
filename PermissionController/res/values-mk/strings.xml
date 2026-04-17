@@ -128,14 +128,18 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Контролна табла за приватност"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Дозволи за апликацијата"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Активност на агентот"</string>
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Не се инсталирани агенти"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"Нема пристапи минатите 24 ч."</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"Нема пристапи минатите 7 д."</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Активност во <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"Во минатите 24 часа"</string>
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"Минатите 7 дена"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Денес"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Вчера"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Последен пристап: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Прегледајте"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Нема пристапи"</string>
+    <string name="device_assistance_title" msgid="1445976710214822208">"Помош со уредот"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"да прегледува кои апликации користеле дозволи неодамна"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Користење <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Видете други дозволи"</string>
@@ -202,7 +206,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Дозволи само додека се користи апликацијата"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Секогаш дозволувај ги сите"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Прашувај секогаш"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"Прашувај секогаш или дозволувај при споделување"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Прашувај секогаш или дозволувај при споделување"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"Не дозволувај"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"Дозволи ограничен пристап"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"Прецизна локација"</string>
@@ -267,16 +271,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"Со дозвола"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"Со постојана дозвола"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Со дозвола само додека се користат"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"Дозволено за да продолжи да функционира апликацијата"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Со пристап само до аудиовизуелните содржини"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"Со дозвола за управување со сите датотеки"</string>
     <string name="ask_header" msgid="2633816846459944376">"Прашувај секогаш"</string>
     <string name="denied_header" msgid="903209608358177654">"Без дозвола"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> на <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Прикажи уште апликации што имаат пристап до сите датотеки"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Дозволено за да продолжи да функционира апликацијата&lt;/b&gt;&lt;br&gt;&lt;br&gt;За да продолжи да функционира апликацијата, може да ѝ се дозволи да пристапува до вашата локална мрежа и да се поврзува само со уредите на мрежава.&lt;br&gt;&lt;br&gt;Апликацијата не може да се поврзува со уреди преку Bluetooth и други технологии освен ако ѝ дозволите да ги наоѓа и да се поврзува со сите уреди во близина."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 ден}one{# ден}other{# дена}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# час}one{# час}other{# часа}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# минута}one{# минута}other{# минути}}"</string>
@@ -753,7 +755,7 @@
     <string name="request_app_function_access_dialog_description" msgid="155777384496379754">"Агентов ќе може да пристапува до <xliff:g id="TARGET_APP_NAME">%2$s</xliff:g> за да добива податоци и да презема дејства за вас"</string>
     <string name="request_app_function_dialog_button_allow" msgid="7758794243635329183">"Дозволи"</string>
     <string name="request_app_function_dialog_button_dont_allow" msgid="7657036841986717007">"Не дозволувај"</string>
-    <string name="request_read_screen_context_dialog_title" msgid="9048738661085777679">"Да му се дозволи на помош. &lt;b&gt;<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>&lt;/b&gt; да ги користи податоците од екранот и апликациите?"</string>
+    <string name="request_read_screen_context_dialog_title" msgid="9048738661085777679">"Дали ќе дозволите на &lt;b&gt;<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>&lt;/b&gt; да ги користи податоците од екранот и апликациите?"</string>
     <string name="request_read_screen_context_dialog_description" msgid="627006720540705018">"Помошников ќе може да пристапува до податоците и содржините од апликацијата што е отворена на вашиот екран"</string>
     <string name="request_read_screen_context_dialog_button_allow" msgid="5664102873265905702">"Дозволи"</string>
     <string name="request_read_screen_context_dialog_button_dont_allow" msgid="582852715625937711">"Не дозволувај"</string>
@@ -762,5 +764,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"Дозволете му на помошникот <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> да пристапува до податоците и содржините од апликацијата што е отворена на вашиот екран"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"Дозволи"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"Не дозволувај"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"Да ѝ се дозволи на апликацијата &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; да пристапува до прецизната локација со копче за локација?"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"Да се дозволи &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; да пристапува до прецизната локација кога ќе изберете да ја споделите?"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"Кога споделувате, апликацијава ќе има пристап до прецизната локација додека не ја затворите апликацијата"</string>
 </resources>

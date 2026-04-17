@@ -128,14 +128,18 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"প্রাইভেসি ড্যাশবোর্ড"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"অ্যাপকে দেওয়া অনুমতি"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"এজেন্টের অ্যাক্টিভিটি"</string>
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"কোনও এজেন্ট ইনস্টল করা নেই"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"গত ২৪ ঘণ্টায় অ্যাক্সেস করা হয়নি"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"গত ৭ দিনে অ্যাক্সেস করা হয়নি"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g> অ্যাক্টিভিটি"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"গত ২৪ ঘণ্টায়"</string>
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"গত ৭ দিনে"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"আজ"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"গতকাল"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"শেষবার অ্যাক্সেস করা হয়েছে: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"দেখুন"</string>
-    <!-- no translation found for device_assistance_title (1445976710214822208) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"কোনও অ্যাক্সেস নেই"</string>
+    <string name="device_assistance_title" msgid="1445976710214822208">"ডিভাইস অ্যাসিস্ট্যান্স"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"সম্প্রতি কোন কোন অ্যাপ অনুমতি ব্যবহার করেছে দেখুন"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> ব্যবহার"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"অন্য অনুমতি দেখুন"</string>
@@ -202,7 +206,7 @@
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"শুধু অ্যাপ ব্যবহারের সময় অনুমতি দিন"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"সবসময় সব অনুমোদন করুন"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"প্রতিবার জিজ্ঞাসা করা হবে"</string>
-    <string name="app_permission_button_ask_or_when_i_share" msgid="6762528139112412909">"প্রতিবার জিজ্ঞাসা করা হবে অথবা শেয়ার করার সময় অনুমতি দিন"</string>
+    <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"প্রতিবার জিজ্ঞাসা করা হবে অথবা শেয়ার করার সময় অনুমতি দিন"</string>
     <string name="app_permission_button_deny" msgid="6016454069832050300">"অনুমতি দেবেন না"</string>
     <string name="app_permission_button_allow_limited_access" msgid="8824410215149764113">"সীমিত অ্যাক্সেসের অনুমতি দিন"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"সুনির্দিষ্ট লোকেশন"</string>
@@ -267,16 +271,14 @@
     <string name="allowed_header" msgid="7769277978004790414">"অনুমোদিত"</string>
     <string name="allowed_always_header" msgid="6455903312589013545">"সব সময় অ্যাক্সেস করার অনুমতি আছে"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"শুধুমাত্র ব্যবহার করার সময় অনুমোদিত"</string>
-    <!-- no translation found for allowed_for_compatibility_header (9184156612214246427) -->
-    <skip />
+    <string name="allowed_for_compatibility_header" msgid="9184156612214246427">"অ্যাপকে কাজ চালানোর অনুমতি দেওয়া হয়েছে"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"শুধু মিডিয়া অ্যাক্সেসের অনুমতি দেওয়া হয়েছে"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"সমস্ত ফাইল ম্যানেজ করার অনুমতি দেওয়া হয়েছে"</string>
     <string name="ask_header" msgid="2633816846459944376">"প্রতিবার জিজ্ঞাসা করে"</string>
     <string name="denied_header" msgid="903209608358177654">"অনুমোদিত নয়"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g>-এ <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"সব ফাইল অ্যাক্সেস করতে পারবে এমন আরও অ্যাপ দেখুন"</string>
-    <!-- no translation found for allowed_for_compatibility_nearby_devices_footer (75018894064754943) -->
-    <skip />
+    <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;অ্যাপকে কাজ চালানোর অনুমতি দেওয়া আছে&lt;/b&gt;&lt;br&gt;&lt;br&gt;কোনও অ্যাপকে কাজ করা চালিয়ে যেতে হলে, সেটিকে আপনার লোকাল নেটওয়ার্ক অ্যাক্সেস করার এবং শুধুমাত্র এই নেটওয়ার্কে থাকা ডিভাইসের সাথে কানেক্ট করার অনুমতি দেওয়া হতে পারে।&lt;br&gt;&lt;br&gt;আপনি আশেপাশের সব ডিভাইস খোঁজার ও সেগুলির সাথে কানেক্ট করার অনুমতি না দিলে, অ্যাপটি ব্লুটুথ ও অন্যান্য প্রযুক্তি ব্যবহার করে ডিভাইসের সাথে কানেক্ট করতে পারবে না।"</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{১ দিন}one{# দিন}other{# দিন}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# ঘণ্টা}one{# ঘণ্টা}other{# ঘণ্টা}}"</string>
     <string name="minutes" msgid="4868414855445375753">"{count,plural, =1{# মিনিট}one{# মিনিট}other{# মিনিট}}"</string>
@@ -762,5 +764,6 @@
     <string name="read_screen_context_setting_description" msgid="3610476260828196298">"আপনার স্ক্রিনে খোলা অ্যাপ থেকে তথ্য ও কন্টেন্ট অ্যাক্সেস করার জন্য <xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g>-কে অনুমতি দিন"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"অনুমতি দিন"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"অনুমতি দেবেন না"</string>
-    <string name="request_location_button_permissions_dialog_title" msgid="5211661841432642995">"লোকেশন বোতাম ব্যবহার করে &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;-কে সুনির্দিষ্ট লোকেশন অ্যাক্সেস করার অনুমতি দেবেন?"</string>
+    <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"আপনি লোকেশন শেয়ার করার বিকল্প বেছে নিলে, &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;-কে সুনির্দিষ্ট লোকেশন অ্যাক্সেস করার অনুমতি দেবেন?"</string>
+    <string name="request_location_button_permissions_dialog_subtitle" msgid="4401187641885414225">"আপনি শেয়ার করলে, অ্যাপ বন্ধ না করা পর্যন্ত এই অ্যাপের কাছে সুনির্দিষ্ট লোকেশন অ্যাক্সেস করার অনুমতি থাকবে"</string>
 </resources>
