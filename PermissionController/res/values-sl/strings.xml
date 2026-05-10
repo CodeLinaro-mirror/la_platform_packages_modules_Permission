@@ -128,22 +128,19 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"Nadzorna plošča za zasebnost"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Dovoljenja za aplikacije"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Dejavnost zastopnika"</string>
-    <!-- no translation found for empty_agent_activity_preference_title (7682932823345395104) -->
-    <skip />
-    <!-- no translation found for agent_activity_preference_summary_no_accesses_24h (7194072619746100487) -->
-    <skip />
-    <!-- no translation found for agent_activity_preference_summary_no_accesses_7d (8023811607582607766) -->
-    <skip />
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Noben agent ni nameščen"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"Ni bilo dostopov v zadnjih 24 urah"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"Ni bilo dostopov v zadnjih 7 dneh"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"Dejavnost agenta <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"V zadnjih 24 urah"</string>
-    <!-- no translation found for agent_activity_timeline_category_title_7d (6957587886375942104) -->
-    <skip />
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"V zadnjih 7 dneh"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"Danes"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"Včeraj"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Zadnji dostop: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Ogled"</string>
-    <!-- no translation found for empty_agent_activity_timeline_preference_title (7099292969424621771) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Ni dostopov"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Ta agent je dostopal do teh aplikacij, da je pridobil informacije ali izvedel dejanja za vas. To lahko kadar koli spremenite v nastavitvah aplikacije <xliff:g id="APP_NAME">%1$s</xliff:g>."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"Nadzorna plošča za zasebnost je prikazana samo, ko se do aplikacij dostopa z uporabo funkcij Androida za agente."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Pomoč za naprave"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Prikaz aplikacij, ki so pred kratkim uporabile dovoljenja."</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Uporaba dovoljenja »<xliff:g id="PERMGROUP">%1$s</xliff:g>«"</string>
@@ -209,6 +206,7 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Dovoli samo dostop do predstavnosti"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Vedno dovoli"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Dovoli samo med uporabo aplikacije"</string>
+    <string name="app_permission_button_allow_for_compatibility" msgid="3337157819467626432">"Dovoli za nadaljnje delovanje aplikacije"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Vedno dovoli vse"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Vedno vprašaj"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Vprašaj vsakič ali dovoli pri deljenju"</string>
@@ -283,6 +281,7 @@
     <string name="denied_header" msgid="903209608358177654">"Ni dovoljeno"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"Skupina dovoljenj »<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>« v napravi <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Prikaži več aplikacij z dostopom do vseh datotek"</string>
+    <string name="allow_for_compatibility_nearby_devices_footer" msgid="4788336711372843546">"&lt;b&gt;Dovoli za nadaljnje delovanje aplikacije&lt;/b&gt;&lt;br&gt;&lt;br&gt;Da bo aplikacija še naprej delovala, bo morda lahko dostopala do lokalnega omrežja in se povezala z napravami v tem omrežju.&lt;br&gt;&lt;br&gt;Aplikacija se ne more povezati z napravami prek Bluetootha in drugih tehnologij, razen če ji dovolite, da poišče vse naprave v bližini in se poveže z njimi."</string>
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Dovoljeno, da lahko aplikacija deluje&lt;/b&gt;&lt;br&gt;&lt;br&gt;Če želite, da aplikacija še naprej deluje, ima morda dovoljenje za dostop do lokalnega omrežja in povezovanje z napravami v tem omrežju.&lt;br&gt;&lt;br&gt;Aplikacija se ne more povezati z napravami prek Bluetootha in drugih tehnologij, razen če ji dovolite, da poišče vse naprave v bližini in se poveže z njimi."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 dan}one{# dan}two{# dneva}few{# dni}other{# dni}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# ura}one{# ura}two{# uri}few{# ure}other{# ur}}"</string>

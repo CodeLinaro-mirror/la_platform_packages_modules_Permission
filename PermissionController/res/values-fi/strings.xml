@@ -139,6 +139,8 @@
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Viimeinen käyttökerta: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Näytä"</string>
     <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Ei pääsyjä"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Agentti haki tietoja tai toimi näiden sovellusten avulla. Voit vaihtaa valintaa milloin tahansa Asetuksista (<xliff:g id="APP_NAME">%1$s</xliff:g>)."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"Yksityisyydenhallintapaneeli näkyy vain Android-agenttiominaisuuksia käytettäessä."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Laiteavustajat"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Katso, mitkä sovellukset ovat käyttäneet lupia äskettäin"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> käytössä"</string>
@@ -204,6 +206,7 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Salli pääsy vain mediaan"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Salli aina"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Salli vain käytön aikana"</string>
+    <string name="app_permission_button_allow_for_compatibility" msgid="3337157819467626432">"Salli, jotta sovellus toimii"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Salli aina kaikki"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Kysy aina"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Kysy aina tai salli, kun jaat"</string>
@@ -213,8 +216,8 @@
     <string name="approximate_image_description" msgid="938803699637069884">"Likimääräinen sijainti"</string>
     <string name="app_permission_location_accuracy" msgid="7166912915040018669">"Käytä tarkkaa sijaintia"</string>
     <string name="app_permission_location_accuracy_subtitle" msgid="2654077606404987210">"Kun tarkka sijainti ei ole päällä, sovellukset voivat käyttää likimääräistä sijaintiasi"</string>
-    <string name="app_permission_title" msgid="2090897901051370711">"<xliff:g id="PERM">%1$s</xliff:g> -lupa"</string>
-    <string name="app_permission_header" msgid="2951363137032603806">"Sovellus pyytää <xliff:g id="PERM">%1$s</xliff:g>-lupaa"</string>
+    <string name="app_permission_title" msgid="2090897901051370711">"Lupa: <xliff:g id="PERM">%1$s</xliff:g>"</string>
+    <string name="app_permission_header" msgid="2951363137032603806">"Sovellus pyytää seuraavaa lupaa: <xliff:g id="PERM">%1$s</xliff:g>"</string>
     <string name="app_permission_header_with_device_name" msgid="7193042925656173271">"Tällä sovelluksella on pääsy (<xliff:g id="PERM">%1$s</xliff:g>) laitteella <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="app_permission_footer_app_permissions_link" msgid="4926890342636587393">"Näytä kaikki luvat, jotka <xliff:g id="APP">%1$s</xliff:g> on saanut"</string>
     <string name="app_permission_footer_permission_apps_link" msgid="3941988129992794327">"Näytä kaikki sovellukset, joilla on tämä lupa"</string>
@@ -278,6 +281,7 @@
     <string name="denied_header" msgid="903209608358177654">"Ei sallittu"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>, <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Muut sovellukset, joilla on pääsy kaikkiin tiedostoihin"</string>
+    <string name="allow_for_compatibility_nearby_devices_footer" msgid="4788336711372843546">"&lt;b&gt;Salli, jotta sovellus toimii&lt;/b&gt;&lt;br&gt;&lt;br&gt;Sovellukselle voidaan sallia pääsy paikalliseen verkkoon ja yhdistäminen vain tämän verkon laitteisiin, jotta sovellus toimii.&lt;br&gt;&lt;br&gt;Sovellus ei voi muodostaa yhteyttä laitteisiin Bluetoothin tai muiden teknologioiden avulla, ellet salli sen löytää kaikkia lähellä olevia laitteita ja muodostaa niihin yhteyttä."</string>
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Sallittu, jotta sovellus toimii&lt;/b&gt;&lt;br&gt;&lt;br&gt;Sovellukselle voidaan sallia pääsy paikalliseen verkkoon ja yhdistäminen vain tämän verkon laitteisiin, jotta sovellus toimii.&lt;br&gt;&lt;br&gt;Sovellus ei voi muodostaa yhteyttä laitteisiin Bluetoothin tai muiden teknologioiden avulla, ellet salli sen löytää kaikkia lähellä olevia laitteita ja muodostaa niihin yhteyttä."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 päivä}other{# päivää}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# tunti}other{# tuntia}}"</string>
@@ -512,7 +516,7 @@
     <string name="permgroupupgraderequestdetail_nearby_devices" msgid="6877531270654738614">"Saako &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; löytää lähellä olevia laitteita, yhdistää niihin ja määrittää niiden suhteellisen sijainnin? "<annotation id="link">"Myönnä lupa asetuksista."</annotation></string>
     <string name="permgrouprequest_fineupgrade" msgid="2334242928821697672">"Muutetaanko sijainnin käyttöoikeus (<xliff:g id="APP_NAME">&lt;b&gt;%1$s&lt;/b&gt;</xliff:g>) likimääräisestä tarkaksi?"</string>
     <string name="permgrouprequest_device_aware_fineupgrade" msgid="4453775952305587571">"Muutetaanko sijainnin pääsyoikeudet (<xliff:g id="APP_NAME">&lt;b&gt;%1$s&lt;/b&gt;</xliff:g>) laitteella (&lt;b&gt;<xliff:g id="DEVICE_NAME">%2$s</xliff:g>&lt;/b&gt;) likimääräisistä tarkoiksi?"</string>
-    <string name="permgrouprequest_coarselocation" msgid="7244605063736425232">"Saako &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; pääsyn tämän laitteen karkeaan sijaintiin?"</string>
+    <string name="permgrouprequest_coarselocation" msgid="7244605063736425232">"Saako &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; pääsyn tämän laitteen likimääräiseen sijaintiin?"</string>
     <string name="permgrouprequest_device_aware_coarselocation" msgid="8367540370912066757">"Saako &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; pääsyn likimääräiseen sijaintiin (&lt;b&gt;<xliff:g id="DEVICE_NAME">%2$s</xliff:g>&lt;/b&gt;)?"</string>
     <string name="permgrouprequest_finelocation_imagetext" msgid="1313062433398914334">"Tarkka"</string>
     <string name="permgrouprequest_coarselocation_imagetext" msgid="8650605041483025297">"Likimääräinen"</string>

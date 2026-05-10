@@ -128,22 +128,19 @@
     <string name="permission_usage_title" msgid="1568233336351734538">"गोपनीयतासम्बन्धी ड्यासबोर्ड"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"एपलाई दिइएका अनुमति"</string>
     <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"एजेन्टले गरेका गतिविधि"</string>
-    <!-- no translation found for empty_agent_activity_preference_title (7682932823345395104) -->
-    <skip />
-    <!-- no translation found for agent_activity_preference_summary_no_accesses_24h (7194072619746100487) -->
-    <skip />
-    <!-- no translation found for agent_activity_preference_summary_no_accesses_7d (8023811607582607766) -->
-    <skip />
+    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"कुनै पनि एजेन्ट इन्स्टल गरिएको छैन"</string>
+    <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"विगत २४ घण्टामा एक्सेस गरिएको छैन"</string>
+    <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"विगत ७ दिनमा एक्सेस गरिएको छैन"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g> मा गरिएको गतिविधि"</string>
     <string name="agent_activity_timeline_category_title_24h" msgid="6534067957142090358">"विगत २४ घण्टामा"</string>
-    <!-- no translation found for agent_activity_timeline_category_title_7d (6957587886375942104) -->
-    <skip />
+    <string name="agent_activity_timeline_category_title_7d" msgid="6957587886375942104">"विगत ७ दिनमा"</string>
     <string name="agent_activity_timeline_category_title_today" msgid="557030782460256459">"आज"</string>
     <string name="agent_activity_timeline_category_title_yesterday" msgid="8330670564653939302">"हिजो"</string>
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"पछिल्लो पटक <xliff:g id="TIME_DATE">%1$s</xliff:g> मा एक्सेस गरिएको"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"हेर्नुहोस्"</string>
-    <!-- no translation found for empty_agent_activity_timeline_preference_title (7099292969424621771) -->
-    <skip />
+    <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"एक्सेस गरिएको छैन"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"यो एजेन्टले जानकारी प्राप्त गर्न वा तपाईंका तर्फबाट कारबाहीहरू गरिदिनका निम्ति यी एपहरू एक्सेस गरेको छ। तपाईं जुनसुकै बेला <xliff:g id="APP_NAME">%1$s</xliff:g> का सेटिङमा गई यसलाई परिवर्तन गर्न सक्नुहुन्छ।"</string>
+    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"एजेन्टहरूका लागि उपलब्ध Android का सुविधाहरू प्रयोग गरी एपहरू एक्सेस गरेका बेला मात्र गोपनीयतासम्बन्धी ड्यासबोर्ड देखिन्छ।"</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"डिभाइससम्बन्धी सहायता"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"हालै कुन कुन एपले अनुमति प्रयोग गरेका छन् हेर्नुहोस्"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g> को प्रयोग"</string>
@@ -209,6 +206,7 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"केवल मिडिया प्रयोग गर्ने अनुमति दिनुहोस्"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"सधैँ अनुमति दिनुहोस्"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"यो एप प्रयोग गरिरहेका बेला मात्र अनुमति दिनुहोस्"</string>
+    <string name="app_permission_button_allow_for_compatibility" msgid="3337157819467626432">"एपलाई चलिरहने अनुमति दिनुहोस्"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"सधैँ सबै अनुमति दिनुहोस्"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"प्रत्येक पटक सोध्नुहोस्"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"प्रत्येक पटक अनुमति माग्नुहोस् वा सेयर गर्दा अनुमति दिनुहोस्"</string>
@@ -283,6 +281,7 @@
     <string name="denied_header" msgid="903209608358177654">"अनुमति नदिइएका"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="DEVICE_NAME">%2$s</xliff:g> को <xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"सबै फाइल हेर्ने र प्रयोग गर्ने अनुमति भएका थप एपहरू हेर्नुहोस्"</string>
+    <string name="allow_for_compatibility_nearby_devices_footer" msgid="4788336711372843546">"&lt;b&gt;एपलाई चलिरहने अनुमति दिनुहोस्&lt;/b&gt;&lt;br&gt;&lt;br&gt;कुनै एपलाई चलिरहने अनुमति दिन यसलाई तपाईंको लोकल नेटवर्क एक्सेस गर्न र यो नेटवर्कमा भएका डिभाइसहरूसँग मात्र कनेक्ट गर्न दिइएको हुन सक्छ।&lt;br&gt;&lt;br&gt;तपाईंले यो एपलाई नजिकैका सबै डिभाइसहरू भेट्टाउने र कनेक्ट गर्ने अनुमति नदिएसम्म यसले ब्लुटुथ र अन्य प्रविधि प्रयोग गरी डिभाइसहरूसँग कनेक्ट हुन सक्दैन।"</string>
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;एपलाई चलिरहने अनुमति दिइएको छ&lt;/b&gt;&lt;br&gt;&lt;br&gt;कुनै एपलाई चलिरहने अनुमति दिन यसलाई तपाईंको लोकल नेटवर्क एक्सेस गर्न र यो नेटवर्कमा भएका डिभाइसहरूसँग मात्र कनेक्ट गर्न दिइएको हुन सक्छ।&lt;br&gt;&lt;br&gt;तपाईंले यो एपलाई नजिकैका सबै डिभाइसहरू भेट्टाउने र कनेक्ट गर्ने अनुमति नदिएसम्म यसले ब्लुटुथ र अन्य प्रविधि प्रयोग गरी डिभाइसहरूसँग कनेक्ट हुन सक्दैन।"</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{१ दिन}other{# दिन}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# घण्टा}other{# घण्टा}}"</string>
@@ -482,7 +481,7 @@
     <string name="assistant_confirmation_message" msgid="7476540402884416212">"सहायकले तपाईंको स्क्रिनमा देखिने वा अनुप्रयोगभित्रबाट पहुँच राख्न सकिने जानकारीलगायत तपाईंको प्रणालीमा प्रयोगमा रहेका एपसम्बन्धी जानकारी पढ्न सक्ने छ।"</string>
     <string name="assistant_confirmation_title_v37" msgid="4998437583005547092">"आफ्नो डिजिटल एसिस्टेन्ट एप परिवर्तन गरी &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; बनाउने हो?"</string>
     <string name="assistant_confirmation_message_v37" msgid="4763150587952308197">"यो एसिस्टेन्टले तपाईंका म्यासेज र एपहरूले तपाईंको एसिस्टेन्टसँग सेयर गरेका जानकारी जस्ता कुरा एक्सेस गर्न सक्ने छ।"</string>
-    <string name="assistant_confirmation_message_access_restored_v37" msgid="2731391781319881100">"यो एसिस्टेन्टले तपाईंका म्यासेज र एपहरूले तपाईंको एसिस्टेन्टसँग सेयर गरेका डेटा जस्ता जानकारी एक्सेस गर्न सक्ने छ।&lt;br&gt;&lt;br&gt;तपाईंले यसअघि <xliff:g id="APP_NAME">%1$s</xliff:g> लाई स्क्रिन तथा एपसम्बन्धी डेटा अन गर्नुभएकाले यसलाई तपाईंको स्क्रिनमा खोलिएको एपमा भएको सामग्री एक्सेस गर्ने अनुमति पनि दिइने छ।"</string>
+    <string name="assistant_confirmation_message_access_restored_v37" msgid="2731391781319881100">"यो एसिस्टेन्टले तपाईंका म्यासेज र एपहरूले तपाईंको एसिस्टेन्टसँग सेयर गरेका डेटा जस्ता जानकारी एक्सेस गर्न सक्ने छ।&lt;br&gt;&lt;br&gt;तपाईंले यसअघि <xliff:g id="APP_NAME">%1$s</xliff:g> लाई स्क्रिन तथा एपसम्बन्धी डेटा अन गर्नुभएकाले यसलाई तपाईंको स्क्रिनमा खोलिएको एपमा भएको कन्टेन्ट एक्सेस गर्ने अनुमति पनि दिइने छ।"</string>
     <string name="incident_report_channel_name" msgid="3144954065936288440">"डिबग प्रक्रियासम्बन्धी डेटा सेयर गर्नुहोस्"</string>
     <string name="incident_report_notification_title" msgid="4635984625656519773">"डिबग प्रक्रियाको विस्तृत डेटा आदान प्रदान गर्ने?"</string>
     <string name="incident_report_notification_text" msgid="3376480583513587923">"<xliff:g id="APP_NAME">%1$s</xliff:g> डिबग प्रक्रियासम्बन्धी जानकारी अपलोड गर्न चाहन्छ।"</string>
@@ -765,8 +764,8 @@
     <string name="request_read_screen_context_dialog_button_allow" msgid="5664102873265905702">"अनुमति दिनुहोस्"</string>
     <string name="request_read_screen_context_dialog_button_dont_allow" msgid="582852715625937711">"अनुमति नदिनुहोस्"</string>
     <string name="read_screen_context_setting_title" msgid="5557279099665174872">"स्क्रिन तथा एपसम्बन्धी डेटा प्रयोग गर्नुहोस्"</string>
-    <string name="read_screen_context_setting_default_description" msgid="4349794650902006368">"एसिस्टेन्टलाई तपाईंको स्क्रिनमा खोलिएको एपमा भएको जानकारी र सामग्री एक्सेस गर्ने अनुमति दिनुहोस्"</string>
-    <string name="read_screen_context_setting_description" msgid="3610476260828196298">"<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> लाई तपाईंको स्क्रिनमा खोलिएको एपमा भएको जानकारी र सामग्री एक्सेस गर्ने अनुमति दिनुहोस्"</string>
+    <string name="read_screen_context_setting_default_description" msgid="4349794650902006368">"एसिस्टेन्टलाई तपाईंको स्क्रिनमा खोलिएको एपमा भएको जानकारी र कन्टेन्ट एक्सेस गर्ने अनुमति दिनुहोस्"</string>
+    <string name="read_screen_context_setting_description" msgid="3610476260828196298">"<xliff:g id="ASSISTANT_APP_NAME">%1$s</xliff:g> लाई तपाईंको स्क्रिनमा खोलिएको एपमा भएको जानकारी र कन्टेन्ट एक्सेस गर्ने अनुमति दिनुहोस्"</string>
     <string name="request_location_button_permissions_dialog_button_allow" msgid="3422800468376317863">"अनुमति दिनुहोस्"</string>
     <string name="request_location_button_permissions_dialog_button_dont_allow" msgid="3273946372861701473">"अनुमति नदिनुहोस्"</string>
     <string name="request_location_button_permissions_dialog_title" msgid="1305012762950180684">"तपाईंले सटीक लोकेसन सेयर गर्ने विकल्प छनौट गर्दा &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; लाई सटीक लोकेसन एक्सेस गर्ने अनुमति दिने हो?"</string>
