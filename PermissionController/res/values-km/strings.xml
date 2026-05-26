@@ -127,8 +127,8 @@
     <string name="app_name_unknown" msgid="1319665005754048952">"មិនស្គាល់"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"ផ្ទាំងគ្រប់គ្រង​ឯកជនភាព"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"ការអនុញ្ញាតកម្មវិធី"</string>
-    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"សកម្មភាពភ្នាក់ងារ"</string>
-    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"មិនបានដំឡើងភ្នាក់ងារទេ"</string>
+    <string name="permission_usage_agent_activity_title" msgid="1638779122738460526">"សកម្មភាពជំនួយការ AI"</string>
+    <string name="empty_agent_activity_preference_title" msgid="8561407829155181686">"មិនបានដំឡើងជំនួយការ AI ទេ"</string>
     <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"គ្មានការចូលប្រើរយៈពេល 24 ម៉ោងចុងក្រោយ"</string>
     <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"គ្មានការចូលប្រើរយៈពេល 7 ថ្ងៃចុងក្រោយ"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"សកម្មភាព <xliff:g id="APP_NAME">%1$s</xliff:g>"</string>
@@ -139,8 +139,8 @@
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"ការចូលប្រើ​ចុងក្រោយម៉ោង <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"មើល"</string>
     <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"គ្មានការចូលប្រើ"</string>
-    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"ភ្នាក់ងារនេះបានចូលប្រើកម្មវិធីទាំងនេះ ដើម្បីទទួលបានព័ត៌មាន ឬធ្វើសកម្មភាពជំនួសអ្នក។ អ្នកអាចប្ដូរមុខងារនេះពេលណាក៏បានក្នុងការកំណត់ <xliff:g id="APP_NAME">%1$s</xliff:g>។"</string>
-    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"ផ្ទាំងគ្រប់គ្រងឯកជនភាពបង្ហាញតែនៅពេលដែលកម្មវិធីត្រូវបានចូលប្រើដោយប្រើមុខងារ Android សម្រាប់ភ្នាក់ងារប៉ុណ្ណោះ។"</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="7546537264364923134">"ជំនួយការ AI នេះបានចូលប្រើកម្មវិធីទាំងនេះ ដើម្បីទទួលបានព័ត៌មាន ឬធ្វើសកម្មភាពជំនួសអ្នក។ អ្នកអាចប្ដូរមុខងារនេះពេលណាក៏បានក្នុងការកំណត់ <xliff:g id="APP_NAME">%1$s</xliff:g>។"</string>
+    <string name="agent_activity_timeline_footer_title" msgid="3409102224958679323">"ផ្ទាំងគ្រប់គ្រងឯកជនភាពបង្ហាញតែនៅពេលដែលកម្មវិធីត្រូវបានចូលប្រើដោយប្រើមុខងារ Android សម្រាប់ជំនួយការ AI ប៉ុណ្ណោះ។"</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"ជំនួយឧបករណ៍"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"មើលកម្មវិធី​ដែលបានប្រើ​ការអនុញ្ញាតនា​ពេលថ្មីៗនេះ"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"ការប្រើប្រាស់​<xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -206,6 +206,7 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"អនុញ្ញាតឱ្យចូលប្រើ​មេឌៀតែប៉ុណ្ណោះ"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"អនុញ្ញាតគ្រប់ពេល"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"អនុញ្ញាត​ពេល​កំពុង​ប្រើប្រាស់​កម្មវិធីតែ​ប៉ុណ្ណោះ"</string>
+    <string name="app_permission_button_allow_for_compatibility" msgid="3337157819467626432">"អនុញ្ញាតឱ្យកម្មវិធីបន្តដំណើរការ"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"អនុញ្ញាតទាំងអស់ជានិច្ច"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"សួរគ្រប់ពេល"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"សួរគ្រប់ពេល ឬអនុញ្ញាតនៅពេលអ្នកចែករំលែក"</string>
@@ -280,6 +281,7 @@
     <string name="denied_header" msgid="903209608358177654">"មិន​បានអនុញ្ញាត​"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> នៅលើ <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"មើលកម្មវិធីច្រើនទៀតដែលអាចចូលប្រើឯកសារទាំងអស់បាន"</string>
+    <string name="allow_for_compatibility_nearby_devices_footer" msgid="4788336711372843546">"&lt;b&gt;អនុញ្ញាតដើម្បីឱ្យកម្មវិធីបន្តដំណើរការ&lt;/b&gt;&lt;br&gt;&lt;br&gt;ដើម្បីឱ្យកម្មវិធីបន្តដំណើរការ កម្មវិធីនោះអាចត្រូវបានអនុញ្ញាតឱ្យចូលប្រើបណ្ដាញមូលដ្ឋានរបស់អ្នក និងភ្ជាប់ជាមួយឧបករណ៍នៅលើបណ្ដាញនេះតែប៉ុណ្ណោះ។&lt;br&gt;&lt;br&gt;កម្មវិធីនោះមិនអាចភ្ជាប់ទៅឧបករណ៍ដោយប្រើប៊្លូធូស និងបច្ចេកវិទ្យាផ្សេងទៀតបានទេ ប្រសិនបើអ្នកមិនអនុញ្ញាតឱ្យវាស្វែងរក និងភ្ជាប់ទៅឧបករណ៍នៅជិតទាំងអស់។"</string>
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;បានអនុញ្ញាតដើម្បីឱ្យកម្មវិធីបន្តដំណើរការ&lt;/b&gt;&lt;br&gt;&lt;br&gt;ដើម្បីឱ្យកម្មវិធីបន្តដំណើរការ កម្មវិធីនោះអាចត្រូវបានអនុញ្ញាតឱ្យចូលប្រើបណ្ដាញមូលដ្ឋានរបស់អ្នក និងភ្ជាប់ជាមួយឧបករណ៍នៅលើបណ្ដាញនេះតែប៉ុណ្ណោះ។&lt;br&gt;&lt;br&gt;កម្មវិធីនោះមិនអាចភ្ជាប់ទៅឧបករណ៍ដោយប្រើប៊្លូធូស និងបច្ចេកវិទ្យាផ្សេងទៀតបានទេ ប្រសិនបើអ្នកមិនអនុញ្ញាតឱ្យវាស្វែងរក និងភ្ជាប់ទៅឧបករណ៍នៅជិតទាំងអស់។"</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 ថ្ងៃ}other{# ថ្ងៃ}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# ម៉ោង}other{# ម៉ោង}}"</string>

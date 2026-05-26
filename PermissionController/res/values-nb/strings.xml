@@ -127,8 +127,8 @@
     <string name="app_name_unknown" msgid="1319665005754048952">"Ukjent"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"Personvernoversikt"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"Apptillatelser"</string>
-    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"Agentaktivitet"</string>
-    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"Ingen agenter er installert"</string>
+    <string name="permission_usage_agent_activity_title" msgid="1638779122738460526">"Aktivitet med AI-assistent"</string>
+    <string name="empty_agent_activity_preference_title" msgid="8561407829155181686">"Ingen AI-assistent installert"</string>
     <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"Ingen bruk de siste 24 timene"</string>
     <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"Ingen bruk de siste 7 dagene"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g>-aktivitet"</string>
@@ -139,8 +139,8 @@
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"Siste tilgang: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"Se"</string>
     <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"Ingen bruk"</string>
-    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"Agenten brukte disse appene for å hente info eller utføre handlinger for deg. Du kan endre denne tilgangen når som helst i <xliff:g id="APP_NAME">%1$s</xliff:g>-innstillingene."</string>
-    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"Personvernoversikten vises bare når apper åpnes via Android-funksjoner for agenter."</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="7546537264364923134">"Agenten brukte appene for å hente info eller utføre handlinger. Du kan endre tilgangen når som helst i <xliff:g id="APP_NAME">%1$s</xliff:g>-innstillingene."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="3409102224958679323">"Personvernoversikten vises bare når apper åpnes via Android-funksjoner for AI-assistenter."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"Enhetshjelp"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"Se hvilke apper som nylig har brukt tillatelser"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Bruk av <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
@@ -206,6 +206,7 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Har bare tilgang til medier"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Tillat hele tiden"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Bare tillat når appen brukes"</string>
+    <string name="app_permission_button_allow_for_compatibility" msgid="3337157819467626432">"Tillat for å holde appen i gang"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"Tillat alltid alle"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Spør hver gang"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"Spør hver gang, eller tillat når du deler"</string>
@@ -280,6 +281,7 @@
     <string name="denied_header" msgid="903209608358177654">"Ikke tillatt"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> på <xliff:g id="DEVICE_NAME">%2$s</xliff:g>"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"Se flere apper som kan bruke alle filer"</string>
+    <string name="allow_for_compatibility_nearby_devices_footer" msgid="4788336711372843546">"&lt;b&gt;Tillat for å holde appen i gang&lt;/b&gt;&lt;br&gt;&lt;br&gt;For at en app skal kunne fortsette å fungere, kan den få tillatelse til å bruke det lokale nettverket ditt og koble til enheter bare på dette nettverket.&lt;br&gt;&lt;br&gt;Appen kan ikke koble til enheter via Bluetooth og andre teknologier, med mindre du gir den tillatelse til å finne og koble til alle enheter i nærheten."</string>
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;Tillatt for at appen skal fungere&lt;/b&gt;&lt;br&gt;&lt;br&gt;For å fungere som den skal, kan en app få tillatelse til å bruke det lokale nettverket og koble til enheter der.&lt;br&gt;&lt;br&gt;Appen kan ikke koble til enheter via Bluetooth eller andre teknologier, med mindre du gir den tillatelse til å finne og koble til alle enheter i nærheten."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 dag}other{# dager}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# time}other{# timer}}"</string>

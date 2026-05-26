@@ -127,8 +127,8 @@
     <string name="app_name_unknown" msgid="1319665005754048952">"უცნობი"</string>
     <string name="permission_usage_title" msgid="1568233336351734538">"კონფიდენციალურობის საინფ. დაფა"</string>
     <string name="permission_usage_app_permissions_title" msgid="7238764049615371525">"აპის ნებართვები"</string>
-    <string name="permission_usage_agent_activity_title" msgid="8169150514365050522">"აგენტის აქტივობა"</string>
-    <string name="empty_agent_activity_preference_title" msgid="7682932823345395104">"აგენტები ინსტალირებული არაა"</string>
+    <string name="permission_usage_agent_activity_title" msgid="1638779122738460526">"AI ასისტენტის აქტივობა"</string>
+    <string name="empty_agent_activity_preference_title" msgid="8561407829155181686">"AI ასისტენტები დაყენებული არაა"</string>
     <string name="agent_activity_preference_summary_no_accesses_24h" msgid="7194072619746100487">"ბოლო 24 სთ-ში წვდომა არ ყოფილა"</string>
     <string name="agent_activity_preference_summary_no_accesses_7d" msgid="8023811607582607766">"ბოლო 7 დღეში წვდომა არ ყოფილა"</string>
     <string name="agent_activity_timeline_title" msgid="5946267721775302726">"<xliff:g id="APP_NAME">%1$s</xliff:g> — აქტივობა"</string>
@@ -139,8 +139,8 @@
     <string name="agent_activity_timeline_activity_summary" msgid="8865161887228114724">"ბოლო წვდომის დრო: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="agent_activity_timeline_preference_widget" msgid="8771365108648764365">"ნახვა"</string>
     <string name="empty_agent_activity_timeline_preference_title" msgid="7099292969424621771">"წვდომები არ არის"</string>
-    <string name="agent_activity_timeline_top_intro_title" msgid="3996188348469089545">"ამ აგენტმა მიიღო წვდომა ამ აპებზე ინფორმაციის მისაღებად ან თქვენი სახელით მოქმედებების შესასრულებლად. ამის შეცვლა ნებისმიერ დროს შეგიძლიათ <xliff:g id="APP_NAME">%1$s</xliff:g>-ის პარამეტრებიდან."</string>
-    <string name="agent_activity_timeline_footer_title" msgid="6959375013990594999">"კონფიდენციალურობის საინფორმაციო დაფა ნაჩვენებია, როდესაც აპებზე წვდომა ხდება Android-ის ფუნქციების გამოყენებით აგენტებისთვის."</string>
+    <string name="agent_activity_timeline_top_intro_title" msgid="7546537264364923134">"ამ AI ასისტენტმა მიიღო წვდომა ამ აპებზე ინფორმაციის მისაღებად ან თქვენი სახელით მოქმედებების შესასრულებლად. ამის შეცვლა ნებისმიერ დროს შეგიძლიათ <xliff:g id="APP_NAME">%1$s</xliff:g>-ის პარამეტრებიდან."</string>
+    <string name="agent_activity_timeline_footer_title" msgid="3409102224958679323">"კონფ. საინფორმაციო დაფა აჩვენებს მხოლოდ აპებზე წვდომის დროს AI ასისტენტებისთვის Android-ის ფუნქციებით."</string>
     <string name="device_assistance_title" msgid="1445976710214822208">"დახმარება მოწყობ. დაკავშირებით"</string>
     <string name="auto_permission_usage_summary" msgid="7335667266743337075">"ნახეთ, რომელმა აპებმა გამოიყენა ახლახან ნებართვები"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g>-ის გამოყენება"</string>
@@ -206,6 +206,7 @@
     <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"მხოლოდ მედიაზე წვდომის დაშვება"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"ყოველთვის დაშვება"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"მხოლოდ აპის გამოყენებისას დაშვება"</string>
+    <string name="app_permission_button_allow_for_compatibility" msgid="3337157819467626432">"აპის მუშაობის გაგრძელების ნებართვა"</string>
     <string name="app_permission_button_always_allow_all" msgid="4905699259378428855">"ყოველთვის ყველას დაშვება"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"ყოველთვის მკითხე"</string>
     <string name="app_permission_button_ask_or_when_you_share" msgid="5609521340593096465">"ყოველ ჯერზე კითხვა ან გაზიარებისას დაშვება"</string>
@@ -280,6 +281,7 @@
     <string name="denied_header" msgid="903209608358177654">"არ არის დაშვებული"</string>
     <string name="permission_group_name_with_device_name" msgid="8798741850536024820">"<xliff:g id="PERM_GROUP_NAME">%1$s</xliff:g> (<xliff:g id="DEVICE_NAME">%2$s</xliff:g>)"</string>
     <string name="storage_footer_hyperlink_text" msgid="8873343987957834810">"სხვა აპების ნახვა, რომლებსაც ყველა ფაილზე წვდომა შეუძლია"</string>
+    <string name="allow_for_compatibility_nearby_devices_footer" msgid="4788336711372843546">"&lt;b&gt;აპის მუშაობის გაგრძელების ნებართვა&lt;/b&gt;&lt;br&gt;&lt;br&gt;აპის მუშაობის გაგრძელების მიზნით, შესაძლოა საჭირო გახდეს მისთვის თქვენს ლოკალურ ქსელზე წვდომის და ამ ქსელში არსებულ მოწყობილობებთან დაკავშირების ნებართვის მიცემა.&lt;br&gt;&lt;br&gt;აპი ვერ დაუკავშირდება მოწყობილობებს Bluetooth-ისა და სხვა ტექნოლოგიების გამოყენებით, თუ არ მისცემთ მას ახლომახლო ყველა მოწყობილობის პოვნის და მათთან დაკავშირების ნებართვას."</string>
     <string name="allowed_for_compatibility_nearby_devices_footer" msgid="75018894064754943">"&lt;b&gt;აპის მუშაობის გაგრძელების ნებართვა&lt;/b&gt;&lt;br&gt;&lt;br&gt;აპის მუშაობის გაგრძელების მიზნით, შესაძლოა, საჭირო გახდეს მისთვის თქვენს ლოკალურ ქსელზე წვდომის და ამ ქსელში არსებულ მოწყობილობებთან დაკავშირების ნებართვის მიცემა.&lt;br&gt;&lt;br&gt;აპი ვერ დაუკავშირდება მოწყობილობებს Bluetooth-ისა და სხვა ტექნოლოგიების გამოყენებით, თუ არ მისცემთ მას ახლომახლო ყველა მოწყობილობის პოვნის და მათთან დაკავშირების ნებართვას."</string>
     <string name="days" msgid="609563020985571393">"{count,plural, =1{1 დღე}other{# დღე}}"</string>
     <string name="hours" msgid="7302866489666950038">"{count,plural, =1{# საათი}other{# საათი}}"</string>
