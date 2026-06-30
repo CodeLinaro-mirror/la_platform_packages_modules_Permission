@@ -261,7 +261,7 @@ internal object RuntimePermissionsUpgradeController {
                     // Wait until groups are loaded and then trigger third step
                     for (permGroupProvider in permGroupProviders!!) {
                         addSource(permGroupProvider) { group ->
-                            if (group != null || !permGroupProvider.isStale) {
+                            if (group != null) {
                                 permGroupProvidersDone.add(permGroupProvider)
                                 removeSource(permGroupProvider)
 
